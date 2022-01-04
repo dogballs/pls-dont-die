@@ -37,7 +37,13 @@ export class GameRenderer {
     return this.canvas;
   }
 
-  public render(root: RenderObject): void {
+  public render(root: RenderObject) {
+    root.traverse((object) => {
+      this.renderObject(object);
+    });
+  }
+
+  public smartRender(root: RenderObject): void {
     // Update all world matrixes for all objects in the tree.
     // Note: only objects that actually need an update will recalculate their
     // matrix, thanks to dirty flag.

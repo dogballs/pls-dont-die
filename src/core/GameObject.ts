@@ -1,7 +1,6 @@
 import { RenderObject } from './RenderObject';
 
 export class GameObject extends RenderObject {
-  public ignorePause = false;
   public tags: string[] = [];
 
   private needsSetup = true;

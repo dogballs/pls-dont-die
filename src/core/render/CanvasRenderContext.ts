@@ -1,9 +1,8 @@
-import { ImageSource } from '../../graphics';
+import { Image } from '../Image';
+import { Rect } from '../Rect';
+import { Vector } from '../Vector';
 
-import { Rect } from '../../Rect';
-import { Vector } from '../../Vector';
-
-import { RenderContext } from '../RenderContext';
+import { RenderContext } from './RenderContext';
 
 export class CanvasRenderContext extends RenderContext {
   private context: CanvasRenderingContext2D;
@@ -13,7 +12,7 @@ export class CanvasRenderContext extends RenderContext {
   }
 
   public drawImage(
-    imageSource: ImageSource,
+    imageSource: Image,
     sourceRect: Rect,
     destinationRect: Rect,
   ): void {

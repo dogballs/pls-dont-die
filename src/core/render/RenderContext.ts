@@ -1,5 +1,4 @@
-import { ImageSource } from '../graphics';
-
+import { Image } from '../Image';
 import { Rect } from '../Rect';
 import { Vector } from '../Vector';
 
@@ -16,7 +15,7 @@ export abstract class RenderContext {
   abstract clear(): void;
   abstract clearRect(x: number, y: number, width: number, height: number): void;
   abstract drawImage(
-    imageSource: ImageSource,
+    imageSource: Image,
     sourceRect: Rect,
     destinationRect: Rect,
   );

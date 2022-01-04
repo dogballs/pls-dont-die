@@ -1,3 +1,2 @@
-export * from './contexts';
-
+export * from './CanvasRenderContext';
 export * from './RenderContext';
