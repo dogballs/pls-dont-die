@@ -38,7 +38,15 @@ export class GameRenderer {
   }
 
   public render(root: RenderObject) {
-    root.traverse((object) => {
+    const objects = root.flatten();
+
+    // Sort object by z-index before rendering they will be rendered in
+    // right order
+    const zSortedObjects = objects.sort((a, b) => {
+      return a.getWorldZIndex() - b.getWorldZIndex();
+    });
+
+    zSortedObjects.forEach((object) => {
       this.renderObject(object);
     });
   }

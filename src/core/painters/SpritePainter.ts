@@ -1,9 +1,9 @@
-import { RenderContext } from './render';
+import { RenderContext } from '../render';
 
-import { Painter } from './Painter';
-import { Sprite } from './Sprite';
-import { Rect } from './Rect';
-import { RenderObject } from './RenderObject';
+import { Painter } from '../Painter';
+import { Sprite } from '../Sprite';
+import { Rect } from '../Rect';
+import { RenderObject } from '../RenderObject';
 
 export enum SpriteAlignment {
   Stretch,

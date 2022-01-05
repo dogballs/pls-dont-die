@@ -1,11 +1,13 @@
 import {
   GameLoop,
+  GameObject,
   GameRenderer,
   ImageLoader,
   Logger,
   SpriteLoader,
 } from './core';
-import { Creature } from './objects';
+import { GameUpdateArgs } from './game';
+import { Cage, Creature, TemperatureSelector } from './objects';
 
 const loadingElement = document.querySelector('[data-loading]');
 
@@ -14,6 +16,10 @@ const spriteManifest = {
     file: 'data/graphics/borpa.png',
     rect: [0, 0, 200, 200],
   },
+  cage: {
+    file: 'data/graphics/cage.png',
+    rect: [0, 0, 256, 256],
+  },
 };
 
 const log = new Logger('main', Logger.Level.Debug);
@@ -21,27 +27,49 @@ const log = new Logger('main', Logger.Level.Debug);
 const imageLoader = new ImageLoader();
 const spriteLoader = new SpriteLoader(imageLoader, spriteManifest);
 
+const CANVAS_SIZE = {
+  HEIGHT: 768,
+  WIDTH: 1024,
+};
+
 const gameRenderer = new GameRenderer({
-  height: 800,
-  width: 800,
+  height: CANVAS_SIZE.HEIGHT,
+  width: CANVAS_SIZE.WIDTH,
+  debug: true,
 });
 
-const updateArgs = {
+const updateArgs: GameUpdateArgs = {
   deltaTime: 0,
   spriteLoader,
 };
 
 const gameLoop = new GameLoop();
 
+const temperatureSelector = new TemperatureSelector();
+
+const cage = new Cage();
+cage.position.set(128, 64);
+
 const creature = new Creature();
-creature.position.set(20, 20);
+creature.position.set(162, 96);
+cage.add(creature);
+
+const controlPanel = new GameObject(256, 512);
+controlPanel.position.set(704, 64);
+controlPanel.add(temperatureSelector);
+
+const scene = new GameObject(CANVAS_SIZE.WIDTH, CANVAS_SIZE.HEIGHT);
+scene.add(cage);
+scene.add(controlPanel);
 
 gameLoop.tick.addListener((event) => {
   updateArgs.deltaTime = event.deltaTime;
 
-  creature.invokeUpdate(updateArgs);
+  scene.traverse((node) => {
+    node.invokeUpdate(updateArgs);
+  });
 
-  gameRenderer.render(creature);
+  gameRenderer.render(scene);
 });
 
 async function main() {

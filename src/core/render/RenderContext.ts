@@ -37,4 +37,11 @@ export abstract class RenderContext {
     color?: string,
     lineWidth?: number,
   );
+  abstract fillText(
+    text: string,
+    x: number,
+    y: number,
+    color?: string,
+    size?: number,
+  ): void;
 }

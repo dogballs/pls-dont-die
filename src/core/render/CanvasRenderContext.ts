@@ -9,6 +9,8 @@ export class CanvasRenderContext extends RenderContext {
 
   public init(): void {
     this.context = this.canvas.getContext('2d');
+    this.context.imageSmoothingEnabled = false;
+    this.context.textBaseline = 'top';
   }
 
   public drawImage(
@@ -91,5 +93,17 @@ export class CanvasRenderContext extends RenderContext {
     this.context.strokeStyle = color;
     this.context.lineWidth = lineWidth;
     this.context.strokeRect(x, y, width, height);
+  }
+
+  public fillText(
+    text: string,
+    x: number,
+    y: number,
+    color = '#000',
+    size = 18,
+  ) {
+    this.context.font = `${size}px sans-serif`;
+    this.context.fillStyle = color;
+    this.context.fillText(text, x, y);
   }
 }
