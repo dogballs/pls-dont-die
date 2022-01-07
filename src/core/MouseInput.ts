@@ -28,10 +28,12 @@ export class MouseInput {
     const holdCodes = [];
 
     for (const [index, code] of codes.entries()) {
+      const point = points[index];
+
       // Newly pressed key, which was not previously down or hold
       if (!this.downCodes.includes(code) && !this.holdCodes.includes(code)) {
         downCodes.push(code);
-        downPoints.push(points[index]);
+        downPoints.push({ x: point.x * scale.x, y: point.y * scale.y });
       }
 
       // Key that was down on previous frame is now considered hold, because
@@ -40,11 +42,6 @@ export class MouseInput {
       if (this.downCodes.includes(code) || this.holdCodes.includes(code)) {
         holdCodes.push(code);
       }
-    }
-
-    for (const point of downPoints) {
-      point.x *= scale.x;
-      point.y *= scale.y;
     }
 
     this.downCodes = downCodes;
@@ -58,7 +55,7 @@ export class MouseInput {
 
   getDownPoint(code: MouseCode) {
     const index = this.downCodes.indexOf(code);
-    const point = this.listenedDownPoints[index];
+    const point = this.downPoints[index];
     return point;
   }
 

@@ -4,6 +4,7 @@ import {
   GameRenderer,
   ImageLoader,
   Logger,
+  MouseIntersector,
   MouseInput,
   SpriteLoader,
 } from './core';
@@ -30,6 +31,7 @@ const spriteLoader = new SpriteLoader(imageLoader, spriteManifest);
 
 const mouseInput = new MouseInput();
 mouseInput.listen();
+const mouseIntersector = new MouseIntersector(mouseInput);
 
 const CANVAS_BASE_SIZE = {
   HEIGHT: 768,
@@ -44,7 +46,7 @@ const gameRenderer = new GameRenderer({
 
 const updateArgs: GameUpdateArgs = {
   deltaTime: 0,
-  mouseInput,
+  mouseIntersector,
   spriteLoader,
 };
 

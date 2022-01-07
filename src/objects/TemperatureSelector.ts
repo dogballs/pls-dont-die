@@ -32,14 +32,9 @@ export class TemperatureSelector extends GameObject {
     this.add(this.input);
   }
 
-  protected update({ mouseInput }: GameUpdateArgs) {
-    if (mouseInput.isDown(MouseCode.LeftClick)) {
-      const box = this.input.getWorldBoundingBox();
-      const point = mouseInput.getDownPoint(MouseCode.LeftClick);
-      const isClicked = box.containsPoint(point);
-      if (isClicked) {
-        console.log('CLICKED');
-      }
+  protected update({ mouseIntersector }: GameUpdateArgs) {
+    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.input)) {
+      console.log('CLICKED');
     }
   }
 }

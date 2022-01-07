@@ -1,7 +1,7 @@
-import { MouseInput, SpriteLoader } from '../core';
+import { MouseIntersector, SpriteLoader } from '../core';
 
 export interface GameUpdateArgs {
   deltaTime: number;
-  mouseInput: MouseInput;
+  mouseIntersector: MouseIntersector;
   spriteLoader: SpriteLoader;
 }
