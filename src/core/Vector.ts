@@ -1,109 +1,116 @@
 export class Vector {
-  public x: number;
-  public y: number;
+  x: number;
+  y: number;
 
   constructor(x = 0, y = 0) {
     this.x = x;
     this.y = y;
   }
 
-  public set(x: number, y: number): this {
+  set(x: number, y: number) {
     this.x = x;
     this.y = y;
 
     return this;
   }
 
-  public setX(x: number): this {
+  setX(x: number) {
     this.x = x;
 
     return this;
   }
 
-  public setY(y: number): this {
+  setY(y: number) {
     this.y = y;
 
     return this;
   }
 
-  public add(v: Vector): this {
+  add(v: Vector) {
     this.x += v.x;
     this.y += v.y;
 
     return this;
   }
 
-  public addX(x: number): this {
+  addX(x: number) {
     this.x += x;
 
     return this;
   }
 
-  public addY(y: number): this {
+  addY(y: number) {
     this.y += y;
 
     return this;
   }
 
-  public addScalar(s: number): this {
+  addScalar(s: number) {
     this.x += s;
     this.y += s;
 
     return this;
   }
 
-  public sub(v: Vector): this {
+  sub(v: Vector) {
     this.x -= v.x;
     this.y -= v.y;
 
     return this;
   }
 
-  public subX(x: number): this {
+  subX(x: number) {
     this.x -= x;
 
     return this;
   }
 
-  public subY(y: number): this {
+  subY(y: number) {
     this.y -= y;
 
     return this;
   }
 
-  public divideScalar(s: number): this {
+  divide(v: Vector) {
+    this.x /= v.x;
+    this.y /= v.y;
+
+    return this;
+  }
+
+  divideScalar(s: number) {
     this.x /= s;
     this.y /= s;
 
     return this;
   }
 
-  public mult(v: Vector): this {
+  mult(v: Vector) {
     this.x *= v.x;
     this.y *= v.y;
 
     return this;
   }
 
-  public multScalar(s: number): this {
+  multScalar(s: number) {
     this.x *= s;
     this.y *= s;
 
     return this;
   }
 
-  public round(): this {
+  round() {
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
 
     return this;
   }
 
-  public length(): number {
+  length() {
     return Math.sqrt(this.x ** 2 + this.y ** 2);
   }
 
-  public normalize(): this {
+  normalize() {
     const length = this.length() || 1; // In case length is zero
 
     this.divideScalar(length);
@@ -111,7 +118,7 @@ export class Vector {
     return this;
   }
 
-  public distanceTo(v: Vector): number {
+  distanceTo(v: Vector) {
     const dx = this.x - v.x;
     const dy = this.y - v.y;
 
@@ -120,49 +127,49 @@ export class Vector {
     return distance;
   }
 
-  public negate(): this {
+  negate() {
     this.x = -this.x;
     this.y = -this.y;
 
     return this;
   }
 
-  public copyFrom(v: Vector): this {
+  copyFrom(v: Vector) {
     this.x = v.x;
     this.y = v.y;
 
     return this;
   }
 
-  public snapX(step = 1): this {
+  snapX(step = 1) {
     this.x = Math.round(this.x / step) * step;
 
     return this;
   }
 
-  public snapY(step = 1): this {
+  snapY(step = 1) {
     this.y = Math.round(this.y / step) * step;
 
     return this;
   }
 
-  public dot(v: Vector): number {
+  dot(v: Vector) {
     return this.x * v.x + this.y * v.y;
   }
 
-  public cross(v: Vector): number {
+  cross(v: Vector) {
     return this.x * v.y - this.y * v.x;
   }
 
-  public equals(v: Vector): boolean {
+  equals(v: Vector) {
     return this.x === v.x && this.y === v.y;
   }
 
-  public clone(): Vector {
+  clone() {
     return new Vector(this.x, this.y);
   }
 
-  public static fromArray(array: number[]): Vector {
+  static fromArray(array: number[]) {
     return new Vector(array[0], array[1]);
   }
 }

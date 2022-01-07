@@ -106,7 +106,7 @@ export class BoundingBox {
     );
   }
 
-  public containsPoint(p: Vector): boolean {
+  public containsPoint(p: { x: number; y: number }): boolean {
     const isOutside =
       this.max.x <= p.x ||
       this.min.x >= p.x ||

@@ -5,4 +5,5 @@ export * from './GameLoop';
 export * from './GameRenderer';
 export * from './GameObject';
 export * from './Logger';
+export * from './MouseInput';
 export * from './Rect';

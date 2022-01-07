@@ -1,4 +1,5 @@
-import { GameObject, TextPainter } from '../core';
+import { GameObject, MouseCode, TextPainter } from '../core';
+import { GameUpdateArgs } from '../game';
 
 type Option = {
   value: number;
@@ -12,6 +13,7 @@ const options: Option[] = [
 
 export class TemperatureSelector extends GameObject {
   private option: Option;
+  private input: GameObject;
 
   constructor() {
     super(256, 64);
@@ -24,9 +26,20 @@ export class TemperatureSelector extends GameObject {
     title.painter = new TextPainter('Temperature', '#fff', 18);
     this.add(title);
 
-    const input = new GameObject(256, 32);
-    input.position.set(0, 32);
-    input.painter = new TextPainter(this.option.text, '#fff', 24);
-    this.add(input);
+    this.input = new GameObject(256, 32);
+    this.input.position.set(0, 32);
+    this.input.painter = new TextPainter(this.option.text, '#fff', 24);
+    this.add(this.input);
+  }
+
+  protected update({ mouseInput }: GameUpdateArgs) {
+    if (mouseInput.isDown(MouseCode.LeftClick)) {
+      const box = this.input.getWorldBoundingBox();
+      const point = mouseInput.getDownPoint(MouseCode.LeftClick);
+      const isClicked = box.containsPoint(point);
+      if (isClicked) {
+        console.log('CLICKED');
+      }
+    }
   }
 }

@@ -2,6 +2,8 @@ import { CanvasRenderContext, RenderContext } from './render';
 
 import { BoundingBox } from './BoundingBox';
 import { RenderObject } from './RenderObject';
+import { Subject } from './Subject';
+import { Vector } from './Vector';
 
 export interface GameRendererOptions {
   debug?: boolean;
@@ -33,11 +35,23 @@ export class GameRenderer {
     this.context.init();
   }
 
-  public getDomElement(): HTMLCanvasElement {
+  getDomElement(): HTMLCanvasElement {
     return this.canvas;
   }
 
-  public render(root: RenderObject) {
+  getScale() {
+    const targetSize = new Vector(this.canvas.width, this.canvas.height);
+    const actualSize = new Vector(
+      this.canvas.clientWidth,
+      this.canvas.clientHeight,
+    );
+    const scale = targetSize.clone().divide(actualSize);
+    return scale;
+  }
+
+  render(root: RenderObject) {
+    this.clearBox(root.getWorldBoundingBox());
+
     const objects = root.flatten();
 
     // Sort object by z-index before rendering they will be rendered in
@@ -51,7 +65,7 @@ export class GameRenderer {
     });
   }
 
-  public smartRender(root: RenderObject): void {
+  smartRender(root: RenderObject) {
     // Update all world matrixes for all objects in the tree.
     // Note: only objects that actually need an update will recalculate their
     // matrix, thanks to dirty flag.
@@ -162,7 +176,7 @@ export class GameRenderer {
     });
   }
 
-  private renderObject(renderObject: RenderObject): void {
+  private renderObject(renderObject: RenderObject) {
     if (this.options.debug) {
       this.renderDebugBox(renderObject.getWorldBoundingBox());
     }
@@ -183,7 +197,7 @@ export class GameRenderer {
     objects: RenderObject[],
     dirtyBoxes: BoundingBox[],
     dirtyObjects: RenderObject[],
-  ): void {
+  ) {
     // Walk over all available objects
     for (const object of objects) {
       // Only check the ones that are renderable
@@ -210,7 +224,7 @@ export class GameRenderer {
     }
   }
 
-  private clearBox(box: BoundingBox): void {
+  private clearBox(box: BoundingBox) {
     this.context.clearRect(
       Math.round(box.min.x),
       Math.round(box.min.y),
@@ -219,7 +233,7 @@ export class GameRenderer {
     );
   }
 
-  private renderDebugBox(box: BoundingBox, color = '#fff'): void {
+  private renderDebugBox(box: BoundingBox, color = '#fff') {
     this.context.strokeRect(
       box.min.x,
       box.min.y,

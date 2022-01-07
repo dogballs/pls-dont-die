@@ -4,6 +4,7 @@ import {
   GameRenderer,
   ImageLoader,
   Logger,
+  MouseInput,
   SpriteLoader,
 } from './core';
 import { GameUpdateArgs } from './game';
@@ -27,19 +28,23 @@ const log = new Logger('main', Logger.Level.Debug);
 const imageLoader = new ImageLoader();
 const spriteLoader = new SpriteLoader(imageLoader, spriteManifest);
 
-const CANVAS_SIZE = {
+const mouseInput = new MouseInput();
+mouseInput.listen();
+
+const CANVAS_BASE_SIZE = {
   HEIGHT: 768,
   WIDTH: 1024,
 };
 
 const gameRenderer = new GameRenderer({
-  height: CANVAS_SIZE.HEIGHT,
-  width: CANVAS_SIZE.WIDTH,
+  height: CANVAS_BASE_SIZE.HEIGHT,
+  width: CANVAS_BASE_SIZE.WIDTH,
   debug: true,
 });
 
 const updateArgs: GameUpdateArgs = {
   deltaTime: 0,
+  mouseInput,
   spriteLoader,
 };
 
@@ -58,11 +63,13 @@ const controlPanel = new GameObject(256, 512);
 controlPanel.position.set(704, 64);
 controlPanel.add(temperatureSelector);
 
-const scene = new GameObject(CANVAS_SIZE.WIDTH, CANVAS_SIZE.HEIGHT);
+const scene = new GameObject(CANVAS_BASE_SIZE.WIDTH, CANVAS_BASE_SIZE.HEIGHT);
 scene.add(cage);
 scene.add(controlPanel);
 
 gameLoop.tick.addListener((event) => {
+  mouseInput.update(gameRenderer.getScale());
+
   updateArgs.deltaTime = event.deltaTime;
 
   scene.traverse((node) => {
@@ -81,8 +88,9 @@ async function main() {
 
     document.body.removeChild(loadingElement);
     document.body.appendChild(gameRenderer.getDomElement());
-    // gameLoop.start();
-    gameLoop.next();
+
+    gameLoop.start();
+    // gameLoop.next();
   } catch (err) {
     loadingElement.textContent = 'Failed to load';
     log.error(err);

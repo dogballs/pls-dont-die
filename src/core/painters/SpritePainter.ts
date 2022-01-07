@@ -24,7 +24,7 @@ export class SpritePainter extends Painter {
     this.alignment = alignment;
   }
 
-  public paint(context: RenderContext, renderObject: RenderObject): void {
+  public paint(context: RenderContext, renderObject: RenderObject) {
     // Simply no sprite object provided
     if (this.sprite === null) {
       return;
