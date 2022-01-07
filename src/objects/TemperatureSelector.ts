@@ -1,4 +1,10 @@
-import { GameObject, MouseCode, TextPainter } from '../core';
+import {
+  GameObject,
+  MouseCode,
+  SpritePainter,
+  TextAlignment,
+  TextPainter,
+} from '../core';
 import { GameUpdateArgs } from '../game';
 
 type Option = {
@@ -9,32 +15,77 @@ type Option = {
 const options: Option[] = [
   { value: 10, text: '10' },
   { value: 20, text: '20' },
+  { value: 30, text: '30' },
+  { value: 40, text: '40' },
 ];
 
 export class TemperatureSelector extends GameObject {
-  private option: Option;
-  private input: GameObject;
+  private selectedIndex = 0;
+  private arrowLeft: GameObject;
+  private arrowRight: GameObject;
+  private label: GameObject;
 
   constructor() {
     super(256, 64);
-
-    this.option = options[0];
   }
 
-  protected setup() {
+  protected setup({ spriteLoader }: GameUpdateArgs) {
     const title = new GameObject(256, 32);
-    title.painter = new TextPainter('Temperature', '#fff', 18);
+    title.painter = new TextPainter({
+      text: 'Temperature',
+      color: '#fff',
+      size: 18,
+    });
     this.add(title);
 
-    this.input = new GameObject(256, 32);
-    this.input.position.set(0, 32);
-    this.input.painter = new TextPainter(this.option.text, '#fff', 24);
-    this.add(this.input);
+    this.arrowLeft = new GameObject(32, 32);
+    this.arrowLeft.position.set(0, 32);
+    this.arrowLeft.painter = new SpritePainter(spriteLoader.load('arrowLeft'));
+    this.add(this.arrowLeft);
+
+    this.arrowRight = new GameObject(32, 32);
+    this.arrowRight.position.set(224, 32);
+    this.arrowRight.painter = new SpritePainter(
+      spriteLoader.load('arrowRight'),
+    );
+    this.add(this.arrowRight);
+
+    this.label = new GameObject(192, 32);
+    this.label.position.set(32, 32);
+    this.label.painter = new TextPainter({
+      color: '#fff',
+      size: 24,
+      alignment: TextAlignment.MiddleCenter,
+    });
+    this.add(this.label);
+    this.updateLabelText();
   }
 
   protected update({ mouseIntersector }: GameUpdateArgs) {
-    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.input)) {
-      console.log('CLICKED');
+    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.arrowLeft)) {
+      this.selectPrev();
     }
+    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.arrowRight)) {
+      this.selectNext();
+    }
+  }
+
+  private getSelectedOption() {
+    return options[this.selectedIndex];
+  }
+
+  private selectPrev() {
+    this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+    this.updateLabelText();
+  }
+
+  private selectNext() {
+    this.selectedIndex = Math.min(this.selectedIndex + 1, options.length - 1);
+    this.updateLabelText();
+  }
+
+  private updateLabelText() {
+    const painter = this.label.painter as TextPainter;
+    painter.setOptions({ text: this.getSelectedOption().text });
   }
 }

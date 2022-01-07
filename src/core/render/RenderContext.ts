@@ -41,7 +41,9 @@ export abstract class RenderContext {
     text: string,
     x: number,
     y: number,
-    color?: string,
-    size?: number,
+    color: string,
+    size: number,
+    vertAlign: 'top' | 'middle' | 'bottom',
+    horizAlign: 'left' | 'center' | 'right',
   ): void;
 }

@@ -1,34 +1,75 @@
 import { RenderContext } from '../render';
 
 import { Painter } from '../Painter';
+import { Rect } from '../Rect';
 import { RenderObject } from '../RenderObject';
 
 export enum TextAlignment {
   TopLeft,
+  MiddleCenter,
 }
 
-export class TextPainter extends Painter {
-  public text: string;
-  public color: string;
-  public size: number;
+export interface TextPainterOptions {
+  text?: string;
+  color?: string;
+  size?: number;
+  alignment?: TextAlignment;
+}
 
-  constructor(text = '? no text ?', color = '#000', size = 18) {
+const DEFAULT_OPTIONS: TextPainterOptions = {
+  text: '? no text ?',
+  color: 'red',
+  size: 18,
+  alignment: TextAlignment.TopLeft,
+};
+
+export class TextPainter extends Painter {
+  private options: TextPainterOptions;
+
+  constructor(options: TextPainterOptions = {}) {
     super();
 
-    this.text = text;
-    this.color = color;
-    this.size = size;
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
+  }
+
+  setOptions(options: TextPainterOptions = {}) {
+    Object.assign(this.options, options);
   }
 
   paint(context: RenderContext, renderObject: RenderObject) {
     const objectRect = renderObject.getWorldBoundingBox().toRect();
+    const objectCenter = objectRect.getCenter();
+
+    let vertAlign: 'top' | 'middle' | 'bottom';
+    let horizAlign: 'left' | 'center' | 'right';
+
+    let destRect = objectRect;
+
+    switch (this.options.alignment) {
+      case TextAlignment.MiddleCenter:
+        vertAlign = 'middle';
+        horizAlign = 'center';
+        destRect = new Rect(
+          objectCenter.x,
+          objectCenter.y,
+          objectRect.width,
+          objectRect.height,
+        );
+        break;
+      case TextAlignment.TopLeft:
+      default:
+        vertAlign = 'top';
+        horizAlign = 'left';
+    }
 
     context.fillText(
-      this.text,
-      objectRect.x,
-      objectRect.y,
-      this.color,
-      this.size,
+      this.options.text,
+      destRect.x,
+      destRect.y,
+      this.options.color,
+      this.options.size,
+      vertAlign,
+      horizAlign,
     );
   }
 }

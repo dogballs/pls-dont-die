@@ -22,6 +22,14 @@ const spriteManifest = {
     file: 'data/graphics/cage.png',
     rect: [0, 0, 256, 256],
   },
+  arrowLeft: {
+    file: 'data/graphics/ui.png',
+    rect: [0, 0, 32, 32],
+  },
+  arrowRight: {
+    file: 'data/graphics/ui.png',
+    rect: [32, 0, 32, 32],
+  },
 };
 
 const log = new Logger('main', Logger.Level.Debug);
