@@ -7,32 +7,54 @@ import {
 } from '../core';
 import { GameUpdateArgs } from '../game';
 
+import { ResourceItem } from './ResourceItem';
+
+type Req = {
+  type: string;
+  amount: number;
+};
+
 type Option = {
   value: string;
   text: string;
+  unknownText: string;
+  reqs: Req[];
 };
 
 const options: Option[] = [
-  { value: 'none', text: 'none' },
-  { value: 'underwater', text: 'underwater' },
-  { value: 'desert', text: 'desert' },
-  { value: 'forest', text: 'forest' },
+  { value: 'dummy', text: 'Dummy', unknownText: 'Unknown 0', reqs: [] },
+  {
+    value: 'bird',
+    unknownText: 'Unknown 1',
+    text: 'Fish',
+    reqs: [
+      {
+        type: 'soulium',
+        amount: 1,
+      },
+      {
+        type: 'fishium',
+        amount: 1,
+      },
+    ],
+  },
 ];
 
-export class EnvSelector extends GameObject {
+export class CreatureSelector extends GameObject {
   private selectedIndex = 0;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
   private label: GameObject;
+  private resourceItems: GameObject[] = [];
 
   constructor() {
-    super(256, 64);
+    super(256, 160);
   }
 
   protected setup({ spriteLoader }: GameUpdateArgs) {
     const title = new GameObject(256, 32);
     title.painter = new TextPainter({
-      text: 'Environment',
+      text: 'Creature',
       color: '#fff',
       size: 18,
     });
@@ -58,7 +80,7 @@ export class EnvSelector extends GameObject {
       alignment: TextAlignment.MiddleCenter,
     });
     this.add(this.label);
-    this.updateLabelText();
+    this.updateContent();
   }
 
   protected update({ mouseIntersector }: GameUpdateArgs) {
@@ -75,17 +97,39 @@ export class EnvSelector extends GameObject {
   }
 
   private selectPrev() {
-    this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-    this.updateLabelText();
+    const prevIndex = Math.max(this.selectedIndex - 1, 0);
+    this.selectIndex(prevIndex);
   }
 
   private selectNext() {
-    this.selectedIndex = Math.min(this.selectedIndex + 1, options.length - 1);
-    this.updateLabelText();
+    const nextIndex = Math.min(this.selectedIndex + 1, options.length - 1);
+    this.selectIndex(nextIndex);
   }
 
-  private updateLabelText() {
+  private selectIndex(nextIndex: number) {
+    if (this.selectedIndex === nextIndex) {
+      return;
+    }
+    this.selectedIndex = nextIndex;
+    this.updateContent();
+  }
+
+  private updateContent() {
+    const selected = this.getSelectedOption();
+
     const painter = this.label.painter as TextPainter;
-    painter.setOptions({ text: this.getSelectedOption().text });
+    painter.setOptions({ text: selected.unknownText });
+
+    for (const item of this.resourceItems) {
+      this.remove(item);
+    }
+    this.resourceItems = [];
+
+    for (const [index, req] of selected.reqs.entries()) {
+      const resourceItem = new ResourceItem(req.type, 0, req.amount);
+      resourceItem.position.set(16, 75 + 40 * index);
+      this.resourceItems.push(resourceItem);
+      this.add(resourceItem);
+    }
   }
 }

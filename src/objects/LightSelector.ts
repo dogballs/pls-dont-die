@@ -13,13 +13,13 @@ type Option = {
 };
 
 const options: Option[] = [
-  { value: 'sunlight', text: 'sunlight' },
-  { value: 'twilight', text: 'twilight' },
-  { value: 'starlight', text: 'starlight' },
+  { value: 'bright', text: 'bright' },
+  { value: 'normal', text: 'normal' },
+  { value: 'dark', text: 'dark' },
 ];
 
 export class LightSelector extends GameObject {
-  private selectedIndex = 0;
+  private selectedIndex = 1;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
   private label: GameObject;

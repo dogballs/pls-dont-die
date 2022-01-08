@@ -9,7 +9,7 @@ import {
   SpriteLoader,
 } from './core';
 import { GameState, GameUpdateArgs } from './game';
-import { Cage, Creature, ControlPanel } from './objects';
+import { Cage, Creature, CreatureSelector, ControlPanel } from './objects';
 
 import spriteManifest from '../data/sprite.manifest.json';
 
@@ -49,15 +49,19 @@ const gameLoop = new GameLoop();
 const cage = new Cage();
 cage.position.set(128, 64);
 
+const creatureSelector = new CreatureSelector();
+creatureSelector.position.set(704, 64);
+
 const creature = new Creature();
 creature.position.set(290, 192);
 
 const controlPanel = new ControlPanel();
-controlPanel.position.set(704, 64);
+controlPanel.position.set(704, 256);
 
 const scene = new GameObject(CANVAS_BASE_SIZE.WIDTH, CANVAS_BASE_SIZE.HEIGHT);
 scene.add(creature);
 scene.add(cage);
+scene.add(creatureSelector);
 scene.add(controlPanel);
 
 gameLoop.tick.addListener((event) => {

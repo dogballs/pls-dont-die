@@ -62,5 +62,13 @@
   "cold.high.2": {
     "file": "data/graphics/cold-sheet.png",
     "rect": [256, 0, 256, 256]
+  },
+  "resource.soulium": {
+    "file": "data/graphics/resources.png",
+    "rect": [0, 0, 16, 16]
+  },
+  "resource.fishium": {
+    "file": "data/graphics/resources.png",
+    "rect": [16, 0, 16, 16]
   }
 }

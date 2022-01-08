@@ -7,7 +7,7 @@ import { TempSelector } from './TempSelector';
 
 export class ControlPanel extends GameObject {
   constructor() {
-    super(256, 512);
+    super(256, 256);
   }
 
   protected setup({ gameState }: GameUpdateArgs) {
