@@ -18,7 +18,7 @@ const animationConfigs = [
 
 export class CageTemp extends GameObject {
   painter = new SpritePainter();
-  zIndex = 2;
+  zIndex = 5;
 
   private currentTemp: number = null;
   private animationMap = new Map<number, Animation<Sprite>>();
@@ -43,7 +43,7 @@ export class CageTemp extends GameObject {
       );
     }
 
-    gameState.tempChange.addListener(this.handleTempChange);
+    gameState.tempChanged.addListener(this.handleTempChanged);
   }
 
   protected update(updateArgs: GameUpdateArgs) {
@@ -57,7 +57,7 @@ export class CageTemp extends GameObject {
     this.painter.sprite = currentAnimation.getCurrentFrame();
   }
 
-  private handleTempChange = (temp) => {
+  private handleTempChanged = (temp) => {
     this.currentTemp = temp;
   };
 }

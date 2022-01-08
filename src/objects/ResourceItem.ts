@@ -9,6 +9,7 @@ import { GameUpdateArgs } from '../game';
 
 const config = {
   soulium: { title: 'Soulium', spriteId: 'resource.soulium' },
+  dummium: { title: 'Dummium', spriteId: 'resource.dummium' },
   fishium: { title: 'Fishium', spriteId: 'resource.fishium' },
 };
 

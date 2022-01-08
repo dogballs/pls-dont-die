@@ -12,6 +12,9 @@ export class ControlPanel extends GameObject {
 
   protected setup({ gameState }: GameUpdateArgs) {
     const envSelector = new EnvSelector();
+    envSelector.changed.addListener((value) => {
+      gameState.setEnv(value);
+    });
     this.add(envSelector);
 
     const tempSelector = new TempSelector();

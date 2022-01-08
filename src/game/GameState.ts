@@ -2,10 +2,17 @@ import { Subject } from '../core';
 
 export class GameState {
   temp: number;
-  tempChange = new Subject<number>();
+  tempChanged = new Subject<number>();
+  env: string;
+  envChanged = new Subject<string>();
 
   setTemp(value) {
     this.temp = value;
-    this.tempChange.notify(value);
+    this.tempChanged.notify(value);
+  }
+
+  setEnv(value) {
+    this.env = value;
+    this.envChanged.notify(value);
   }
 }

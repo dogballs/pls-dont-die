@@ -67,8 +67,20 @@
     "file": "data/graphics/resources.png",
     "rect": [0, 0, 16, 16]
   },
-  "resource.fishium": {
+  "resource.dummium": {
     "file": "data/graphics/resources.png",
     "rect": [16, 0, 16, 16]
+  },
+  "resource.fishium": {
+    "file": "data/graphics/resources.png",
+    "rect": [32, 0, 16, 16]
+  },
+  "env.desert": {
+    "file": "data/graphics/env-sheet.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "env.underwater": {
+    "file": "data/graphics/env-sheet.png",
+    "rect": [256, 0, 256, 256]
   }
 }

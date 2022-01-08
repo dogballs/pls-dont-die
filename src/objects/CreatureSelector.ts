@@ -24,7 +24,7 @@ type Option = {
 const options: Option[] = [
   { value: 'dummy', text: 'Dummy', unknownText: 'Unknown 0', reqs: [] },
   {
-    value: 'bird',
+    value: 'fish',
     unknownText: 'Unknown 1',
     text: 'Fish',
     reqs: [
@@ -33,7 +33,7 @@ const options: Option[] = [
         amount: 1,
       },
       {
-        type: 'fishium',
+        type: 'dummium',
         amount: 1,
       },
     ],

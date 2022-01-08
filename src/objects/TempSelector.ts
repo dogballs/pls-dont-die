@@ -87,8 +87,8 @@ export class TempSelector extends GameObject {
   }
 
   private selectPrev() {
-    const prevIndex = Math.max(this.selectedIndex - 1, 0);
-    this.selectIndex(prevIndex);
+    const nextIndex = Math.max(this.selectedIndex - 1, 0);
+    this.selectIndex(nextIndex);
   }
 
   private selectNext() {

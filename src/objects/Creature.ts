@@ -2,7 +2,7 @@ import { GameObject, SpritePainter } from '../core';
 
 export class Creature extends GameObject {
   painter = new SpritePainter();
-  zIndex = 2;
+  zIndex = 4;
 
   constructor() {
     super(200, 200);

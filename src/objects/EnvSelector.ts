@@ -2,6 +2,7 @@ import {
   GameObject,
   MouseCode,
   SpritePainter,
+  Subject,
   TextAlignment,
   TextPainter,
 } from '../core';
@@ -16,10 +17,12 @@ const options: Option[] = [
   { value: 'none', text: 'none' },
   { value: 'underwater', text: 'underwater' },
   { value: 'desert', text: 'desert' },
-  { value: 'forest', text: 'forest' },
+  // { value: 'forest', text: 'forest' },
 ];
 
 export class EnvSelector extends GameObject {
+  changed = new Subject<string>();
+
   private selectedIndex = 0;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
@@ -75,13 +78,22 @@ export class EnvSelector extends GameObject {
   }
 
   private selectPrev() {
-    this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
-    this.updateLabelText();
+    const nextIndex = Math.max(this.selectedIndex - 1, 0);
+    this.selectIndex(nextIndex);
   }
 
   private selectNext() {
-    this.selectedIndex = Math.min(this.selectedIndex + 1, options.length - 1);
+    const nextIndex = Math.min(this.selectedIndex + 1, options.length - 1);
+    this.selectIndex(nextIndex);
+  }
+
+  private selectIndex(nextIndex: number) {
+    if (this.selectedIndex === nextIndex) {
+      return;
+    }
+    this.selectedIndex = nextIndex;
     this.updateLabelText();
+    this.changed.notify(this.getSelectedOption().value);
   }
 
   private updateLabelText() {
