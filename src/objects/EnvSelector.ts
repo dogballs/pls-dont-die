@@ -8,18 +8,18 @@ import {
 import { GameUpdateArgs } from '../game';
 
 type Option = {
-  value: number;
+  value: string;
   text: string;
 };
 
 const options: Option[] = [
-  { value: 10, text: '10' },
-  { value: 20, text: '20' },
-  { value: 30, text: '30' },
-  { value: 40, text: '40' },
+  { value: 'none', text: 'none' },
+  { value: 'mountains', text: 'mountains' },
+  { value: 'jungle', text: 'jungle' },
+  { value: 'desert', text: 'desert' },
 ];
 
-export class TemperatureSelector extends GameObject {
+export class EnvSelector extends GameObject {
   private selectedIndex = 0;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
@@ -32,7 +32,7 @@ export class TemperatureSelector extends GameObject {
   protected setup({ spriteLoader }: GameUpdateArgs) {
     const title = new GameObject(256, 32);
     title.painter = new TextPainter({
-      text: 'Temperature',
+      text: 'Environment',
       color: '#fff',
       size: 18,
     });

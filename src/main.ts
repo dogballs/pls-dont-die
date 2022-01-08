@@ -8,29 +8,12 @@ import {
   MouseInput,
   SpriteLoader,
 } from './core';
-import { GameUpdateArgs } from './game';
-import { Cage, Creature, TemperatureSelector } from './objects';
+import { GameState, GameUpdateArgs } from './game';
+import { Cage, Creature, ControlPanel } from './objects';
 
-const loadingElement = document.querySelector('[data-loading]');
+import spriteManifest from '../data/sprite.manifest.json';
 
-const spriteManifest = {
-  borpa: {
-    file: 'data/graphics/borpa.png',
-    rect: [0, 0, 200, 200],
-  },
-  cage: {
-    file: 'data/graphics/cage.png',
-    rect: [0, 0, 256, 256],
-  },
-  arrowLeft: {
-    file: 'data/graphics/ui.png',
-    rect: [0, 0, 32, 32],
-  },
-  arrowRight: {
-    file: 'data/graphics/ui.png',
-    rect: [32, 0, 32, 32],
-  },
-};
+const loadingElement = document.querySelector<HTMLElement>('[data-loading]');
 
 const log = new Logger('main', Logger.Level.Debug);
 
@@ -49,44 +32,49 @@ const CANVAS_BASE_SIZE = {
 const gameRenderer = new GameRenderer({
   height: CANVAS_BASE_SIZE.HEIGHT,
   width: CANVAS_BASE_SIZE.WIDTH,
-  debug: true,
+  // debug: true,
 });
+
+const gameState = new GameState();
 
 const updateArgs: GameUpdateArgs = {
   deltaTime: 0,
+  gameState,
   mouseIntersector,
   spriteLoader,
 };
 
 const gameLoop = new GameLoop();
 
-const temperatureSelector = new TemperatureSelector();
-
 const cage = new Cage();
 cage.position.set(128, 64);
 
 const creature = new Creature();
-creature.position.set(162, 96);
-cage.add(creature);
+creature.position.set(290, 192);
 
-const controlPanel = new GameObject(256, 512);
+const controlPanel = new ControlPanel();
 controlPanel.position.set(704, 64);
-controlPanel.add(temperatureSelector);
 
 const scene = new GameObject(CANVAS_BASE_SIZE.WIDTH, CANVAS_BASE_SIZE.HEIGHT);
+scene.add(creature);
 scene.add(cage);
 scene.add(controlPanel);
 
 gameLoop.tick.addListener((event) => {
-  mouseInput.update(gameRenderer.getScale());
+  try {
+    mouseInput.update(gameRenderer.getScale());
 
-  updateArgs.deltaTime = event.deltaTime;
+    updateArgs.deltaTime = event.deltaTime;
 
-  scene.traverse((node) => {
-    node.invokeUpdate(updateArgs);
-  });
+    scene.traverse((node) => {
+      node.invokeUpdate(updateArgs);
+    });
 
-  gameRenderer.render(scene);
+    gameRenderer.render(scene);
+  } catch (err) {
+    log.error('Crashed', err);
+    crash();
+  }
 });
 
 async function main() {
@@ -96,15 +84,23 @@ async function main() {
     await spriteLoader.preloadAllAsync();
     log.timeEnd('Sprites preload');
 
-    document.body.removeChild(loadingElement);
+    loadingElement.style.display = 'none';
     document.body.appendChild(gameRenderer.getDomElement());
 
     gameLoop.start();
     // gameLoop.next();
   } catch (err) {
+    console.log('failed');
     loadingElement.textContent = 'Failed to load';
     log.error(err);
   }
+}
+
+function crash() {
+  gameLoop.stop();
+  document.body.removeChild(gameRenderer.getDomElement());
+  loadingElement.textContent = 'Game has crashed :(';
+  loadingElement.style.display = 'flex';
 }
 
 main();

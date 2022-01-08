@@ -50,6 +50,9 @@ export class GameRenderer {
   }
 
   render(root: RenderObject) {
+    // Update all world matrixes for all objects in the tree.
+    root.updateWorldMatrix(false, true);
+
     this.clearBox(root.getWorldBoundingBox());
 
     const objects = root.flatten();

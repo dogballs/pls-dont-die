@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["es7", "dom"],
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "target": "es6",
     "typeRoots": ["./src/types"]
