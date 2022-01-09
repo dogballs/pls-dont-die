@@ -25,7 +25,7 @@ const mouseIntersector = new MouseIntersector(mouseInput);
 const gameRenderer = new GameRenderer({
   width: config.CANVAS_WIDTH,
   height: config.CANVAS_HEIGHT,
-  debug: true,
+  // debug: true,
 });
 
 const gameState = new GameState();
@@ -38,7 +38,7 @@ const updateArgs: GameUpdateArgs = {
 };
 
 const sceneRouter = new GameSceneRouter();
-sceneRouter.start(GameSceneType.MainMenu);
+sceneRouter.start(GameSceneType.Level);
 
 const gameLoop = new GameLoop();
 

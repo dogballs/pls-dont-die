@@ -29,7 +29,7 @@ export class CageEnv extends GameObject {
 
     gameState.envChanged.addListener(this.handleEnvChanged);
 
-    this.painter.opacity = 0.4;
+    this.painter.opacity = 0.3;
   }
 
   protected update() {

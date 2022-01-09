@@ -1,7 +1,15 @@
 {
-  "borpa": {
-    "file": "data/graphics/borpa.png",
-    "rect": [0, 0, 200, 200]
+  "dummy.1": {
+    "file": "data/graphics/dummy-sheet.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "dummy.2": {
+    "file": "data/graphics/dummy-sheet.png",
+    "rect": [256, 0, 256, 256]
+  },
+  "dummy.3": {
+    "file": "data/graphics/dummy-sheet.png",
+    "rect": [512, 0, 256, 256]
   },
   "cage": {
     "file": "data/graphics/cage.png",
@@ -13,7 +21,7 @@
   },
   "arrowRight": {
     "file": "data/graphics/ui.png",
-    "rect": [32, 0, 32, 32]
+    "rect": [96, 0, 32, 32]
   },
   "heat.low.1": {
     "file": "data/graphics/heat-sheet.png",
@@ -90,5 +98,17 @@
   "main.title.2": {
     "file": "data/graphics/main-title-sheet.png",
     "rect": [0, 96, 512, 96]
+  },
+  "button.active": {
+    "file": "data/graphics/ui.png",
+    "rect": [0, 32, 176, 48]
+  },
+  "button.hover": {
+    "file": "data/graphics/ui.png",
+    "rect": [0, 80, 176, 48]
+  },
+  "button.disabled": {
+    "file": "data/graphics/ui.png",
+    "rect": [0, 128, 176, 48]
   }
 }

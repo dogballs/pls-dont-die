@@ -2,6 +2,7 @@ import {
   GameObject,
   MouseCode,
   SpritePainter,
+  Subject,
   TextAlignment,
   TextPainter,
 } from '../core';
@@ -22,7 +23,7 @@ type Option = {
 };
 
 const options: Option[] = [
-  { value: 'dummy', text: 'Dummy', unknownText: 'Unknown 0', reqs: [] },
+  { value: 'dummy', text: 'Dummy', unknownText: 'Dummy', reqs: [] },
   {
     value: 'fish',
     unknownText: 'Unknown 1',
@@ -41,6 +42,8 @@ const options: Option[] = [
 ];
 
 export class CreatureSelector extends GameObject {
+  changed = new Subject<string>();
+
   private selectedIndex = 0;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
@@ -112,6 +115,7 @@ export class CreatureSelector extends GameObject {
     }
     this.selectedIndex = nextIndex;
     this.updateContent();
+    this.changed.notify(this.getSelectedOption().value);
   }
 
   private updateContent() {
