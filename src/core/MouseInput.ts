@@ -13,10 +13,13 @@ export class MouseInput {
   private downCodes: number[] = [];
   private downPoints: Point[] = [];
   private holdCodes: number[] = [];
+  private listenedOverPoint: Point = null;
+  private overPoint: Point = null;
 
-  listen() {
-    document.addEventListener('mousedown', this.handlwWindowMouseDown);
-    document.addEventListener('mouseup', this.handlwWindowMouseUp);
+  listen(element: HTMLElement) {
+    element.addEventListener('mousedown', this.handleWindowMouseDown);
+    element.addEventListener('mouseup', this.handleWindowMouseUp);
+    element.addEventListener('mousemove', this.handleWindowMouseMove);
   }
 
   update(scale: { x: number; y: number }) {
@@ -47,6 +50,13 @@ export class MouseInput {
     this.downCodes = downCodes;
     this.downPoints = downPoints;
     this.holdCodes = holdCodes;
+
+    if (this.listenedOverPoint) {
+      this.overPoint = {
+        x: this.listenedOverPoint.x * scale.x,
+        y: this.listenedOverPoint.y * scale.y,
+      };
+    }
   }
 
   isDown(code: MouseCode) {
@@ -59,7 +69,11 @@ export class MouseInput {
     return point;
   }
 
-  private handlwWindowMouseDown = (ev) => {
+  getOverPoint() {
+    return this.overPoint;
+  }
+
+  private handleWindowMouseDown = (ev) => {
     const { button: code } = ev;
 
     const rect = ev.target.getBoundingClientRect();
@@ -72,7 +86,7 @@ export class MouseInput {
     }
   };
 
-  private handlwWindowMouseUp = (ev) => {
+  private handleWindowMouseUp = (ev) => {
     const { button: code } = ev;
 
     const index = this.listenedDownCodes.indexOf(code);
@@ -80,5 +94,13 @@ export class MouseInput {
       this.listenedDownCodes.splice(index, 1);
       this.listenedDownPoints.splice(index, 1);
     }
+  };
+
+  private handleWindowMouseMove = (ev) => {
+    const rect = ev.target.getBoundingClientRect();
+    const x = ev.clientX - rect.left;
+    const y = ev.clientY - rect.top;
+
+    this.listenedOverPoint = { x, y };
   };
 }

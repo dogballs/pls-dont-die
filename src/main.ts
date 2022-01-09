@@ -1,6 +1,5 @@
 import {
   GameLoop,
-  GameObject,
   GameRenderer,
   ImageLoader,
   Logger,
@@ -9,8 +8,8 @@ import {
   SpriteLoader,
 } from './core';
 import { GameState, GameUpdateArgs } from './game';
-import { Cage, Creature, CreatureSelector, ControlPanel } from './objects';
-
+import { GameSceneRouter, GameSceneType } from './scenes';
+import { config } from './config';
 import spriteManifest from '../data/sprite.manifest.json';
 
 const loadingElement = document.querySelector<HTMLElement>('[data-loading]');
@@ -21,18 +20,12 @@ const imageLoader = new ImageLoader();
 const spriteLoader = new SpriteLoader(imageLoader, spriteManifest);
 
 const mouseInput = new MouseInput();
-mouseInput.listen();
 const mouseIntersector = new MouseIntersector(mouseInput);
 
-const CANVAS_BASE_SIZE = {
-  HEIGHT: 768,
-  WIDTH: 1024,
-};
-
 const gameRenderer = new GameRenderer({
-  height: CANVAS_BASE_SIZE.HEIGHT,
-  width: CANVAS_BASE_SIZE.WIDTH,
-  // debug: true,
+  width: config.CANVAS_WIDTH,
+  height: config.CANVAS_HEIGHT,
+  debug: true,
 });
 
 const gameState = new GameState();
@@ -44,37 +37,26 @@ const updateArgs: GameUpdateArgs = {
   spriteLoader,
 };
 
+const sceneRouter = new GameSceneRouter();
+sceneRouter.start(GameSceneType.MainMenu);
+
 const gameLoop = new GameLoop();
 
-const cage = new Cage();
-cage.position.set(128, 64);
-
-const creatureSelector = new CreatureSelector();
-creatureSelector.position.set(704, 64);
-
-const creature = new Creature();
-creature.position.set(290, 192);
-
-const controlPanel = new ControlPanel();
-controlPanel.position.set(704, 256);
-
-const scene = new GameObject(CANVAS_BASE_SIZE.WIDTH, CANVAS_BASE_SIZE.HEIGHT);
-scene.add(creature);
-scene.add(cage);
-scene.add(creatureSelector);
-scene.add(controlPanel);
+sceneRouter.transitionStarted.addListener(() => {
+  mouseIntersector.resetListeners();
+});
 
 gameLoop.tick.addListener((event) => {
   try {
     mouseInput.update(gameRenderer.getScale());
+    mouseIntersector.update();
 
     updateArgs.deltaTime = event.deltaTime;
 
-    scene.traverse((node) => {
-      node.invokeUpdate(updateArgs);
-    });
+    const scene = sceneRouter.getCurrentScene();
+    scene.invokeUpdate(updateArgs);
 
-    gameRenderer.render(scene);
+    gameRenderer.render(scene.getRoot());
   } catch (err) {
     log.error('Crashed', err);
     crash();
@@ -90,6 +72,8 @@ async function main() {
 
     loadingElement.style.display = 'none';
     document.body.appendChild(gameRenderer.getDomElement());
+
+    mouseInput.listen(gameRenderer.getDomElement());
 
     gameLoop.start();
     // gameLoop.next();

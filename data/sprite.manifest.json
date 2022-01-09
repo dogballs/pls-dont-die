@@ -82,5 +82,13 @@
   "env.underwater": {
     "file": "data/graphics/env-sheet.png",
     "rect": [256, 0, 256, 256]
+  },
+  "main.title.1": {
+    "file": "data/graphics/main-title-sheet.png",
+    "rect": [0, 0, 512, 96]
+  },
+  "main.title.2": {
+    "file": "data/graphics/main-title-sheet.png",
+    "rect": [0, 96, 512, 96]
   }
 }

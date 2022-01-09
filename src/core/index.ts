@@ -1,5 +1,6 @@
 export * from './loaders';
 export * from './painters';
+export * from './scene';
 
 export * from './Animation';
 export * from './GameLoop';
