@@ -110,5 +110,65 @@
   "button.disabled": {
     "file": "data/graphics/ui.png",
     "rect": [0, 128, 176, 48]
+  },
+  "summoning.1": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "summoning.2": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [256, 0, 256, 256]
+  },
+  "summoning.3": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [512, 0, 256, 256]
+  },
+  "summoning.4": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [768, 0, 256, 256]
+  },
+  "summoning.5": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [1024, 0, 256, 256]
+  },
+  "summoning.6": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [1280, 0, 256, 256]
+  },
+  "summoning.7": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [1536, 0, 256, 256]
+  },
+  "summoning.8": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [1792, 0, 256, 256]
+  },
+  "summoning.9": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [2048, 0, 256, 256]
+  },
+  "summoning.10": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [2304, 0, 256, 256]
+  },
+  "summoning.11": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [2560, 0, 256, 256]
+  },
+  "summoning.12": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [2816, 0, 256, 256]
+  },
+  "summoning.13": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [3072, 0, 256, 256]
+  },
+  "summoning.14": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [3328, 0, 256, 256]
+  },
+  "summoning.15": {
+    "file": "data/graphics/summon-sheet.png",
+    "rect": [3584, 0, 256, 256]
   }
 }

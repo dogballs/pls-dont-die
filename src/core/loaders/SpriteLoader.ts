@@ -78,9 +78,9 @@ export class SpriteLoader {
     });
   }
 
-  public loadList(ids: string[]): Sprite[] {
+  public loadList(ids: string[], argDestinationRect?: Rect): Sprite[] {
     const sprites = ids.map((id) => {
-      const sprite = this.load(id);
+      const sprite = this.load(id, argDestinationRect);
 
       return sprite;
     });

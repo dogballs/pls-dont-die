@@ -1,5 +1,6 @@
 import {
   GameObject,
+  MouseCode,
   Sprite,
   SpritePainter,
   Subject,
@@ -60,6 +61,9 @@ export class Button extends GameObject {
       }
       if (mouseIntersector.isLeaveAt(this)) {
         this.painter.sprite = this.spriteMap.get('active');
+      }
+      if (mouseIntersector.isDownAt(MouseCode.LeftClick, this)) {
+        this.clicked.notify(null);
       }
     }
   }
