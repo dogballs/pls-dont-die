@@ -29,10 +29,12 @@ const options: Option[] = [
   { value: 30, text: '+30' },
 ];
 
+const DEFAULT_OPTION_INDEX = 6;
+
 export class TempSelector extends GameObject {
   changed = new Subject<number>();
 
-  private selectedIndex = 6;
+  private selectedIndex;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
   private label: GameObject;
@@ -70,7 +72,8 @@ export class TempSelector extends GameObject {
       alignment: TextAlignment.MiddleCenter,
     });
     this.add(this.label);
-    this.updateLabelText();
+
+    this.selectIndex(DEFAULT_OPTION_INDEX);
   }
 
   protected update({ mouseIntersector }: GameUpdateArgs) {

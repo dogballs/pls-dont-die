@@ -85,6 +85,19 @@ export class Node {
     return this;
   }
 
+  public hasChild(childToFind: this): boolean {
+    let childFound: this = null;
+
+    this.traverseDescedants((child) => {
+      if (childFound) return;
+      if (child === childToFind) {
+        childFound = child;
+      }
+    });
+
+    return childFound !== null;
+  }
+
   public hasParent(parentToFind: this): boolean {
     let parent = this.parent;
 

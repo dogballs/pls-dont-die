@@ -2,12 +2,13 @@ import {
   GameLoop,
   GameRenderer,
   ImageLoader,
+  LocalStorage,
   Logger,
   MouseIntersector,
   MouseInput,
   SpriteLoader,
 } from './core';
-import { GameState, GameUpdateArgs } from './game';
+import { GameState, GameStore, GameUpdateArgs } from './game';
 import { GameSceneRouter, GameSceneType } from './scenes';
 import { config } from './config';
 import spriteManifest from '../data/sprite.manifest.json';
@@ -25,14 +26,18 @@ const mouseIntersector = new MouseIntersector(mouseInput);
 const gameRenderer = new GameRenderer({
   width: config.CANVAS_WIDTH,
   height: config.CANVAS_HEIGHT,
-  // debug: true,
+  debug: true,
 });
 
+const storage = new LocalStorage(config.STORAGE_NAMESPACE);
+
+const gameStore = new GameStore(storage);
 const gameState = new GameState();
 
 const updateArgs: GameUpdateArgs = {
   deltaTime: 0,
   gameState,
+  gameStore,
   mouseIntersector,
   spriteLoader,
 };
@@ -69,6 +74,11 @@ async function main() {
     loadingElement.textContent = 'Loading sprites...';
     await spriteLoader.preloadAllAsync();
     log.timeEnd('Sprites preload');
+
+    log.time('Storage preload');
+    loadingElement.textContent = 'Loading saves...';
+    await storage.load();
+    log.timeEnd('Storage preload');
 
     loadingElement.style.display = 'none';
     document.body.appendChild(gameRenderer.getDomElement());

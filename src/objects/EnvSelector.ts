@@ -20,10 +20,12 @@ const options: Option[] = [
   // { value: 'forest', text: 'forest' },
 ];
 
+const DEFAULT_OPTION_INDEX = 0;
+
 export class EnvSelector extends GameObject {
   changed = new Subject<string>();
 
-  private selectedIndex = 0;
+  private selectedIndex;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
   private label: GameObject;
@@ -61,7 +63,8 @@ export class EnvSelector extends GameObject {
       alignment: TextAlignment.MiddleCenter,
     });
     this.add(this.label);
-    this.updateLabelText();
+
+    this.selectIndex(DEFAULT_OPTION_INDEX);
   }
 
   protected update({ mouseIntersector }: GameUpdateArgs) {

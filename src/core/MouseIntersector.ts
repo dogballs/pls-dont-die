@@ -6,6 +6,7 @@ export class MouseIntersector {
     GameObject,
     'out' | 'in' | 'enter' | 'leave'
   >();
+  private trapStack: GameObject[] = [];
 
   constructor(private mouseInput: MouseInput) {}
 
@@ -59,6 +60,10 @@ export class MouseIntersector {
     if (!this.mouseInput.isDown(code)) {
       return false;
     }
+    if (!this.canActInTrap(object)) {
+      return false;
+    }
+
     const point = this.mouseInput.getDownPoint(code);
     const box = object.getWorldBoundingBox();
 
@@ -66,10 +71,36 @@ export class MouseIntersector {
   }
 
   isEnterAt(object: GameObject) {
+    if (!this.canActInTrap(object)) {
+      return false;
+    }
+
     return this.enterListeners.get(object) === 'enter';
   }
 
   isLeaveAt(object: GameObject) {
     return this.enterListeners.get(object) === 'leave';
+  }
+
+  trap(object: GameObject) {
+    this.trapStack.push(object);
+  }
+
+  untrap(object: GameObject) {
+    if (this.trapStack[this.trapStack.length - 1] !== object) {
+      throw new Error(
+        'Untrapping something that is not at the end of the stack',
+      );
+    }
+
+    this.trapStack.pop();
+  }
+
+  private canActInTrap(object: GameObject) {
+    if (this.trapStack.length === 0) {
+      return true;
+    }
+    const lastTrapObject = this.trapStack[this.trapStack.length - 1];
+    return lastTrapObject === object || lastTrapObject.hasChild(object);
   }
 }

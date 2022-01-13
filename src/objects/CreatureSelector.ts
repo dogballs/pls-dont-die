@@ -6,52 +6,57 @@ import {
   TextAlignment,
   TextPainter,
 } from '../core';
-import { GameUpdateArgs } from '../game';
+import { CreatureType, GameUpdateArgs, Resource } from '../game';
 
 import { ResourceItem } from './ResourceItem';
 
-type Req = {
-  type: string;
-  amount: number;
-};
-
-type Option = {
-  value: string;
+type Choice = {
+  type: CreatureType;
   text: string;
   unknownText: string;
-  reqs: Req[];
+  requiredResources: Resource[];
 };
 
-const options: Option[] = [
-  { value: 'dummy', text: 'Dummy', unknownText: 'Dummy', reqs: [] },
+const choices: Choice[] = [
   {
-    value: 'fish',
+    type: 'dummy',
+    text: 'Dummy',
+    unknownText: 'Dummy',
+    requiredResources: [],
+  },
+  {
+    type: 'fish',
     unknownText: 'Unknown 1',
     text: 'Fish',
-    reqs: [
-      {
-        type: 'soulium',
-        amount: 1,
-      },
-      {
-        type: 'dummium',
-        amount: 1,
-      },
-    ],
+    requiredResources: [new Resource('soulium', 1), new Resource('dummium', 1)],
   },
 ];
+
+interface CreatureSelectorOptions {
+  preselectedCreature?: CreatureType;
+}
+
+const DEFAULT_OPTIONS: CreatureSelectorOptions = {
+  preselectedCreature: 'dummy',
+};
 
 export class CreatureSelector extends GameObject {
   changed = new Subject<string>();
 
-  private selectedIndex = 0;
+  private options: CreatureSelectorOptions;
+  private selectedIndex;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
   private label: GameObject;
   private resourceItems: GameObject[] = [];
 
-  constructor() {
+  constructor(options: CreatureSelectorOptions = {}) {
     super(256, 160);
+
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
+    if (!this.options.preselectedCreature) {
+      this.options.preselectedCreature = DEFAULT_OPTIONS.preselectedCreature;
+    }
   }
 
   protected setup({ spriteLoader }: GameUpdateArgs) {
@@ -83,7 +88,11 @@ export class CreatureSelector extends GameObject {
       alignment: TextAlignment.MiddleCenter,
     });
     this.add(this.label);
-    this.updateContent();
+
+    const defaultIndex = choices.findIndex(
+      (choice) => choice.type === this.options.preselectedCreature,
+    );
+    this.selectIndex(defaultIndex);
   }
 
   protected update({ mouseIntersector }: GameUpdateArgs) {
@@ -95,8 +104,8 @@ export class CreatureSelector extends GameObject {
     }
   }
 
-  private getSelectedOption() {
-    return options[this.selectedIndex];
+  private getSelectedChoice() {
+    return choices[this.selectedIndex];
   }
 
   private selectPrev() {
@@ -105,7 +114,7 @@ export class CreatureSelector extends GameObject {
   }
 
   private selectNext() {
-    const nextIndex = Math.min(this.selectedIndex + 1, options.length - 1);
+    const nextIndex = Math.min(this.selectedIndex + 1, choices.length - 1);
     this.selectIndex(nextIndex);
   }
 
@@ -115,11 +124,11 @@ export class CreatureSelector extends GameObject {
     }
     this.selectedIndex = nextIndex;
     this.updateContent();
-    this.changed.notify(this.getSelectedOption().value);
+    this.changed.notify(this.getSelectedChoice().type);
   }
 
   private updateContent() {
-    const selected = this.getSelectedOption();
+    const selected = this.getSelectedChoice();
 
     const painter = this.label.painter as TextPainter;
     painter.setOptions({ text: selected.unknownText });
@@ -129,8 +138,13 @@ export class CreatureSelector extends GameObject {
     }
     this.resourceItems = [];
 
-    for (const [index, req] of selected.reqs.entries()) {
-      const resourceItem = new ResourceItem(req.type, 0, req.amount);
+    for (const [index, req] of selected.requiredResources.entries()) {
+      // TODO: add current amount
+      const resourceItem = new ResourceItem({
+        type: req.type,
+        amount: 0,
+        requiredAmount: req.amount,
+      });
       resourceItem.position.set(16, 75 + 40 * index);
       this.resourceItems.push(resourceItem);
       this.add(resourceItem);

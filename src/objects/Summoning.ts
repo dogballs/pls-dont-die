@@ -9,6 +9,12 @@ import {
 } from '../core';
 import { GameUpdateArgs } from '../game';
 
+// const SUMMON_ANIMATION_DELAY = 0.04;
+const SUMMON_ANIMATION_DELAY = 0;
+// const OPACITY_STEP = 0.05;
+const OPACITY_STEP = 1;
+const OPACITY_DELAY = 0.05;
+
 export class Summoning extends GameObject {
   painter = new SpritePainter();
   fadeInCompleted = new Subject<null>();
@@ -46,7 +52,7 @@ export class Summoning extends GameObject {
         new Rect(0, 0, 512, 512),
       ),
       {
-        delay: 0.04,
+        delay: SUMMON_ANIMATION_DELAY,
       },
     );
   }
@@ -64,13 +70,13 @@ export class Summoning extends GameObject {
 
     if (this.fadeOutTimer === null) {
       this.fadeInCompleted.notify(null);
-      this.fadeOutTimer = new Timer(0.06);
+      this.fadeOutTimer = new Timer(OPACITY_DELAY);
       return;
     }
 
     if (this.fadeOutTimer.isDone()) {
-      this.painter.opacity = Math.max(0, this.painter.opacity - 0.05);
-      this.fadeOutTimer.reset(0.06);
+      this.painter.opacity = Math.max(0, this.painter.opacity - OPACITY_STEP);
+      this.fadeOutTimer.reset(OPACITY_DELAY);
       if (this.painter.opacity === 0) {
         this.fadeOutTimer.stop();
         this.fadeOutCompleted.notify(null);

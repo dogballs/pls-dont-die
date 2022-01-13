@@ -1,12 +1,14 @@
 import { Subject } from '../core';
 
+import { CreatureType, EnvType } from './GameTypes';
+
 export class GameState {
-  creature: string;
-  creatureChanged = new Subject<string>();
+  creature: CreatureType;
+  creatureChanged = new Subject<CreatureType>();
   temp: number;
   tempChanged = new Subject<number>();
-  env: string;
-  envChanged = new Subject<string>();
+  env: EnvType;
+  envChanged = new Subject<EnvType>();
 
   setCreature(value) {
     this.creature = value;
