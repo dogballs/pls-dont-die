@@ -4,17 +4,30 @@ export const config = {
 
   STORAGE_NAMESPACE: 'plsdontdie',
 
-  SUMMON_REQS: {
-    dummy: [],
-    fish: [
-      {
-        type: 'soulium',
-        amount: 1,
-      },
-      {
-        type: 'dummium',
-        amount: 1,
-      },
-    ],
+  CREATURES: {
+    dummy: {
+      type: 'dummy',
+      name: 'Dummy',
+      unknownName: 'Dummy',
+      requiredResources: [],
+    },
+    fish: {
+      type: 'fish',
+      name: 'Fish',
+      unknownName: 'Unknown 1',
+      requiredResources: [
+        {
+          type: 'soulium',
+          amount: 1,
+        },
+        {
+          type: 'dummium',
+          amount: 1,
+        },
+      ],
+    },
+  },
+  DEATH_REASONS: {
+    dummy_not_neutral: 'Outside of neutral condtions',
   },
 };

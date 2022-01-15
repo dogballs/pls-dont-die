@@ -1,15 +1,19 @@
 import { LocalStorage } from '../core';
 
-import { Resource, ResourceType } from './GameTypes';
+import { CreatureType, Resource, ResourceType } from './GameTypes';
 
 type State = {
   resources: Resource[];
+  knownCreatureTypes: CreatureType[];
+};
+
+const DEFAULT_STATE: State = {
+  resources: [],
+  knownCreatureTypes: [],
 };
 
 export class GameStore {
-  private state: State = {
-    resources: [],
-  };
+  private state: State = DEFAULT_STATE;
   constructor(private readonly storage: LocalStorage) {}
 
   addResources(resourcesToAdd: Resource[]) {
@@ -52,13 +56,34 @@ export class GameStore {
     }
   }
 
+  getResourceAmount(type: ResourceType) {
+    const resource = this.state.resources.find(
+      (resource) => resource.type === type,
+    );
+    if (resource === undefined) {
+      return 0;
+    }
+    return resource.amount;
+  }
+
   getResources() {
     return this.state.resources;
   }
 
+  setCreatureKnown(creatureType: CreatureType) {
+    if (this.state.knownCreatureTypes.includes(creatureType)) {
+      return;
+    }
+    this.state.knownCreatureTypes.push(creatureType);
+  }
+
+  isKnownCreature(creatureType: CreatureType) {
+    return this.state.knownCreatureTypes.includes(creatureType);
+  }
+
   load() {
     this.storage.load();
-    this.state = this.storage.get('game') as State;
+    this.state = (this.storage.get('game') as State) ?? DEFAULT_STATE;
   }
 
   save() {

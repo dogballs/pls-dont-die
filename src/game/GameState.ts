@@ -24,4 +24,10 @@ export class GameState {
     this.env = value;
     this.envChanged.notify(value);
   }
+
+  resetSelection() {
+    this.creature = undefined;
+    this.temp = undefined;
+    this.env = undefined;
+  }
 }

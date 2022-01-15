@@ -4,6 +4,7 @@ import {
   CreatureDummy,
   CreatureSelector,
   ControlPanel,
+  DeathModal,
   Inventory,
   SimulateButton,
   SummonButton,
@@ -15,6 +16,7 @@ import {
   GameStore,
   GameUpdateArgs,
   Outcome,
+  Selection,
   SimDecider,
 } from '../game';
 
@@ -59,6 +61,9 @@ export class LevelScene extends GameScene<{
     this.summonButton.position.set(704, 256);
     this.summonButton.clicked.addListener(this.handleSummonClick);
     this.root.add(this.summonButton);
+
+    // this.handleAlive(new Outcome('alive', [new Resource('dummium', 1)]));
+    // this.handleDeath(new Outcome('death', [new Resource('soulium', 1)]));
   }
 
   private summon() {
@@ -107,28 +112,44 @@ export class LevelScene extends GameScene<{
   };
 
   private handleSimulated = () => {
-    const outcome = SimDecider.decide(this.gameState.creature, {
+    const selection = new Selection({
+      creature: this.gameState.creature,
       env: this.gameState.env,
       temp: this.gameState.temp,
     });
 
+    const outcome = SimDecider.decide(selection);
+
     if (outcome.status === 'alive') {
       this.handleAlive(outcome);
-      return;
+    } else {
+      this.handleDeath(outcome);
     }
-
-    console.log('simulated', outcome);
-    throw new Error('Unsimulated');
   };
 
   private handleAlive = (outcome: Outcome) => {
-    this.gameStore.addResources(outcome.resources);
-    this.gameStore.save();
-
     const modal = new AliveModal(outcome);
     modal.updateMatrix();
     modal.setCenter(this.root.getSelfCenter());
     modal.closed.addListener(() => {
+      this.gameState.resetSelection();
+      this.gameStore.addResources(outcome.resources);
+      this.gameStore.save();
+      this.navigator.replace(GameSceneType.Level, {
+        lastCreature: this.gameState.creature,
+      });
+    });
+    this.root.add(modal);
+  };
+
+  private handleDeath = (outcome: Outcome) => {
+    const modal = new DeathModal(outcome);
+    modal.updateMatrix();
+    modal.setCenter(this.root.getSelfCenter());
+    modal.closed.addListener(() => {
+      this.gameState.resetSelection();
+      this.gameStore.addResources(outcome.resources);
+      this.gameStore.save();
       this.navigator.replace(GameSceneType.Level, {
         lastCreature: this.gameState.creature,
       });

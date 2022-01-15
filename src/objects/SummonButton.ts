@@ -12,7 +12,9 @@ export class SummonButton extends GameObject {
     super(176, 48);
   }
 
-  protected setup({ gameState }: GameUpdateArgs) {
+  protected setup({ gameState, gameStore }: GameUpdateArgs) {
+    const resources = gameStore.getResources();
+
     this.button = new Button('Summon');
     this.add(this.button);
 
@@ -21,7 +23,7 @@ export class SummonButton extends GameObject {
     });
 
     gameState.creatureChanged.addListener((creature) => {
-      const canSummon = ReqCheck.canSummon(creature);
+      const canSummon = ReqCheck.canSummon(creature, resources);
       this.button.setDisabled(!canSummon);
     });
   }

@@ -6,11 +6,12 @@ import {
   TextPainter,
 } from '../core';
 import { GameUpdateArgs, Outcome } from '../game';
+import { config } from '../config';
 
 import { Button } from './Button';
 import { ResourceItem } from './ResourceItem';
 
-export class AliveModal extends GameObject {
+export class DeathModal extends GameObject {
   closed = new Subject<null>();
   painter = new RectPainter({
     fillColor: '#f2d78c',
@@ -28,7 +29,7 @@ export class AliveModal extends GameObject {
 
     const header = new GameObject(512, 58);
     header.painter = new RectPainter({
-      fillColor: '#16b348',
+      fillColor: '#f25555',
       borderColor: '#b38400',
       borderWidth: 3,
     });
@@ -36,12 +37,34 @@ export class AliveModal extends GameObject {
 
     const title = new GameObject(512, 58);
     title.painter = new TextPainter({
-      text: 'Simulation succeeded',
+      text: 'Simulation failed',
       color: '#fff',
       size: 30,
       alignment: TextAlignment.MiddleCenter,
     });
     this.add(title);
+
+    const deathTitle = new GameObject(78, 32);
+    deathTitle.painter = new TextPainter({
+      text: 'Death reason:',
+      color: '#000',
+      size: 14,
+      alignment: TextAlignment.MiddleCenter,
+    });
+    deathTitle.position.set(64, 90);
+    this.add(deathTitle);
+
+    const reasonText = config.DEATH_REASONS[this.outcome.deathType];
+
+    const deathDescription = new GameObject(78, 32);
+    deathDescription.painter = new TextPainter({
+      text: reasonText,
+      color: '#000',
+      size: 18,
+      alignment: TextAlignment.MiddleLeft,
+    });
+    deathDescription.position.set(180, 90);
+    this.add(deathDescription);
 
     const resourcesTitle = new GameObject(78, 32);
     resourcesTitle.painter = new TextPainter({
