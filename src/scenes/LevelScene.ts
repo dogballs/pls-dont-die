@@ -4,11 +4,19 @@ import {
   CreatureDummy,
   CreatureSelector,
   ControlPanel,
+  Inventory,
   SimulateButton,
   SummonButton,
   Summoning,
 } from '../objects';
-import { CreatureType, GameState, GameUpdateArgs, SimDecider } from '../game';
+import {
+  CreatureType,
+  GameState,
+  GameStore,
+  GameUpdateArgs,
+  Outcome,
+  SimDecider,
+} from '../game';
 
 import { GameScene } from './GameScene';
 import { GameSceneType } from './GameSceneType';
@@ -17,15 +25,18 @@ export class LevelScene extends GameScene<{
   lastCreature?: CreatureType;
 }> {
   private gameState: GameState;
+  private gameStore: GameStore;
 
   private controlPanel: ControlPanel;
   private creatureSelector: CreatureSelector;
+  private inventory: Inventory;
   private simulateButton: SimulateButton;
   private summonButton: SummonButton;
   private summoning: Summoning;
 
-  protected setup({ gameState }: GameUpdateArgs) {
+  protected setup({ gameState, gameStore }: GameUpdateArgs) {
     this.gameState = gameState;
+    this.gameStore = gameStore;
 
     const cage = new Cage();
     cage.position.set(128, 64);
@@ -39,6 +50,10 @@ export class LevelScene extends GameScene<{
     });
     this.creatureSelector.position.set(704, 64);
     this.root.add(this.creatureSelector);
+
+    this.inventory = new Inventory();
+    this.inventory.position.set(704, 340);
+    this.root.add(this.inventory);
 
     this.summonButton = new SummonButton();
     this.summonButton.position.set(704, 256);
@@ -66,6 +81,7 @@ export class LevelScene extends GameScene<{
 
   private handleSummonClick = () => {
     this.root.remove(this.creatureSelector);
+    this.root.remove(this.inventory);
     this.root.remove(this.summonButton);
 
     this.summoning = new Summoning();
@@ -105,7 +121,10 @@ export class LevelScene extends GameScene<{
     throw new Error('Unsimulated');
   };
 
-  private handleAlive = (outcome) => {
+  private handleAlive = (outcome: Outcome) => {
+    this.gameStore.addResources(outcome.resources);
+    this.gameStore.save();
+
     const modal = new AliveModal(outcome);
     modal.updateMatrix();
     modal.setCenter(this.root.getSelfCenter());

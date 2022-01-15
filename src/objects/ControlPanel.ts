@@ -2,7 +2,7 @@ import { GameObject } from '../core';
 import { GameUpdateArgs } from '../game';
 
 import { EnvSelector } from './EnvSelector';
-import { LightSelector } from './LightSelector';
+// import { LightSelector } from './LightSelector';
 import { TempSelector } from './TempSelector';
 
 export class ControlPanel extends GameObject {
@@ -24,8 +24,8 @@ export class ControlPanel extends GameObject {
     });
     this.add(tempSelector);
 
-    const lightSelector = new LightSelector();
-    lightSelector.position.set(0, 194);
-    this.add(lightSelector);
+    // const lightSelector = new LightSelector();
+    // lightSelector.position.set(0, 194);
+    // this.add(lightSelector);
   }
 }

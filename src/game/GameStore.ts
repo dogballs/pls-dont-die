@@ -2,8 +2,12 @@ import { LocalStorage } from '../core';
 
 import { Resource, ResourceType } from './GameTypes';
 
+type State = {
+  resources: Resource[];
+};
+
 export class GameStore {
-  private state = {
+  private state: State = {
     resources: [],
   };
   constructor(private readonly storage: LocalStorage) {}
@@ -46,5 +50,19 @@ export class GameStore {
         delete this.state.resources[i];
       }
     }
+  }
+
+  getResources() {
+    return this.state.resources;
+  }
+
+  load() {
+    this.storage.load();
+    this.state = this.storage.get('game') as State;
+  }
+
+  save() {
+    this.storage.set('game', this.state);
+    this.storage.save();
   }
 }

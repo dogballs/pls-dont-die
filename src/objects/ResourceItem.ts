@@ -25,7 +25,7 @@ const DEFAULT_OPTIONS = {
   amount: null,
   requiredAmount: null,
   defaultColor: '#fff',
-  requiredColor: 'red',
+  requiredColor: '#f25555',
 };
 
 export class ResourceItem extends GameObject {
@@ -62,7 +62,7 @@ export class ResourceItem extends GameObject {
       }
     }
 
-    const title = new GameObject(96, 32);
+    const title = new GameObject(128, 32);
     title.painter = new TextPainter({
       text,
       color,

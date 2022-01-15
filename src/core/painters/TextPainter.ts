@@ -25,6 +25,8 @@ const DEFAULT_OPTIONS: TextPainterOptions = {
 };
 
 export class TextPainter extends Painter {
+  static Alignment = TextAlignment;
+
   private options: TextPainterOptions;
 
   constructor(options: TextPainterOptions = {}) {

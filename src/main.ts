@@ -26,7 +26,7 @@ const mouseIntersector = new MouseIntersector(mouseInput);
 const gameRenderer = new GameRenderer({
   width: config.CANVAS_WIDTH,
   height: config.CANVAS_HEIGHT,
-  debug: true,
+  // debug: true,
 });
 
 const storage = new LocalStorage(config.STORAGE_NAMESPACE);
@@ -76,8 +76,8 @@ async function main() {
     log.timeEnd('Sprites preload');
 
     log.time('Storage preload');
-    loadingElement.textContent = 'Loading saves...';
-    await storage.load();
+    loadingElement.textContent = 'Loading store...';
+    await gameStore.load();
     log.timeEnd('Storage preload');
 
     loadingElement.style.display = 'none';

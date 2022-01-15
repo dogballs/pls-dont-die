@@ -15,13 +15,29 @@
     "file": "data/graphics/cage.png",
     "rect": [0, 0, 256, 256]
   },
-  "arrowLeft": {
+  "arrow.left.active": {
     "file": "data/graphics/ui.png",
     "rect": [0, 0, 32, 32]
   },
-  "arrowRight": {
+  "arrow.left.hover": {
+    "file": "data/graphics/ui.png",
+    "rect": [32, 0, 32, 32]
+  },
+  "arrow.left.disabled": {
+    "file": "data/graphics/ui.png",
+    "rect": [64, 0, 32, 32]
+  },
+  "arrow.right.active": {
     "file": "data/graphics/ui.png",
     "rect": [96, 0, 32, 32]
+  },
+  "arrow.right.hover": {
+    "file": "data/graphics/ui.png",
+    "rect": [128, 0, 32, 32]
+  },
+  "arrow.right.disabled": {
+    "file": "data/graphics/ui.png",
+    "rect": [160, 0, 32, 32]
   },
   "heat.low.1": {
     "file": "data/graphics/heat-sheet.png",

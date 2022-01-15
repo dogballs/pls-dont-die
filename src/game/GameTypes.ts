@@ -4,7 +4,7 @@ export type EnvType = 'none' | 'desert' | 'underwater';
 
 export type ResourceType = 'dummium' | 'soulium';
 export class Resource {
-  constructor(readonly type: ResourceType, readonly amount: number) {}
+  constructor(readonly type: ResourceType, public amount: number) {}
 }
 
 export class Outcome {

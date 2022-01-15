@@ -4,6 +4,7 @@ export * from './Cage';
 export * from './ControlPanel';
 export * from './CreatureDummy';
 export * from './CreatureSelector';
+export * from './Inventory';
 export * from './SimulateButton';
 export * from './SummonButton';
 export * from './Summoning';

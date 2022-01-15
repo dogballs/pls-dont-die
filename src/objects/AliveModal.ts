@@ -15,7 +15,7 @@ export class AliveModal extends GameObject {
   painter = new RectPainter({
     fillColor: '#f2d78c',
     borderColor: '#b38400',
-    lineWidth: 3,
+    borderWidth: 3,
   });
   zIndex = 100;
 

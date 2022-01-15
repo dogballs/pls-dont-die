@@ -19,6 +19,7 @@ export class Button extends GameObject {
   private text: string;
   private label: GameObject;
   private spriteMap = new Map<State, Sprite>();
+  private textColorMap = new Map<State, string>();
 
   constructor(text = '? no text ?', state: State = 'active') {
     super(176, 48);
@@ -34,12 +35,19 @@ export class Button extends GameObject {
       this.state = 'active';
     }
     this.painter.sprite = this.spriteMap.get(this.state);
+    (this.label.painter as TextPainter).setOptions({
+      color: this.textColorMap.get(this.state),
+    });
   }
 
   protected setup({ mouseIntersector, spriteLoader }: GameUpdateArgs) {
     this.spriteMap.set('active', spriteLoader.load('button.active'));
     this.spriteMap.set('hover', spriteLoader.load('button.hover'));
     this.spriteMap.set('disabled', spriteLoader.load('button.disabled'));
+
+    this.textColorMap.set('active', '#323c39');
+    this.textColorMap.set('hover', '#323c39');
+    this.textColorMap.set('disabled', '#676767');
 
     this.label = new GameObject(176, 48);
     this.label.painter = new TextPainter({
@@ -50,6 +58,9 @@ export class Button extends GameObject {
     this.add(this.label);
 
     this.painter.sprite = this.spriteMap.get(this.state);
+    (this.label.painter as TextPainter).setOptions({
+      color: this.textColorMap.get(this.state),
+    });
 
     mouseIntersector.listenEnter(this);
   }

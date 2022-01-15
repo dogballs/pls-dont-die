@@ -1,106 +1,40 @@
-import {
-  GameObject,
-  MouseCode,
-  SpritePainter,
-  Subject,
-  TextAlignment,
-  TextPainter,
-} from '../core';
-import { GameUpdateArgs } from '../game';
+import { GameObject, Subject } from '../core';
+import { EnvType } from '../game';
 
-type Option = {
-  value: string;
-  text: string;
+import { Section } from './Section';
+import { Selector } from './Selector';
+
+type Choice = {
+  value: EnvType;
+  label: string;
 };
 
-const options: Option[] = [
-  { value: 'none', text: 'none' },
-  { value: 'underwater', text: 'underwater' },
-  { value: 'desert', text: 'desert' },
-  // { value: 'forest', text: 'forest' },
+const choices: Choice[] = [
+  { value: 'none', label: 'none' },
+  { value: 'underwater', label: 'underwater' },
+  { value: 'desert', label: 'desert' },
 ];
 
-const DEFAULT_OPTION_INDEX = 0;
-
 export class EnvSelector extends GameObject {
-  changed = new Subject<string>();
-
-  private selectedIndex;
-  private arrowLeft: GameObject;
-  private arrowRight: GameObject;
-  private label: GameObject;
+  changed = new Subject<EnvType>();
 
   constructor() {
-    super(256, 64);
+    super(256, 78);
   }
 
-  protected setup({ spriteLoader }: GameUpdateArgs) {
-    const title = new GameObject(256, 32);
-    title.painter = new TextPainter({
-      text: 'Environment',
-      color: '#fff',
-      size: 18,
+  protected setup() {
+    const section = new Section({
+      width: this.size.width,
+      height: this.size.height,
+      title: 'Environment',
     });
-    this.add(title);
+    this.add(section);
 
-    this.arrowLeft = new GameObject(32, 32);
-    this.arrowLeft.position.set(0, 32);
-    this.arrowLeft.painter = new SpritePainter(spriteLoader.load('arrowLeft'));
-    this.add(this.arrowLeft);
-
-    this.arrowRight = new GameObject(32, 32);
-    this.arrowRight.position.set(224, 32);
-    this.arrowRight.painter = new SpritePainter(
-      spriteLoader.load('arrowRight'),
-    );
-    this.add(this.arrowRight);
-
-    this.label = new GameObject(192, 32);
-    this.label.position.set(32, 32);
-    this.label.painter = new TextPainter({
-      color: '#fff',
-      size: 24,
-      alignment: TextAlignment.MiddleCenter,
+    const selector = new Selector(choices);
+    selector.position.set(0, 36);
+    selector.changed.addListener((env) => {
+      this.changed.notify(env);
     });
-    this.add(this.label);
-
-    this.selectIndex(DEFAULT_OPTION_INDEX);
-  }
-
-  protected update({ mouseIntersector }: GameUpdateArgs) {
-    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.arrowLeft)) {
-      this.selectPrev();
-    }
-    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.arrowRight)) {
-      this.selectNext();
-    }
-  }
-
-  private getSelectedOption() {
-    return options[this.selectedIndex];
-  }
-
-  private selectPrev() {
-    const nextIndex = Math.max(this.selectedIndex - 1, 0);
-    this.selectIndex(nextIndex);
-  }
-
-  private selectNext() {
-    const nextIndex = Math.min(this.selectedIndex + 1, options.length - 1);
-    this.selectIndex(nextIndex);
-  }
-
-  private selectIndex(nextIndex: number) {
-    if (this.selectedIndex === nextIndex) {
-      return;
-    }
-    this.selectedIndex = nextIndex;
-    this.updateLabelText();
-    this.changed.notify(this.getSelectedOption().value);
-  }
-
-  private updateLabelText() {
-    const painter = this.label.painter as TextPainter;
-    painter.setOptions({ text: this.getSelectedOption().text });
+    this.add(selector);
   }
 }
