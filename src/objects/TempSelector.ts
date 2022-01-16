@@ -27,8 +27,14 @@ const choices: Choice[] = [
 export class TempSelector extends GameObject {
   changed = new Subject<number>();
 
+  private selector: Selector<number>;
+
   constructor(private readonly locked = false) {
     super(256, 78);
+  }
+
+  setDisabled() {
+    this.selector.setDisabled();
   }
 
   protected setup() {
@@ -39,14 +45,14 @@ export class TempSelector extends GameObject {
     });
     this.add(section);
 
-    const selector = new Selector(choices, {
+    this.selector = new Selector(choices, {
       defaultValue: Selection.DEFAULT_TEMP,
       locked: this.locked,
     });
-    selector.position.set(0, 36);
-    selector.changed.addListener((temp) => {
+    this.selector.position.set(0, 36);
+    this.selector.changed.addListener((temp) => {
       this.changed.notify(temp);
     });
-    this.add(selector);
+    this.add(this.selector);
   }
 }

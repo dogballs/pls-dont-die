@@ -1,12 +1,15 @@
-import { GameObject } from '../core';
+import { GameObject, Subject } from '../core';
 import { GameUpdateArgs } from '../game';
 
 import { CreatureSelector } from './CreatureSelector';
 import { EnvSelector } from './EnvSelector';
 // import { LightSelector } from './LightSelector';
+import { SimulateButton } from './SimulateButton';
 import { TempSelector } from './TempSelector';
 
 export class ControlPanel extends GameObject {
+  simulated = new Subject<null>();
+
   constructor() {
     super(256, 256);
   }
@@ -34,6 +37,17 @@ export class ControlPanel extends GameObject {
       gameState.setTemp(value);
     });
     this.add(tempSelector);
+
+    const simulateButton = new SimulateButton();
+    simulateButton.position.set(0, 320);
+    simulateButton.clicked.addListener(() => {
+      simulateButton.setDisabled(true);
+      envSelector.setDisabled();
+      tempSelector.setDisabled();
+
+      this.simulated.notify(null);
+    });
+    this.add(simulateButton);
 
     // const lightSelector = new LightSelector();
     // lightSelector.position.set(0, 194);

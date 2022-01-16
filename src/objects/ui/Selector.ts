@@ -37,6 +37,11 @@ export class Selector<ChoiceValue> extends GameObject {
     );
   }
 
+  setDisabled() {
+    this.arrowLeft.setDisabled(true);
+    this.arrowRight.setDisabled(true);
+  }
+
   protected setup() {
     this.arrowLeft = new ArrowButton('left');
     this.arrowLeft.position.set(8, 0);

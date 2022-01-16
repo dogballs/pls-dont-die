@@ -17,8 +17,14 @@ const choices: Choice[] = [
 export class EnvSelector extends GameObject {
   changed = new Subject<EnvType>();
 
+  private selector: Selector<EnvType>;
+
   constructor(private readonly locked = false) {
     super(256, 78);
+  }
+
+  setDisabled() {
+    this.selector.setDisabled();
   }
 
   protected setup() {
@@ -29,14 +35,14 @@ export class EnvSelector extends GameObject {
     });
     this.add(section);
 
-    const selector = new Selector(choices, {
+    this.selector = new Selector(choices, {
       locked: this.locked,
       defaultValue: Selection.DEFAULT_ENV,
     });
-    selector.position.set(0, 36);
-    selector.changed.addListener((env) => {
+    this.selector.position.set(0, 36);
+    this.selector.changed.addListener((env) => {
       this.changed.notify(env);
     });
-    this.add(selector);
+    this.add(this.selector);
   }
 }

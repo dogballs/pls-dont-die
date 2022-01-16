@@ -7,8 +7,9 @@ import {
   Subject,
 } from '../core';
 import { GameUpdateArgs } from '../game';
+import { config } from '../config';
 
-const SCAN_STEP = 1.4;
+const SCAN_STEP = config.IS_DEV ? 5 : 1.4;
 const SCAN_DESINATION_Y = 360;
 
 class Scan extends GameObject {

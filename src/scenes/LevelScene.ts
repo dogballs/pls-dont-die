@@ -8,7 +8,6 @@ import {
   DoctorModal,
   Fish,
   Inventory,
-  SimulateButton,
   Simulation,
   SummonPanel,
   Summoning,
@@ -35,7 +34,6 @@ export class LevelScene extends GameScene {
   private controlPanel: ControlPanel;
   private creatureSelector: CreatureSelector;
   private inventory: Inventory;
-  private simulateButton: SimulateButton;
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
     this.gameState = gameState;
@@ -112,14 +110,10 @@ export class LevelScene extends GameScene {
   private handleSummoned = () => {
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(704, 64);
-    this.root.add(this.controlPanel);
-
-    this.simulateButton = new SimulateButton();
-    this.simulateButton.position.set(704, 384);
-    this.simulateButton.clicked.addListener(() => {
+    this.controlPanel.simulated.addListener(() => {
       this.simulate();
     });
-    this.root.add(this.simulateButton);
+    this.root.add(this.controlPanel);
 
     if (this.gameStore.getStoryStep() === 'dummy_summon_live') {
       this.showDoctorDummySimulateToLive();
