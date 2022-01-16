@@ -9,10 +9,10 @@ import {
 } from '../core';
 import { GameUpdateArgs } from '../game';
 
-// const SUMMON_ANIMATION_DELAY = 0.04;
-const SUMMON_ANIMATION_DELAY = 0;
-// const OPACITY_STEP = 0.05;
-const OPACITY_STEP = 1;
+const SUMMON_ANIMATION_DELAY = 0.04;
+// const SUMMON_ANIMATION_DELAY = 0;
+const OPACITY_STEP = 0.05;
+// const OPACITY_STEP = 1;
 const OPACITY_DELAY = 0.05;
 
 export class Summoning extends GameObject {
