@@ -1,5 +1,11 @@
-import { GameObject, MouseCode, Sprite, SpritePainter, Subject } from '../core';
-import { GameUpdateArgs } from '../game';
+import {
+  GameObject,
+  MouseCode,
+  Sprite,
+  SpritePainter,
+  Subject,
+} from '../../core';
+import { GameUpdateArgs } from '../../game';
 
 type State = 'active' | 'hover' | 'disabled';
 

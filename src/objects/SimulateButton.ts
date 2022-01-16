@@ -1,6 +1,6 @@
 import { GameObject, Subject } from '../core';
 
-import { Button } from './Button';
+import { Button } from './ui';
 
 export class SimulateButton extends GameObject {
   clicked = new Subject<null>();

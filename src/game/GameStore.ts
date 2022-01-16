@@ -1,13 +1,17 @@
 import { LocalStorage } from '../core';
 
-import { CreatureType, Resource, ResourceType } from './GameTypes';
+import { CreatureType, Resource, ResourceType, StoryStep } from './GameTypes';
 
 type State = {
+  hasSavedGame: boolean;
+  storyStep: StoryStep;
   resources: Resource[];
   knownCreatureTypes: CreatureType[];
 };
 
 const DEFAULT_STATE: State = {
+  hasSavedGame: false,
+  storyStep: 'intro',
   resources: [],
   knownCreatureTypes: [],
 };
@@ -15,6 +19,14 @@ const DEFAULT_STATE: State = {
 export class GameStore {
   private state: State = DEFAULT_STATE;
   constructor(private readonly storage: LocalStorage) {}
+
+  setHasSavedGame() {
+    this.state.hasSavedGame = true;
+  }
+
+  hasSavedGame() {
+    return this.state.hasSavedGame;
+  }
 
   addResources(resourcesToAdd: Resource[]) {
     for (const resourceToAdd of resourcesToAdd) {
@@ -81,12 +93,25 @@ export class GameStore {
     return this.state.knownCreatureTypes.includes(creatureType);
   }
 
+  setStoryStep(storyStep: StoryStep) {
+    this.state.storyStep = storyStep;
+  }
+
+  getStoryStep() {
+    return this.state.storyStep || 'intro';
+  }
+
+  reset() {
+    this.state = DEFAULT_STATE;
+  }
+
   load() {
     this.storage.load();
     this.state = (this.storage.get('game') as State) ?? DEFAULT_STATE;
   }
 
   save() {
+    this.state.hasSavedGame = true;
     this.storage.set('game', this.state);
     this.storage.save();
   }

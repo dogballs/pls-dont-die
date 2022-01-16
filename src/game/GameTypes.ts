@@ -1,3 +1,10 @@
+export type StoryStep =
+  | 'intro'
+  | 'dummy_summon_live'
+  | 'dummy_lived'
+  | 'dummy_died'
+  | 'first_act';
+
 export type ResourceType = 'dummium' | 'soulium';
 export class Resource {
   constructor(readonly type: ResourceType, public amount: number) {}
@@ -47,6 +54,23 @@ export class Selection {
 
   constructor(params: { creature: CreatureType; env: EnvType; temp: number }) {
     Object.assign(this, params);
+  }
+
+  static createFake() {
+    return new Selection({
+      creature: 'dummy',
+      env: 'desert',
+      temp: 10,
+    });
+  }
+
+  static DEFAULT_TEMP = 0;
+  static DEFAULT_ENV: EnvType = 'none';
+
+  isDefault() {
+    return (
+      this.env === Selection.DEFAULT_ENV && this.temp === Selection.DEFAULT_TEMP
+    );
   }
 }
 

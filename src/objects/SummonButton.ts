@@ -1,7 +1,7 @@
 import { GameObject, Subject } from '../core';
 import { GameUpdateArgs, ReqCheck } from '../game';
 
-import { Button } from './Button';
+import { Button } from './ui';
 
 export class SummonButton extends GameObject {
   clicked = new Subject<null>();

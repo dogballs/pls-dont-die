@@ -1,8 +1,7 @@
 import { GameObject, Subject } from '../core';
-import { EnvType } from '../game';
+import { EnvType, Selection } from '../game';
 
-import { Section } from './Section';
-import { Selector } from './Selector';
+import { Section, Selector } from './ui';
 
 type Choice = {
   value: EnvType;
@@ -18,7 +17,7 @@ const choices: Choice[] = [
 export class EnvSelector extends GameObject {
   changed = new Subject<EnvType>();
 
-  constructor() {
+  constructor(private readonly locked = false) {
     super(256, 78);
   }
 
@@ -30,7 +29,10 @@ export class EnvSelector extends GameObject {
     });
     this.add(section);
 
-    const selector = new Selector(choices);
+    const selector = new Selector(choices, {
+      locked: this.locked,
+      defaultValue: Selection.DEFAULT_ENV,
+    });
     selector.position.set(0, 36);
     selector.changed.addListener((env) => {
       this.changed.notify(env);

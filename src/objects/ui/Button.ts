@@ -6,8 +6,8 @@ import {
   Subject,
   TextAlignment,
   TextPainter,
-} from '../core';
-import { GameUpdateArgs } from '../game';
+} from '../../core';
+import { GameUpdateArgs } from '../../game';
 
 type State = 'active' | 'hover' | 'disabled';
 
@@ -38,6 +38,10 @@ export class Button extends GameObject {
     (this.label.painter as TextPainter).setOptions({
       color: this.textColorMap.get(this.state),
     });
+  }
+
+  setText(text: string) {
+    (this.label.painter as TextPainter).setOptions({ text });
   }
 
   protected setup({ mouseIntersector, spriteLoader }: GameUpdateArgs) {

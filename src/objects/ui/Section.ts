@@ -1,4 +1,4 @@
-import { GameObject, RectPainter, TextPainter } from '../core';
+import { GameObject, RectPainter, TextPainter } from '../../core';
 
 interface SectionOptions {
   width?: number;

@@ -1,4 +1,4 @@
-import { GameObject, Subject, TextAlignment, TextPainter } from '../core';
+import { GameObject, Subject, TextAlignment, TextPainter } from '../../core';
 
 import { ArrowButton } from './ArrowButton';
 
@@ -9,6 +9,7 @@ type Choice<T> = {
 
 type SelectorOptions<T> = {
   defaultValue?: T;
+  locked?: boolean;
 };
 
 export class Selector<ChoiceValue> extends GameObject {
@@ -30,6 +31,7 @@ export class Selector<ChoiceValue> extends GameObject {
       {},
       {
         defaultValue: undefined,
+        locked: false,
       },
       options,
     );
@@ -41,6 +43,9 @@ export class Selector<ChoiceValue> extends GameObject {
     this.arrowLeft.clicked.addListener(() => {
       this.selectPrev();
     });
+    if (this.options.locked) {
+      this.arrowLeft.setDisabled(true);
+    }
     this.add(this.arrowLeft);
 
     this.arrowRight = new ArrowButton('right');
@@ -48,6 +53,9 @@ export class Selector<ChoiceValue> extends GameObject {
     this.arrowRight.clicked.addListener(() => {
       this.selectNext();
     });
+    if (this.options.locked) {
+      this.arrowRight.setDisabled(true);
+    }
     this.add(this.arrowRight);
 
     this.label = new GameObject(176, 32);
@@ -101,7 +109,9 @@ export class Selector<ChoiceValue> extends GameObject {
     const painter = this.label.painter as TextPainter;
     painter.setOptions({ text: this.getSelectedChoice().label });
 
-    this.arrowLeft.setDisabled(!this.hasPrev());
-    this.arrowRight.setDisabled(!this.hasNext());
+    if (!this.options.locked) {
+      this.arrowLeft.setDisabled(!this.hasPrev());
+      this.arrowRight.setDisabled(!this.hasNext());
+    }
   }
 }

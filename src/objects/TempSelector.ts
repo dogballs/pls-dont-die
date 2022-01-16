@@ -1,7 +1,7 @@
 import { GameObject, Subject } from '../core';
+import { Selection } from '../game';
 
-import { Section } from './Section';
-import { Selector } from './Selector';
+import { Section, Selector } from './ui';
 
 type Choice = {
   value: number;
@@ -24,12 +24,10 @@ const choices: Choice[] = [
   { value: 30, label: '+30' },
 ];
 
-const DEFAULT_VALUE = 0;
-
 export class TempSelector extends GameObject {
   changed = new Subject<number>();
 
-  constructor() {
+  constructor(private readonly locked = false) {
     super(256, 78);
   }
 
@@ -42,7 +40,8 @@ export class TempSelector extends GameObject {
     this.add(section);
 
     const selector = new Selector(choices, {
-      defaultValue: DEFAULT_VALUE,
+      defaultValue: Selection.DEFAULT_TEMP,
+      locked: this.locked,
     });
     selector.position.set(0, 36);
     selector.changed.addListener((temp) => {

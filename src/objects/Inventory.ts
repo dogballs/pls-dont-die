@@ -2,7 +2,7 @@ import { GameObject, RectPainter } from '../core';
 import { GameUpdateArgs } from '../game';
 
 import { ResourceItem } from './ResourceItem';
-import { Section } from './Section';
+import { Section } from './ui';
 
 export class Inventory extends GameObject {
   painter = new RectPainter({

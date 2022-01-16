@@ -8,41 +8,19 @@ import {
 import { GameUpdateArgs, Outcome } from '../game';
 import { config } from '../config';
 
-import { Button } from './Button';
+import { Modal } from './ui';
 import { ResourceItem } from './ResourceItem';
 
-export class DeathModal extends GameObject {
-  closed = new Subject<null>();
-  painter = new RectPainter({
-    fillColor: '#f2d78c',
-    borderColor: '#b38400',
-    borderWidth: 3,
-  });
-  zIndex = 100;
-
+export class DeathModal extends Modal {
   constructor(readonly outcome: Outcome) {
-    super(512, 384);
+    super({
+      title: 'Simulation failed',
+      titleBackground: '#f25555',
+    });
   }
 
-  protected setup({ mouseIntersector }: GameUpdateArgs) {
-    mouseIntersector.trap(this);
-
-    const header = new GameObject(512, 58);
-    header.painter = new RectPainter({
-      fillColor: '#f25555',
-      borderColor: '#b38400',
-      borderWidth: 3,
-    });
-    this.add(header);
-
-    const title = new GameObject(512, 58);
-    title.painter = new TextPainter({
-      text: 'Simulation failed',
-      color: '#fff',
-      size: 30,
-      alignment: TextAlignment.MiddleCenter,
-    });
-    this.add(title);
+  protected setup(updateArgs: GameUpdateArgs) {
+    super.setup(updateArgs);
 
     const deathTitle = new GameObject(78, 32);
     deathTitle.painter = new TextPainter({
@@ -86,16 +64,5 @@ export class DeathModal extends GameObject {
       item.position.setY(160 + 40 * index);
       this.add(item);
     }
-
-    const continueButton = new Button('Continue');
-    continueButton.updateMatrix();
-    continueButton.setCenter(this.getSelfCenter());
-    continueButton.position.setY(312);
-    continueButton.clicked.addListener(() => {
-      mouseIntersector.untrap(this);
-      this.closed.notify(null);
-      this.removeSelf();
-    });
-    this.add(continueButton);
   }
 }

@@ -1,52 +1,76 @@
-import {
-  GameObject,
-  MouseCode,
-  SpritePainter,
-  TextAlignment,
-  TextPainter,
-} from '../core';
-import { GameUpdateArgs } from '../game';
+import { GameObject, SpritePainter, TextPainter } from '../core';
+import { GameUpdateArgs, StoryStep } from '../game';
+import { MainMenuItem } from '../objects';
 
 import { GameSceneType } from './GameSceneType';
 import { GameScene } from './GameScene';
 
 export class MainMenuScene extends GameScene {
-  private title: GameObject;
-  private newGame: GameObject;
+  protected setup({ gameStore, spriteLoader }: GameUpdateArgs) {
+    const canContinue = gameStore.hasSavedGame();
+    const storyStep = gameStore.getStoryStep();
 
-  protected setup({ mouseIntersector, spriteLoader }: GameUpdateArgs) {
-    this.title = new GameObject(512, 128);
-    this.title.position.set(256, 64);
-    this.title.painter = new SpritePainter(spriteLoader.load('main.title.1'));
-    this.root.add(this.title);
+    const title = new GameObject(512, 128);
+    title.position.set(256, 64);
+    title.painter = new SpritePainter(spriteLoader.load('main.title.1'));
+    this.root.add(title);
 
-    this.newGame = new GameObject(256, 48);
-    this.newGame.painter = new TextPainter({
-      text: 'NEW GAME',
-      color: '#fff',
-      size: 36,
-      alignment: TextAlignment.MiddleCenter,
+    const disclaimer = new GameObject(512, 32);
+    disclaimer.painter = new TextPainter({
+      text: '* Game is played with a mouse',
+      color: '#999',
+      alignment: TextPainter.Alignment.MiddleCenter,
     });
-    this.newGame.position.set(384, 256);
+    disclaimer.updateMatrix();
+    disclaimer.setCenter(this.root.getSelfCenter());
+    disclaimer.position.setY(512);
+    this.root.add(disclaimer);
 
-    mouseIntersector.listenEnter(this.newGame);
+    if (canContinue) {
+      const continueGameItem = new MainMenuItem('CONTINUE');
+      continueGameItem.painter = new TextPainter({
+        text: 'NEW GAME',
+        color: '#fff',
+        size: 36,
+        alignment: TextPainter.Alignment.MiddleCenter,
+      });
+      continueGameItem.position.set(384, 256);
+      continueGameItem.clicked.addListener(() => {
+        this.startGame(storyStep);
+      });
+      this.root.add(continueGameItem);
+    }
 
-    this.root.add(this.newGame);
+    const continueAddHeight = canContinue ? 56 : 0;
+
+    const newGameItem = new MainMenuItem('NEW GAME');
+    newGameItem.position.set(384, 256 + continueAddHeight);
+    newGameItem.clicked.addListener(() => {
+      if (canContinue) {
+        // TODO: draw a modal
+        const confirmed = window.confirm(
+          'You already have a saved game. Do you want to erase it and start a new game?',
+        );
+        if (confirmed) {
+          gameStore.reset();
+          this.startGame(storyStep);
+        }
+      } else {
+        this.startGame(storyStep);
+      }
+    });
+    this.root.add(newGameItem);
   }
 
   protected update(updateArgs: GameUpdateArgs) {
-    const { mouseIntersector } = updateArgs;
+    super.update(updateArgs);
+  }
 
-    if (mouseIntersector.isEnterAt(this.newGame)) {
-      (this.newGame.painter as TextPainter).setOptions({ color: '#e9e6ab' });
-    }
-    if (mouseIntersector.isLeaveAt(this.newGame)) {
-      (this.newGame.painter as TextPainter).setOptions({ color: '#fff' });
-    }
-    if (mouseIntersector.isDownAt(MouseCode.LeftClick, this.newGame)) {
+  private startGame(storyStep: StoryStep) {
+    if (storyStep === 'intro') {
+      this.navigator.push(GameSceneType.Intro);
+    } else {
       this.navigator.push(GameSceneType.Level);
     }
-
-    super.update(updateArgs);
   }
 }

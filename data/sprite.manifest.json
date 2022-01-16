@@ -186,5 +186,9 @@
   "summoning.15": {
     "file": "data/graphics/summon-sheet.png",
     "rect": [3584, 0, 256, 256]
+  },
+  "doctor": {
+    "file": "data/graphics/doctor.png",
+    "rect": [0, 0, 64, 64]
   }
 }

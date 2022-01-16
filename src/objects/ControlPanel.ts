@@ -11,21 +11,24 @@ export class ControlPanel extends GameObject {
     super(256, 256);
   }
 
-  protected setup({ gameState }: GameUpdateArgs) {
+  protected setup({ gameState, gameStore }: GameUpdateArgs) {
+    const storyStep = gameStore.getStoryStep();
+    const isSelectionLocked = storyStep === 'dummy_summon_live';
+
     const creatureSelector = new CreatureSelector({
       mode: 'view',
       preselectedCreature: gameState.creature,
     });
     this.add(creatureSelector);
 
-    const envSelector = new EnvSelector();
+    const envSelector = new EnvSelector(isSelectionLocked);
     envSelector.position.set(0, 96);
     envSelector.changed.addListener((value) => {
       gameState.setEnv(value);
     });
     this.add(envSelector);
 
-    const tempSelector = new TempSelector();
+    const tempSelector = new TempSelector(isSelectionLocked);
     tempSelector.position.set(0, 168);
     tempSelector.changed.addListener((value) => {
       gameState.setTemp(value);

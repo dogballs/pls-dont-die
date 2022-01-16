@@ -3,11 +3,10 @@ import { Creature, CreatureType, GameStore, GameUpdateArgs } from '../game';
 import { config } from '../config';
 
 import { ResourceItem } from './ResourceItem';
-import { Section } from './Section';
-import { Selector } from './Selector';
+import { Section, Selector } from './ui';
 
 interface CreatureSelectorOptions {
-  mode?: 'select' | 'view';
+  mode?: 'select' | 'view' | 'locked';
   preselectedCreature?: CreatureType;
 }
 
@@ -34,7 +33,7 @@ export class CreatureSelector extends GameObject {
     if (!this.options.preselectedCreature) {
       this.options.preselectedCreature = DEFAULT_OPTIONS.preselectedCreature;
     }
-    if (this.options.mode === 'select') {
+    if (this.options.mode === 'select' || this.options.mode === 'locked') {
       this.size.setHeight(160);
     }
   }
@@ -49,7 +48,7 @@ export class CreatureSelector extends GameObject {
     });
     this.add(section);
 
-    if (this.options.mode === 'select') {
+    if (this.options.mode === 'select' || this.options.mode === 'locked') {
       const choices = Object.keys(config.CREATURES).map((creatureType) => {
         const creatureConfig = config.CREATURES[creatureType];
         const creature = Creature.fromConfig(creatureConfig);
@@ -65,6 +64,7 @@ export class CreatureSelector extends GameObject {
       });
       const selector = new Selector(choices, {
         defaultValue: this.options.preselectedCreature,
+        locked: this.options.mode === 'locked',
       });
       selector.position.set(0, 36);
       selector.changed.addListener(this.handleSelected);
