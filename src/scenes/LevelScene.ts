@@ -1,18 +1,21 @@
 import {
   AliveModal,
   Cage,
-  CreatureDummy,
   CreatureSelector,
   ControlPanel,
+  Dummy,
   DeathModal,
   DoctorModal,
+  Fish,
   Inventory,
   SimulateButton,
   SummonPanel,
   Summoning,
 } from '../objects';
 import {
+  Creature,
   CreatureType,
+  DoctorLines,
   GameState,
   GameStore,
   GameUpdateArgs,
@@ -20,13 +23,12 @@ import {
   SimDecider,
   Outcome,
 } from '../game';
+import { config } from '../config';
 
 import { GameScene } from './GameScene';
 import { GameSceneType } from './GameSceneType';
 
-export class LevelScene extends GameScene<{
-  lastCreature?: CreatureType;
-}> {
+export class LevelScene extends GameScene {
   private gameState: GameState;
   private gameStore: GameStore;
 
@@ -44,7 +46,7 @@ export class LevelScene extends GameScene<{
     cage.position.set(128, 64);
     this.root.add(cage);
 
-    const summonPanel = new SummonPanel(this.params.lastCreature);
+    const summonPanel = new SummonPanel(gameStore.getLastSimulatedCreature());
     summonPanel.position.set(704, 64);
     summonPanel.summoned.addListener(() => {
       summonPanel.removeSelf();
@@ -74,18 +76,22 @@ export class LevelScene extends GameScene<{
   }
 
   private summon() {
-    // TODO: spend resources
-
     let creature;
     switch (this.gameState.creature) {
       case 'dummy':
-        creature = new CreatureDummy();
+        creature = new Dummy();
+        break;
+      case 'fish':
+        creature = new Fish();
         break;
       default:
         throw new Error(
           `Summoning unknown creature "${this.gameState.creature}"`,
         );
     }
+
+    this.gameStore.setCreatureKnown(this.gameState.creature);
+    this.gameStore.save();
 
     creature.position.set(128, 64);
     this.root.add(creature);
@@ -132,6 +138,13 @@ export class LevelScene extends GameScene<{
       }
     }
 
+    const creatureConfig = config.CREATURES[selection.creature];
+    const creature = Creature.fromConfig(creatureConfig);
+
+    this.gameStore.setLastSimulatedCreature(creature.type);
+    this.gameStore.removeResources(creature.requiredResources);
+    this.gameStore.save();
+
     const outcome = SimDecider.decide(selection);
 
     if (outcome.status === 'alive') {
@@ -152,9 +165,7 @@ export class LevelScene extends GameScene<{
         this.gameStore.setStoryStep('dummy_lived');
       }
       this.gameStore.save();
-      this.navigator.replace(GameSceneType.Level, {
-        lastCreature: this.gameState.creature,
-      });
+      this.navigator.replace(GameSceneType.Level);
     });
     this.root.add(modal);
   };
@@ -178,81 +189,26 @@ export class LevelScene extends GameScene<{
   };
 
   private showDoctorDummySummonToLive() {
-    const messages: string[][] = [];
-    messages.push(['Here is the device assigned to you.']);
-    messages.push(["Let's try it out on a dummy first. Go on and summon it!"]);
-    this.showDoctorModal(messages);
+    this.showDoctorModal(DoctorLines.dummySummonToLive());
   }
 
   private showDoctorDummySimulateToLive() {
-    const messages: string[][] = [];
-    messages.push(['Voila! Our dummy test subject!']);
-    messages.push(['On the right you can see the control panel.']);
-    messages.push([
-      'It is used to configure the environment for our',
-      'test subject.',
-    ]);
-    messages.push([
-      "Let's run a simulation for our dummy with default",
-      'parameters!',
-    ]);
-
-    this.showDoctorModal(messages);
+    this.showDoctorModal(DoctorLines.dummySimulateToLive());
   }
 
   private showDoctorDummyLivedAndSummonToDie() {
-    const messages: string[][] = [];
-    messages.push([
-      'Perfect! When the conditions perfectly suit the',
-      'creature, we are able to harvest unique elements.',
-    ]);
-    messages.push([
-      "The nuance is that we don't know these perfect",
-      'conditions beforehand.',
-    ]);
-    messages.push([
-      'And it is up to you to figure them out by fine',
-      'fine tuning the controls.',
-    ]);
-    messages.push([
-      "Let's try summon the dummy again, but this time",
-      'selecting non-default parameters for simulation.',
-    ]);
-
-    this.showDoctorModal(messages);
+    this.showDoctorModal(DoctorLines.dummyLivedAndSummonToDie());
   }
 
   private showDoctorDummyDied() {
-    const messages: string[][] = [];
-    messages.push([
-      'Sweet! If the conditions are not perfect',
-      'the simulation is considered failed ...',
-    ]);
-    messages.push([
-      '... but we are still able to extract different kinds',
-      'of elements in the event of death.',
-    ]);
-    messages.push([
-      "But don't worry, they ... don't actualy die.",
-      "It's just a simulation ... ahem ...",
-    ]);
-    messages.push([
-      '... Well, the onboarding is pretty much done.',
-      'You now have access to new creatures.',
-    ]);
-    messages.push(['Good luck with your simluations!']);
-
-    this.showDoctorModal(messages, () => {
+    this.showDoctorModal(DoctorLines.dummyDied(), () => {
       this.gameStore.setStoryStep('first_act');
       this.gameStore.save();
     });
   }
 
   private showDoctorDummyShouldNotDefault() {
-    const messages: string[][] = [];
-    messages.push(["This time let's try selecting non-default parameters."]);
-
-    this.showDoctorModal(messages);
+    this.showDoctorModal(DoctorLines.dummyShouldNotDefault());
   }
 
   private showDoctorModal(messages: string[][], onClose?: () => void) {

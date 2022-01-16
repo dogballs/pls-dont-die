@@ -1,5 +1,5 @@
 import { GameObject, Subject } from '../core';
-import { GameUpdateArgs, ReqCheck } from '../game';
+import { GameUpdateArgs, SummonHelper } from '../game';
 
 import { Button } from './ui';
 
@@ -23,7 +23,7 @@ export class SummonButton extends GameObject {
     });
 
     gameState.creatureChanged.addListener((creature) => {
-      const canSummon = ReqCheck.canSummon(creature, resources);
+      const canSummon = SummonHelper.canSummon(creature, resources);
       this.button.setDisabled(!canSummon);
     });
   }

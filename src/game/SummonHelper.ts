@@ -2,7 +2,7 @@ import { config } from '../config';
 
 import { Creature, CreatureType, Resource } from './GameTypes';
 
-export class ReqCheck {
+export class SummonHelper {
   static canSummon(
     creatureType: CreatureType,
     currentResources: Resource[],

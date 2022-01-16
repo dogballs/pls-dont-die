@@ -1,7 +1,7 @@
-import { Animation, GameObject, Rect, Sprite, SpritePainter } from '../core';
-import { GameUpdateArgs } from '../game';
+import { Animation, GameObject, Rect, Sprite, SpritePainter } from '../../core';
+import { GameUpdateArgs } from '../../game';
 
-export class CreatureDummy extends GameObject {
+export class Fish extends GameObject {
   painter = new SpritePainter();
   zIndex = 4;
 
@@ -14,10 +14,10 @@ export class CreatureDummy extends GameObject {
   protected setup({ spriteLoader }: GameUpdateArgs) {
     this.animation = new Animation(
       [
-        spriteLoader.load('dummy.1', new Rect(0, 0, 512, 512)),
-        spriteLoader.load('dummy.2', new Rect(0, 0, 512, 512)),
-        spriteLoader.load('dummy.3', new Rect(0, 0, 512, 512)),
-        spriteLoader.load('dummy.2', new Rect(0, 0, 512, 512)),
+        spriteLoader.load('fish.1', new Rect(0, 0, 512, 512)),
+        spriteLoader.load('fish.2', new Rect(0, 0, 512, 512)),
+        spriteLoader.load('fish.3', new Rect(0, 0, 512, 512)),
+        spriteLoader.load('fish.2', new Rect(0, 0, 512, 512)),
       ],
       { loop: true, delay: 0.32 },
     );

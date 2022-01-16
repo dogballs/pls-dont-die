@@ -1,10 +1,4 @@
-import {
-  GameObject,
-  RectPainter,
-  Subject,
-  TextAlignment,
-  TextPainter,
-} from '../core';
+import { GameObject, TextAlignment, TextPainter } from '../core';
 import { GameUpdateArgs, Outcome } from '../game';
 import { config } from '../config';
 
@@ -33,6 +27,11 @@ export class DeathModal extends Modal {
     this.add(deathTitle);
 
     const reasonText = config.DEATH_REASONS[this.outcome.deathType];
+    if (!reasonText) {
+      throw new Error(
+        `No death description in config for "${this.outcome.deathType}"`,
+      );
+    }
 
     const deathDescription = new GameObject(78, 32);
     deathDescription.painter = new TextPainter({

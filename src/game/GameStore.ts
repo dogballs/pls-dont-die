@@ -7,6 +7,7 @@ type State = {
   storyStep: StoryStep;
   resources: Resource[];
   knownCreatureTypes: CreatureType[];
+  lastSimulatedCreature?: CreatureType;
 };
 
 const DEFAULT_STATE: State = {
@@ -14,11 +15,27 @@ const DEFAULT_STATE: State = {
   storyStep: 'intro',
   resources: [],
   knownCreatureTypes: [],
+  lastSimulatedCreature: undefined,
+};
+
+const PRESETS = {
+  after_tutorial: {
+    hasSavedGame: true,
+    storyStep: 'first_act',
+    resources: [new Resource('dummium', 1), new Resource('soulium', 1)],
+    knownCreatureTypes: ['dummy'],
+    lastSimulatedCreature: undefined,
+  } as State,
 };
 
 export class GameStore {
   private state: State = DEFAULT_STATE;
   constructor(private readonly storage: LocalStorage) {}
+
+  resetStateToPreset(kind: 'after_tutorial') {
+    this.state = PRESETS[kind];
+    this.save();
+  }
 
   setHasSavedGame() {
     this.state.hasSavedGame = true;
@@ -61,11 +78,9 @@ export class GameStore {
       }
     }
 
-    for (let i = this.state.resources.length - 1; i >= 0; i--) {
-      if (typesToRemove.includes(this.state.resources[i].type)) {
-        delete this.state.resources[i];
-      }
-    }
+    this.state.resources = this.state.resources.filter((resource) => {
+      return !typesToRemove.includes(resource.type);
+    });
   }
 
   getResourceAmount(type: ResourceType) {
@@ -99,6 +114,14 @@ export class GameStore {
 
   getStoryStep() {
     return this.state.storyStep || 'intro';
+  }
+
+  setLastSimulatedCreature(creatureType: CreatureType) {
+    this.state.lastSimulatedCreature = creatureType;
+  }
+
+  getLastSimulatedCreature() {
+    return this.state.lastSimulatedCreature;
   }
 
   reset() {

@@ -106,3 +106,4 @@ function crash() {
 main();
 
 window.gameLoop = gameLoop;
+window.gameStore = gameStore;

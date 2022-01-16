@@ -5,7 +5,7 @@ export type StoryStep =
   | 'dummy_died'
   | 'first_act';
 
-export type ResourceType = 'dummium' | 'soulium';
+export type ResourceType = 'dummium' | 'soulium' | 'fishium';
 export class Resource {
   constructor(readonly type: ResourceType, public amount: number) {}
 }
@@ -74,7 +74,11 @@ export class Selection {
   }
 }
 
-export type DeathType = 'none' | 'dummy_not_neutral';
+export type DeathType =
+  | 'none'
+  | 'dummy_not_neutral'
+  | 'dehydration'
+  | 'hypothermia';
 
 export class Outcome {
   constructor(
