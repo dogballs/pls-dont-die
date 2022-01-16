@@ -202,5 +202,17 @@
   "doctor": {
     "file": "data/graphics/doctor.png",
     "rect": [0, 0, 64, 64]
+  },
+  "scan.1": {
+    "file": "data/graphics/scan-sheet.png",
+    "rect": [0, 0, 256, 64]
+  },
+  "scan.2": {
+    "file": "data/graphics/scan-sheet.png",
+    "rect": [0, 64, 256, 64]
+  },
+  "scan.3": {
+    "file": "data/graphics/scan-sheet.png",
+    "rect": [0, 128, 256, 64]
   }
 }

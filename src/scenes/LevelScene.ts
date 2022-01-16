@@ -9,12 +9,12 @@ import {
   Fish,
   Inventory,
   SimulateButton,
+  Simulation,
   SummonPanel,
   Summoning,
 } from '../objects';
 import {
   Creature,
-  CreatureType,
   DoctorLines,
   GameState,
   GameStore,
@@ -36,7 +36,6 @@ export class LevelScene extends GameScene {
   private creatureSelector: CreatureSelector;
   private inventory: Inventory;
   private simulateButton: SimulateButton;
-  private summoning: Summoning;
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
     this.gameState = gameState;
@@ -98,25 +97,28 @@ export class LevelScene extends GameScene {
   }
 
   private handleSummonClick = () => {
-    this.summoning = new Summoning();
-    this.summoning.position.set(128, 64);
-    this.summoning.fadeInCompleted.addListener(() => {
+    const summoning = new Summoning();
+    summoning.position.set(128, 64);
+    summoning.fadeInCompleted.addListener(() => {
       this.summon();
     });
-    this.summoning.completed.addListener(this.handleSummoned);
-    this.root.add(this.summoning);
+    summoning.completed.addListener(() => {
+      summoning.removeSelf();
+      this.handleSummoned();
+    });
+    this.root.add(summoning);
   };
 
   private handleSummoned = () => {
-    this.root.remove(this.summoning);
-
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(704, 64);
     this.root.add(this.controlPanel);
 
     this.simulateButton = new SimulateButton();
     this.simulateButton.position.set(704, 384);
-    this.simulateButton.clicked.addListener(this.handleSimulated);
+    this.simulateButton.clicked.addListener(() => {
+      this.simulate();
+    });
     this.root.add(this.simulateButton);
 
     if (this.gameStore.getStoryStep() === 'dummy_summon_live') {
@@ -124,7 +126,7 @@ export class LevelScene extends GameScene {
     }
   };
 
-  private handleSimulated = () => {
+  private simulate() {
     const selection = new Selection({
       creature: this.gameState.creature,
       env: this.gameState.env,
@@ -138,6 +140,16 @@ export class LevelScene extends GameScene {
       }
     }
 
+    const simulation = new Simulation();
+    simulation.position.set(128, 64);
+    simulation.completed.addListener(() => {
+      simulation.removeSelf();
+      this.handleSimulated(selection);
+    });
+    this.root.add(simulation);
+  }
+
+  private handleSimulated = (selection: Selection) => {
     const creatureConfig = config.CREATURES[selection.creature];
     const creature = Creature.fromConfig(creatureConfig);
 
@@ -158,6 +170,7 @@ export class LevelScene extends GameScene {
     const modal = new AliveModal(outcome);
     modal.updateMatrix();
     modal.setCenter(this.root.getSelfCenter());
+    modal.updateMatrix();
     modal.closed.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
@@ -174,6 +187,7 @@ export class LevelScene extends GameScene {
     const modal = new DeathModal(outcome);
     modal.updateMatrix();
     modal.setCenter(this.root.getSelfCenter());
+    modal.updateMatrix();
     modal.closed.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
