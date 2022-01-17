@@ -1,2 +1,2 @@
-export * from './Dummy';
+export * from './CreatureObject';
 export * from './Fish';

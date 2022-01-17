@@ -1,12 +1,11 @@
 import {
   AliveModal,
   Cage,
+  CreatureObject,
   CreatureSelector,
   ControlPanel,
-  Dummy,
   DeathModal,
   DoctorModal,
-  Fish,
   Inventory,
   Sidebar,
   Simulation,
@@ -20,7 +19,7 @@ import {
   GameStore,
   GameUpdateArgs,
   Outcome,
-  Resource,
+  // Resource,
   Selection,
   SimDecider,
 } from '../game';
@@ -86,25 +85,13 @@ export class LevelScene extends GameScene {
   }
 
   private summon() {
-    let creature;
-    switch (this.gameState.creature) {
-      case 'dummy':
-        creature = new Dummy();
-        break;
-      case 'fish':
-        creature = new Fish();
-        break;
-      default:
-        throw new Error(
-          `Summoning unknown creature "${this.gameState.creature}"`,
-        );
-    }
+    const creatureObject = new CreatureObject(this.gameState.creature);
 
     this.gameStore.setCreatureKnown(this.gameState.creature);
     this.gameStore.save();
 
-    creature.position.set(230, 64);
-    this.root.add(creature);
+    creatureObject.position.set(230, 64);
+    this.root.add(creatureObject);
   }
 
   private handleSummonClick = () => {
