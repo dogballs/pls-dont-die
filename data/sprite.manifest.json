@@ -51,6 +51,10 @@
     "file": "data/graphics/ui.png",
     "rect": [64, 0, 32, 32]
   },
+  "arrow.left.blink": {
+    "file": "data/graphics/ui.png",
+    "rect": [192, 0, 32, 32]
+  },
   "arrow.right.active": {
     "file": "data/graphics/ui.png",
     "rect": [96, 0, 32, 32]
@@ -62,6 +66,10 @@
   "arrow.right.disabled": {
     "file": "data/graphics/ui.png",
     "rect": [160, 0, 32, 32]
+  },
+  "arrow.right.blink": {
+    "file": "data/graphics/ui.png",
+    "rect": [224, 0, 32, 32]
   },
   "heat.low.1": {
     "file": "data/graphics/heat-sheet.png",

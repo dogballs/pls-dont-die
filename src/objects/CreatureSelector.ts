@@ -73,9 +73,11 @@ export class CreatureSelector extends GameObject {
           value: creature.type,
         };
       });
+      const shouldBlinkNext = !gameStore.isKnownCreature('fish');
       const selector = new Selector(choices, {
         defaultValue: this.options.preselectedCreature,
         locked: this.options.mode === 'locked',
+        blinkNext: shouldBlinkNext,
       });
       selector.position.set(0, 36);
       selector.changed.addListener(this.handleSelected);

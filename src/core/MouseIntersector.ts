@@ -82,6 +82,14 @@ export class MouseIntersector {
     return this.enterListeners.get(object) === 'leave';
   }
 
+  isInAt(object: GameObject) {
+    if (!this.canActInTrap(object)) {
+      return false;
+    }
+
+    return this.enterListeners.get(object) === 'in';
+  }
+
   trap(object: GameObject) {
     this.trapStack.push(object);
   }

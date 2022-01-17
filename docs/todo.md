@@ -1,5 +1,3 @@
-- Unknown 1
-  - activate new creature after dummy ends
 - Replay dialogs
   - bottom left corner see all messages
 - Add quest top left - what next

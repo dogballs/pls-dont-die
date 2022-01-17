@@ -10,6 +10,7 @@ type Choice<T> = {
 type SelectorOptions<T> = {
   defaultValue?: T;
   locked?: boolean;
+  blinkNext?: boolean;
 };
 
 export class Selector<ChoiceValue> extends GameObject {
@@ -32,6 +33,7 @@ export class Selector<ChoiceValue> extends GameObject {
       {
         defaultValue: undefined,
         locked: false,
+        blinkNext: false,
       },
       options,
     );
@@ -53,7 +55,7 @@ export class Selector<ChoiceValue> extends GameObject {
     }
     this.add(this.arrowLeft);
 
-    this.arrowRight = new ArrowButton('right');
+    this.arrowRight = new ArrowButton('right', this.options.blinkNext);
     this.arrowRight.position.set(216, 0);
     this.arrowRight.clicked.addListener(() => {
       this.selectNext();
