@@ -13,7 +13,6 @@ import {
   Summoning,
 } from '../objects';
 import {
-  Creature,
   DoctorLines,
   GameState,
   GameStore,
@@ -23,7 +22,6 @@ import {
   Selection,
   SimDecider,
 } from '../game';
-import { config } from '../config';
 
 import { GameScene } from './GameScene';
 import { GameSceneType } from './GameSceneType';
@@ -50,7 +48,7 @@ export class LevelScene extends GameScene {
     sidebar.position.set(0, 0);
     this.root.add(sidebar);
 
-    const summonPanel = new SummonPanel(gameStore.getLastSimulatedCreature());
+    const summonPanel = new SummonPanel(gameStore.getLastActiveCreature());
     summonPanel.position.set(766, 64);
     summonPanel.summoned.addListener(() => {
       summonPanel.removeSelf();
@@ -110,6 +108,10 @@ export class LevelScene extends GameScene {
   };
 
   private handleSummoned = () => {
+    this.gameStore.setLastActiveCreature(this.gameState.creature);
+
+    this.gameStore.save();
+
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(766, 64);
     this.controlPanel.simulated.addListener(() => {
@@ -148,12 +150,9 @@ export class LevelScene extends GameScene {
   }
 
   private handleSimulated = (selection: Selection) => {
-    const creatureConfig = config.CREATURES[selection.creature];
-    const creature = Creature.fromConfig(creatureConfig);
-
-    this.gameStore.setLastSimulatedCreature(creature.type);
+    // const creatureConfig = config.CREATURES[selection.creature];
+    // const creature = Creature.fromConfig(creatureConfig);
     // this.gameStore.removeResources(creature.requiredResources);
-    this.gameStore.save();
 
     const outcome = SimDecider.decide(selection);
 

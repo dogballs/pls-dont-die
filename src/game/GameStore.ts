@@ -8,7 +8,7 @@ type State = {
   resources: Resource[];
   knownCreatureTypes: CreatureType[];
   knownCreatureResources: [CreatureType, ResourceType][];
-  lastSimulatedCreature?: CreatureType;
+  lastActiveCreature?: CreatureType;
 };
 
 const DEFAULT_STATE: State = {
@@ -17,7 +17,7 @@ const DEFAULT_STATE: State = {
   resources: [],
   knownCreatureTypes: [],
   knownCreatureResources: [],
-  lastSimulatedCreature: undefined,
+  lastActiveCreature: undefined,
 };
 
 const PRESETS = {
@@ -33,7 +33,7 @@ const PRESETS = {
       ['dummy', 'dummium'],
       ['dummy', 'soulium'],
     ],
-    lastSimulatedCreature: undefined,
+    lastActiveCreature: undefined,
   } as State,
 };
 
@@ -156,12 +156,12 @@ export class GameStore {
     return this.state.storyStep || 'intro';
   }
 
-  setLastSimulatedCreature(creatureType: CreatureType) {
-    this.state.lastSimulatedCreature = creatureType;
+  setLastActiveCreature(creatureType: CreatureType) {
+    this.state.lastActiveCreature = creatureType;
   }
 
-  getLastSimulatedCreature() {
-    return this.state.lastSimulatedCreature;
+  getLastActiveCreature() {
+    return this.state.lastActiveCreature;
   }
 
   reset() {
