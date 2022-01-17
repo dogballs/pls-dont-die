@@ -42,7 +42,11 @@ export class DoctorModal extends Modal {
     this.text.position.set(200, 42);
     this.add(this.text);
 
-    this.prevButton = new ArrowTextButton('left', 'Back');
+    this.prevButton = new ArrowTextButton({
+      direction: 'left',
+      text: 'Back',
+      hoverTextColor: '#7daa9d',
+    });
     this.prevButton.position.set(32, 220);
     if (this.mode === 'compact') {
       this.prevButton.position.set(200, 128);
@@ -52,10 +56,11 @@ export class DoctorModal extends Modal {
     });
     this.add(this.prevButton);
 
-    this.nextButton = new ArrowTextButton(
-      'right',
-      this.messages.length > 1 ? 'Next' : 'Done',
-    );
+    this.nextButton = new ArrowTextButton({
+      direction: 'right',
+      text: this.messages.length > 1 ? 'Next' : 'Done',
+      hoverTextColor: '#7daa9d',
+    });
     this.nextButton.position.set(608, 220);
     if (this.mode === 'compact') {
       this.nextButton.position.set(608, 128);

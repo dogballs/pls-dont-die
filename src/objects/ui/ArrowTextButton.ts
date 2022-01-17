@@ -10,20 +10,34 @@ import { GameUpdateArgs } from '../../game';
 
 type State = 'active' | 'hover' | 'disabled';
 
+interface ArrowTextButtonOptions {
+  direction: 'left' | 'right';
+  text: string;
+  activeTextColor?: string;
+  hoverTextColor?: string;
+}
+
+const DEFAULT_OPTIONS: ArrowTextButtonOptions = {
+  direction: 'left',
+  text: '? no text ?',
+  activeTextColor: '#489880',
+  hoverTextColor: '#84d74b',
+};
+
 export class ArrowTextButton extends GameObject {
   clicked = new Subject<null>();
 
+  private options: ArrowTextButtonOptions;
   private state: State = 'active';
   private arrowSpriteMap = new Map<State, Sprite>();
   private labelColorMap = new Map<State, string>();
   private arrow: GameObject;
   private label: GameObject;
 
-  constructor(
-    private readonly direction: 'left' | 'right',
-    private readonly text = undefined,
-  ) {
+  constructor(options: ArrowTextButtonOptions) {
     super(128, 32);
+
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
   }
 
   setDisabled(disabled: boolean) {
@@ -47,37 +61,37 @@ export class ArrowTextButton extends GameObject {
   protected setup({ mouseIntersector, spriteLoader }: GameUpdateArgs) {
     this.arrowSpriteMap.set(
       'active',
-      spriteLoader.load(`arrow.${this.direction}.active`),
+      spriteLoader.load(`arrow.${this.options.direction}.active`),
     );
     this.arrowSpriteMap.set(
       'hover',
-      spriteLoader.load(`arrow.${this.direction}.hover`),
+      spriteLoader.load(`arrow.${this.options.direction}.hover`),
     );
     this.arrowSpriteMap.set(
       'disabled',
-      spriteLoader.load(`arrow.${this.direction}.disabled`),
+      spriteLoader.load(`arrow.${this.options.direction}.disabled`),
     );
-    this.labelColorMap.set('active', '#323c39');
-    this.labelColorMap.set('hover', '#7c948d');
+    this.labelColorMap.set('active', this.options.activeTextColor);
+    this.labelColorMap.set('hover', this.options.hoverTextColor);
     this.labelColorMap.set('disabled', '#aaa');
 
     this.arrow = new GameObject(32, 32);
     this.arrow.painter = new SpritePainter();
-    if (this.direction === 'right') {
+    if (this.options.direction === 'right') {
       this.arrow.position.setX(this.size.width - 32);
     }
     this.add(this.arrow);
 
     this.label = new GameObject(88, 32);
     this.label.painter = new TextPainter({
-      text: this.text,
+      text: this.options.text,
       color: '#323c39',
       alignment:
-        this.direction === 'left'
+        this.options.direction === 'left'
           ? TextPainter.Alignment.MiddleLeft
           : TextPainter.Alignment.MiddleRight,
     });
-    if (this.direction === 'left') {
+    if (this.options.direction === 'left') {
       this.label.position.set(38, 0);
     } else {
       this.label.position.set(0, 0);

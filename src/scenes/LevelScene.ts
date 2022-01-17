@@ -1,5 +1,6 @@
 import {
   AliveModal,
+  ArrowTextButton,
   Cage,
   CreatureObject,
   CreatureSelector,
@@ -109,8 +110,19 @@ export class LevelScene extends GameScene {
 
   private handleSummoned = () => {
     this.gameStore.setLastActiveCreature(this.gameState.creature);
-
     this.gameStore.save();
+
+    const backButton = new ArrowTextButton({
+      direction: 'left',
+      text: 'Back to summon',
+      activeTextColor: '#489880',
+      hoverTextColor: '#84d74b',
+    });
+    backButton.position.set(0, 64);
+    backButton.clicked.addListenerOnce(() => {
+      this.navigator.replace(GameSceneType.Level);
+    });
+    this.root.add(backButton);
 
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(766, 64);

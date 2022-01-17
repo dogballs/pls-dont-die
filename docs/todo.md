@@ -1,7 +1,4 @@
-- Replay dialogs
-  - bottom left corner see all messages
 - Add quest top left - what next
 - more creatures
 - temperatures reduce -30 -15 0 15 30
-- go back from simulation screen
 - try simulation again without resummoning
