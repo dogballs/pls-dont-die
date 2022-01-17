@@ -63,7 +63,7 @@ export class Button extends GameObject {
     );
 
     this.textColorMap.set('active', '#323c39');
-    this.textColorMap.set('hover', '#323c39');
+    this.textColorMap.set('hover', '#69a190');
     this.textColorMap.set('disabled', '#676767');
 
     this.label = new GameObject(176, 48);

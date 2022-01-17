@@ -1,11 +1,14 @@
-import { GameObject, Rect, SpritePainter } from '../core';
+import { GameObject, Rect, SpritePainter, TextPainter } from '../core';
 import { GameUpdateArgs } from '../game';
 
-import { Modal, MultilineText } from './ui';
+import { ArrowTextButton, Modal, MultilineText } from './ui';
 
 export class DoctorModal extends Modal {
   private messageIndex = 0;
   private text: MultilineText;
+  private counter: GameObject;
+  private prevButton: ArrowTextButton;
+  private nextButton: ArrowTextButton;
 
   constructor(
     private readonly messages: string[][],
@@ -16,6 +19,7 @@ export class DoctorModal extends Modal {
       width: 768,
       autoCloseOnAccept: false,
       acceptText: messages.length > 1 ? 'Next' : 'Done',
+      showAcceptButton: false,
     });
   }
 
@@ -38,17 +42,69 @@ export class DoctorModal extends Modal {
     this.text.position.set(200, 42);
     this.add(this.text);
 
+    this.prevButton = new ArrowTextButton('left', 'Back');
+    this.prevButton.position.set(32, 220);
+    if (this.mode === 'compact') {
+      this.prevButton.position.set(200, 128);
+    }
+    this.prevButton.clicked.addListener(() => {
+      this.prev();
+    });
+    this.add(this.prevButton);
+
+    this.nextButton = new ArrowTextButton(
+      'right',
+      this.messages.length > 1 ? 'Next' : 'Done',
+    );
+    this.nextButton.position.set(608, 220);
+    if (this.mode === 'compact') {
+      this.nextButton.position.set(608, 128);
+    }
+    this.nextButton.clicked.addListener(() => {
+      this.next();
+    });
+    this.add(this.nextButton);
+
+    this.counter = new GameObject(16, 16);
+    this.counter.painter = new TextPainter({
+      color: '#777',
+      alignment: TextPainter.Alignment.MiddleCenter,
+    });
+    if (this.mode === 'compact') {
+      this.counter.position.set(460, 138);
+    } else {
+      this.counter.updateMatrix();
+      this.counter.setCenter(this.getSelfCenter());
+      this.counter.position.setY(226);
+    }
+    this.add(this.counter);
+
     this.accepted.addListener(() => {
       this.next();
     });
+
+    this.updateElements();
   }
 
   private hasNextMessage() {
     return this.messageIndex < this.messages.length - 1;
   }
 
+  private hasPrevMessage() {
+    return this.messageIndex > 0 && this.messages.length > 1;
+  }
+
   private getMessageLines() {
     return this.messages[this.messageIndex];
+  }
+
+  private prev() {
+    if (!this.hasPrevMessage()) {
+      return;
+    }
+    this.messageIndex -= 1;
+
+    this.updateElements();
   }
 
   private next() {
@@ -58,10 +114,18 @@ export class DoctorModal extends Modal {
     }
 
     this.messageIndex += 1;
-    this.text.setLines(this.getMessageLines());
 
-    if (!this.hasNextMessage()) {
-      this.setAcceptText('Done');
-    }
+    this.updateElements();
+  }
+
+  private updateElements() {
+    (this.counter.painter as TextPainter).setOptions({
+      text: `${this.messageIndex + 1}/${this.messages.length}`,
+    });
+
+    this.nextButton.setText(this.hasNextMessage() ? 'Next' : 'Done');
+
+    this.text.setLines(this.getMessageLines());
+    this.prevButton.setDisabled(!this.hasPrevMessage());
   }
 }

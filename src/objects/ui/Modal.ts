@@ -17,6 +17,7 @@ interface ModalOptions {
   acceptText?: string;
   onAccept?: () => void;
   autoCloseOnAccept?: boolean;
+  showAcceptButton?: boolean;
 }
 
 const DEFAULT_OPTIONS: ModalOptions = {
@@ -25,6 +26,7 @@ const DEFAULT_OPTIONS: ModalOptions = {
   width: 532,
   height: 384,
   autoCloseOnAccept: true,
+  showAcceptButton: true,
 };
 
 export class Modal extends GameObject {
@@ -70,17 +72,19 @@ export class Modal extends GameObject {
       this.add(title);
     }
 
-    this.acceptButton = new Button(this.options.acceptText);
-    this.acceptButton.updateMatrix();
-    this.acceptButton.setCenter(this.getSelfCenter());
-    this.acceptButton.position.setY(this.size.height - 80);
-    this.acceptButton.clicked.addListener(() => {
-      this.accepted.notify(null);
-      if (this.options.autoCloseOnAccept) {
-        this.close();
-      }
-    });
-    this.add(this.acceptButton);
+    if (this.options.showAcceptButton) {
+      this.acceptButton = new Button(this.options.acceptText);
+      this.acceptButton.updateMatrix();
+      this.acceptButton.setCenter(this.getSelfCenter());
+      this.acceptButton.position.setY(this.size.height - 80);
+      this.acceptButton.clicked.addListener(() => {
+        this.accepted.notify(null);
+        if (this.options.autoCloseOnAccept) {
+          this.close();
+        }
+      });
+      this.add(this.acceptButton);
+    }
 
     this.untrapOnClose = () => {
       mouseIntersector.untrap(this);

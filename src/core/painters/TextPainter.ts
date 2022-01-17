@@ -7,6 +7,7 @@ import { RenderObject } from '../RenderObject';
 export enum TextAlignment {
   TopLeft,
   MiddleLeft,
+  MiddleRight,
   MiddleCenter,
 }
 
@@ -64,6 +65,16 @@ export class TextPainter extends Painter {
         horizAlign = 'left';
         destRect = new Rect(
           objectRect.x,
+          objectCenter.y,
+          objectRect.width,
+          objectRect.height,
+        );
+        break;
+      case TextAlignment.MiddleRight:
+        vertAlign = 'middle';
+        horizAlign = 'right';
+        destRect = new Rect(
+          objectRect.x + objectRect.width,
           objectCenter.y,
           objectRect.width,
           objectRect.height,

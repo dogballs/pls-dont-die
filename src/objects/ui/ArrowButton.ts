@@ -13,16 +13,11 @@ export class ArrowButton extends GameObject {
   clicked = new Subject<null>();
   painter = new SpritePainter();
 
-  private state: State;
+  private state: State = 'active';
   private spriteMap = new Map<State, Sprite>();
 
-  constructor(
-    private readonly direction: 'left' | 'right',
-    state: State = 'active',
-  ) {
+  constructor(private readonly direction: 'left' | 'right') {
     super(32, 32);
-
-    this.state = state;
   }
 
   setDisabled(disabled: boolean) {
