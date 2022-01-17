@@ -16,6 +16,16 @@ export class DeathModal extends Modal {
   protected setup(updateArgs: GameUpdateArgs) {
     super.setup(updateArgs);
 
+    const explanation = new GameObject(400, 32);
+    explanation.painter = new TextPainter({
+      text: 'Note: failed simulation results in death extracts',
+      color: '#777',
+      size: 14,
+      alignment: TextAlignment.MiddleCenter,
+    });
+    explanation.position.set(64, 60);
+    this.add(explanation);
+
     const deathTitle = new GameObject(78, 32);
     deathTitle.painter = new TextPainter({
       text: 'Death reason:',
@@ -23,7 +33,7 @@ export class DeathModal extends Modal {
       size: 14,
       alignment: TextAlignment.MiddleCenter,
     });
-    deathTitle.position.set(64, 90);
+    deathTitle.position.set(84, 120);
     this.add(deathTitle);
 
     const reasonText = config.DEATH_REASONS[this.outcome.deathType];
@@ -40,26 +50,24 @@ export class DeathModal extends Modal {
       size: 18,
       alignment: TextAlignment.MiddleLeft,
     });
-    deathDescription.position.set(180, 90);
+    deathDescription.position.set(194, 120);
     this.add(deathDescription);
 
     const resourcesTitle = new GameObject(78, 32);
     resourcesTitle.painter = new TextPainter({
-      text: 'Synthesized:',
+      text: 'Extracted elements:',
       color: '#000',
       size: 14,
       alignment: TextAlignment.MiddleCenter,
     });
-    resourcesTitle.position.set(64, 160);
+    resourcesTitle.position.set(64, 180);
     this.add(resourcesTitle);
 
     const resourceList = new ResourceList(this.outcome.resources, {
       defaultColor: '#000',
       checkNew: true,
     });
-    resourceList.updateMatrix();
-    resourceList.setCenter(this.getSelfCenter());
-    resourceList.position.setY(160);
+    resourceList.position.set(194, 180);
     this.add(resourceList);
   }
 }

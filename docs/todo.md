@@ -1,10 +1,9 @@
 - Unknown 1
-  - what is unknown?
   - activate new creature after dummy ends
 - Replay dialogs
   - bottom left corner see all messages
-- Alive/death dialog
-  - death explain reason and tell that by fine tuning the parameters you can have more success
 - Add quest top left - what next
 - more creatures
 - temperatures reduce -30 -15 0 15 30
+- go back from simulation screen
+- try simulation again without resummoning

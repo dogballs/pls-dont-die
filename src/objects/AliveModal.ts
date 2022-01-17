@@ -15,9 +15,19 @@ export class AliveModal extends Modal {
   protected setup(updateArgs: GameUpdateArgs) {
     super.setup(updateArgs);
 
-    const resourcesTitle = new GameObject(78, 32);
+    const explanation = new GameObject(400, 32);
+    explanation.painter = new TextPainter({
+      text: 'Note: successful simulation extracts the essence of the creature',
+      color: '#777',
+      size: 14,
+      alignment: TextAlignment.MiddleCenter,
+    });
+    explanation.position.set(64, 60);
+    this.add(explanation);
+
+    const resourcesTitle = new GameObject(70, 32);
     resourcesTitle.painter = new TextPainter({
-      text: 'Synthesized:',
+      text: 'Extracted elements:',
       color: '#000',
       size: 14,
       alignment: TextAlignment.MiddleCenter,
@@ -29,9 +39,7 @@ export class AliveModal extends Modal {
       defaultColor: '#000',
       checkNew: true,
     });
-    resourceList.updateMatrix();
-    resourceList.setCenter(this.getSelfCenter());
-    resourceList.position.setY(160);
+    resourceList.position.set(194, 160);
     this.add(resourceList);
   }
 }

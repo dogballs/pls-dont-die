@@ -32,8 +32,8 @@ export const config = {
     },
   },
   DEATH_REASONS: {
-    dummy_not_neutral: 'Outside of neutral condtions',
-    dehydration: 'Dehydration',
-    hypothermia: 'Hypothermia',
+    dummy_not_neutral: 'Non-neutral condtions',
+    dehydration: 'Dehydration (not enough water)',
+    hypothermia: 'Hypothermia (too cold)',
   },
 };
