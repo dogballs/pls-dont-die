@@ -8,6 +8,7 @@ import {
   DoctorModal,
   Fish,
   Inventory,
+  Sidebar,
   Simulation,
   SummonPanel,
   Summoning,
@@ -18,9 +19,10 @@ import {
   GameState,
   GameStore,
   GameUpdateArgs,
+  Outcome,
+  Resource,
   Selection,
   SimDecider,
-  Outcome,
 } from '../game';
 import { config } from '../config';
 
@@ -39,19 +41,30 @@ export class LevelScene extends GameScene {
     this.gameState = gameState;
     this.gameStore = gameStore;
 
+    const storyStep = gameStore.getStoryStep();
+
     const cage = new Cage();
-    cage.position.set(128, 64);
+    cage.position.set(230, 64);
     this.root.add(cage);
 
+    const sidebar = new Sidebar();
+    sidebar.position.set(0, 0);
+    this.root.add(sidebar);
+
     const summonPanel = new SummonPanel(gameStore.getLastSimulatedCreature());
-    summonPanel.position.set(704, 64);
+    summonPanel.position.set(766, 64);
     summonPanel.summoned.addListener(() => {
       summonPanel.removeSelf();
       this.handleSummonClick();
     });
     this.root.add(summonPanel);
 
-    const storyStep = gameStore.getStoryStep();
+    if (storyStep !== 'dummy_summon_live') {
+      this.inventory = new Inventory();
+      this.inventory.position.set(0, 64);
+      this.root.add(this.inventory);
+    }
+
     if (storyStep === 'dummy_summon_live') {
       this.showDoctorDummySummonToLive();
     } else if (storyStep === 'dummy_lived') {
@@ -62,12 +75,12 @@ export class LevelScene extends GameScene {
 
     // this.handleAlive(
     //   new Outcome('alive', 'none', Selection.createFake(), [
-    //     new Resource('dummium', 1),
+    //     new Resource({ type: 'dummium', amount: 1 }),
     //   ]),
     // );
     // this.handleDeath(
     //   new Outcome('death', 'dummy_not_neutral', Selection.createFake(), [
-    //     new Resource('soulium', 1),
+    //     new Resource({ type: 'soulium', amount: 1 }),
     //   ]),
     // );
   }
@@ -90,13 +103,15 @@ export class LevelScene extends GameScene {
     this.gameStore.setCreatureKnown(this.gameState.creature);
     this.gameStore.save();
 
-    creature.position.set(128, 64);
+    creature.position.set(230, 64);
     this.root.add(creature);
   }
 
   private handleSummonClick = () => {
+    this.root.remove(this.inventory);
+
     const summoning = new Summoning();
-    summoning.position.set(128, 64);
+    summoning.position.set(230, 64);
     summoning.fadeInCompleted.addListener(() => {
       this.summon();
     });
@@ -109,7 +124,7 @@ export class LevelScene extends GameScene {
 
   private handleSummoned = () => {
     this.controlPanel = new ControlPanel();
-    this.controlPanel.position.set(704, 64);
+    this.controlPanel.position.set(766, 64);
     this.controlPanel.simulated.addListener(() => {
       this.simulate();
     });
@@ -134,8 +149,10 @@ export class LevelScene extends GameScene {
       }
     }
 
+    this.controlPanel.setDisabled();
+
     const simulation = new Simulation();
-    simulation.position.set(128, 64);
+    simulation.position.set(230, 64);
     simulation.completed.addListener(() => {
       simulation.removeSelf();
       this.handleSimulated(selection);
@@ -148,7 +165,7 @@ export class LevelScene extends GameScene {
     const creature = Creature.fromConfig(creatureConfig);
 
     this.gameStore.setLastSimulatedCreature(creature.type);
-    this.gameStore.removeResources(creature.requiredResources);
+    // this.gameStore.removeResources(creature.requiredResources);
     this.gameStore.save();
 
     const outcome = SimDecider.decide(selection);
@@ -168,6 +185,10 @@ export class LevelScene extends GameScene {
     modal.closed.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
+      this.gameStore.addKnownResourcesForCreature(
+        outcome.selection.creature,
+        outcome.resources,
+      );
       if (this.gameStore.getStoryStep() === 'dummy_summon_live') {
         this.gameStore.setStoryStep('dummy_lived');
       }
@@ -185,6 +206,10 @@ export class LevelScene extends GameScene {
     modal.closed.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
+      this.gameStore.addKnownResourcesForCreature(
+        outcome.selection.creature,
+        outcome.resources,
+      );
       if (this.gameStore.getStoryStep() === 'dummy_lived') {
         this.gameStore.setStoryStep('dummy_died');
       }

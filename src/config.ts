@@ -10,23 +10,25 @@ export const config = {
     dummy: {
       type: 'dummy',
       name: 'Dummy',
+      description: 'Lab test dummy',
       unknownName: 'Dummy',
       requiredResources: [],
+      droppedResources: [{ type: 'dummium' }, { type: 'soulium' }],
     },
     fish: {
       type: 'fish',
       name: 'Fish',
-      unknownName: 'Unknown 1',
+      description: 'Regular chonky fish',
+      unknownName: 'New creature 1',
       requiredResources: [
         {
-          type: 'soulium',
-          amount: 1,
+          type: 'dummium',
         },
         {
-          type: 'dummium',
-          amount: 1,
+          type: 'soulium',
         },
       ],
+      droppedResources: [{ type: 'fishium' }, { type: 'soulium' }],
     },
   },
   DEATH_REASONS: {

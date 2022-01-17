@@ -22,7 +22,7 @@ interface ModalOptions {
 const DEFAULT_OPTIONS: ModalOptions = {
   titleBackground: '#f2d78c',
   acceptText: 'Continue',
-  width: 512,
+  width: 532,
   height: 384,
   autoCloseOnAccept: true,
 };
@@ -52,7 +52,7 @@ export class Modal extends GameObject {
     mouseIntersector.trap(this);
 
     if (this.options.title) {
-      const header = new GameObject(512, 58);
+      const header = new GameObject(this.size.width, 58);
       header.painter = new RectPainter({
         fillColor: this.options.titleBackground,
         borderColor: '#b38400',
@@ -60,7 +60,7 @@ export class Modal extends GameObject {
       });
       this.add(header);
 
-      const title = new GameObject(512, 58);
+      const title = new GameObject(this.size.width, 58);
       title.painter = new TextPainter({
         text: this.options.title,
         color: '#fff',

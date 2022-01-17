@@ -21,7 +21,8 @@ export class SummonHelper {
       if (currentResource === undefined) {
         return false;
       }
-      return currentResource.amount >= requiredResource.amount;
+      // return currentResource.amount >= requiredResource.amount;
+      return currentResource.amount > 0;
     });
 
     return hasEnough;

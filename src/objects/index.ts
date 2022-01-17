@@ -8,6 +8,7 @@ export * from './CreatureSelector';
 export * from './DeathModal';
 export * from './DoctorModal';
 export * from './Inventory';
+export * from './Sidebar';
 export * from './Simulation';
 export * from './SimulateButton';
 export * from './SummonPanel';

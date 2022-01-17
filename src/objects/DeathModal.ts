@@ -3,7 +3,7 @@ import { GameUpdateArgs, Outcome } from '../game';
 import { config } from '../config';
 
 import { Modal } from './ui';
-import { ResourceItem } from './ResourceItem';
+import { ResourceList } from './ResourceList';
 
 export class DeathModal extends Modal {
   constructor(readonly outcome: Outcome) {
@@ -53,15 +53,13 @@ export class DeathModal extends Modal {
     resourcesTitle.position.set(64, 160);
     this.add(resourcesTitle);
 
-    for (const [index, resource] of this.outcome.resources.entries()) {
-      const item = new ResourceItem({
-        ...resource,
-        defaultColor: '#000',
-      });
-      item.updateMatrix();
-      item.setCenter(this.getSelfCenter());
-      item.position.setY(160 + 40 * index);
-      this.add(item);
-    }
+    const resourceList = new ResourceList(this.outcome.resources, {
+      defaultColor: '#000',
+      checkNew: true,
+    });
+    resourceList.updateMatrix();
+    resourceList.setCenter(this.getSelfCenter());
+    resourceList.position.setY(160);
+    this.add(resourceList);
   }
 }

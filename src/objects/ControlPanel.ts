@@ -10,8 +10,18 @@ import { TempSelector } from './TempSelector';
 export class ControlPanel extends GameObject {
   simulated = new Subject<null>();
 
+  private simulateButton: SimulateButton;
+  private envSelector: EnvSelector;
+  private tempSelector: TempSelector;
+
   constructor() {
     super(256, 256);
+  }
+
+  setDisabled() {
+    this.simulateButton.setDisabled(true);
+    this.envSelector.setDisabled();
+    this.tempSelector.setDisabled();
   }
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
@@ -24,30 +34,26 @@ export class ControlPanel extends GameObject {
     });
     this.add(creatureSelector);
 
-    const envSelector = new EnvSelector(isSelectionLocked);
-    envSelector.position.set(0, 96);
-    envSelector.changed.addListener((value) => {
+    this.envSelector = new EnvSelector(isSelectionLocked);
+    this.envSelector.position.set(0, 96);
+    this.envSelector.changed.addListener((value) => {
       gameState.setEnv(value);
     });
-    this.add(envSelector);
+    this.add(this.envSelector);
 
-    const tempSelector = new TempSelector(isSelectionLocked);
-    tempSelector.position.set(0, 168);
-    tempSelector.changed.addListener((value) => {
+    this.tempSelector = new TempSelector(isSelectionLocked);
+    this.tempSelector.position.set(0, 168);
+    this.tempSelector.changed.addListener((value) => {
       gameState.setTemp(value);
     });
-    this.add(tempSelector);
+    this.add(this.tempSelector);
 
-    const simulateButton = new SimulateButton();
-    simulateButton.position.set(0, 320);
-    simulateButton.clicked.addListener(() => {
-      simulateButton.setDisabled(true);
-      envSelector.setDisabled();
-      tempSelector.setDisabled();
-
+    this.simulateButton = new SimulateButton();
+    this.simulateButton.position.set(0, 320);
+    this.simulateButton.clicked.addListener(() => {
       this.simulated.notify(null);
     });
-    this.add(simulateButton);
+    this.add(this.simulateButton);
 
     // const lightSelector = new LightSelector();
     // lightSelector.position.set(0, 194);

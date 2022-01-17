@@ -5,9 +5,19 @@ export type StoryStep =
   | 'dummy_died'
   | 'first_act';
 
-export type ResourceType = 'dummium' | 'soulium' | 'fishium';
+export type ResourceType = 'unknown' | 'dummium' | 'soulium' | 'fishium';
 export class Resource {
-  constructor(readonly type: ResourceType, public amount: number) {}
+  readonly type: ResourceType;
+  readonly amount: number;
+
+  constructor(params: { type: ResourceType; amount: number }) {
+    this.type = params.type;
+    this.amount = params.amount;
+  }
+
+  clone() {
+    return new Resource({ type: this.type, amount: this.amount });
+  }
 }
 
 export type CreatureType = 'dummy' | 'fish';
@@ -16,13 +26,17 @@ export class Creature {
   readonly type: CreatureType;
   readonly name: string;
   readonly unknownName: string;
+  readonly description: string;
   readonly requiredResources: Resource[];
+  readonly droppedResources: Resource[];
 
   constructor(params: {
     type: CreatureType;
     name: string;
     unknownName: string;
+    description: string;
     requiredResources: Resource[];
+    droppedResources: Resource[];
   }) {
     Object.assign(this, params);
   }
@@ -30,7 +44,13 @@ export class Creature {
   static fromConfig(creatureConfig) {
     const requiredResources = creatureConfig.requiredResources.map(
       (resourceConfig) => {
-        return new Resource(resourceConfig.type, resourceConfig.amount);
+        return new Resource(resourceConfig);
+      },
+    );
+
+    const droppedResources = creatureConfig.droppedResources.map(
+      (resourceConfig) => {
+        return new Resource(resourceConfig);
       },
     );
 
@@ -38,7 +58,9 @@ export class Creature {
       type: creatureConfig.type,
       name: creatureConfig.name,
       unknownName: creatureConfig.unknownName,
+      description: creatureConfig.description,
       requiredResources,
+      droppedResources,
     });
 
     return creature;

@@ -2,7 +2,6 @@ import { GameObject, Subject } from '../core';
 import { CreatureType, GameUpdateArgs } from '../game';
 
 import { CreatureSelector } from './CreatureSelector';
-import { Inventory } from './Inventory';
 import { SummonButton } from './SummonButton';
 
 export class SummonPanel extends GameObject {
@@ -28,16 +27,10 @@ export class SummonPanel extends GameObject {
     this.add(creatureSelector);
 
     const summonButton = new SummonButton();
-    summonButton.position.set(0, 192);
+    summonButton.position.set(0, 430);
     summonButton.clicked.addListener(() => {
       this.summoned.notify(null);
     });
     this.add(summonButton);
-
-    if (storyStep !== 'dummy_summon_live') {
-      const inventory = new Inventory();
-      inventory.position.set(0, 276);
-      this.add(inventory);
-    }
   }
 }

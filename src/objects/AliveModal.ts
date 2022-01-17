@@ -2,7 +2,7 @@ import { GameObject, TextAlignment, TextPainter } from '../core';
 import { GameUpdateArgs, Outcome } from '../game';
 
 import { Modal } from './ui';
-import { ResourceItem } from './ResourceItem';
+import { ResourceList } from './ResourceList';
 
 export class AliveModal extends Modal {
   constructor(readonly outcome: Outcome) {
@@ -25,15 +25,13 @@ export class AliveModal extends Modal {
     resourcesTitle.position.set(64, 160);
     this.add(resourcesTitle);
 
-    for (const [index, resource] of this.outcome.resources.entries()) {
-      const item = new ResourceItem({
-        ...resource,
-        defaultColor: '#000',
-      });
-      item.updateMatrix();
-      item.setCenter(this.getSelfCenter());
-      item.position.setY(160 + 40 * index);
-      this.add(item);
-    }
+    const resourceList = new ResourceList(this.outcome.resources, {
+      defaultColor: '#000',
+      checkNew: true,
+    });
+    resourceList.updateMatrix();
+    resourceList.setCenter(this.getSelfCenter());
+    resourceList.position.setY(160);
+    this.add(resourceList);
   }
 }

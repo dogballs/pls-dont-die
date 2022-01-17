@@ -1,8 +1,15 @@
 import { GameObject, Subject, TextPainter } from '../core';
-import { Creature, CreatureType, GameStore, GameUpdateArgs } from '../game';
+import {
+  Creature,
+  CreatureType,
+  GameStore,
+  GameUpdateArgs,
+  Resource,
+  ResourceType,
+} from '../game';
 import { config } from '../config';
 
-import { ResourceItem } from './ResourceItem';
+import { ResourceList } from './ResourceList';
 import { Section, Selector } from './ui';
 
 interface CreatureSelectorOptions {
@@ -22,8 +29,12 @@ export class CreatureSelector extends GameObject {
   private selectedIndex;
   private arrowLeft: GameObject;
   private arrowRight: GameObject;
+  private description: GameObject;
+  private requiredDescription: GameObject;
   private label: GameObject;
-  private resourceItems: GameObject[] = [];
+  private requiredResourceList: GameObject;
+  private requiredSection: GameObject;
+  private droppedResourceList: GameObject;
   private gameStore: GameStore;
 
   constructor(options: CreatureSelectorOptions = {}) {
@@ -34,7 +45,7 @@ export class CreatureSelector extends GameObject {
       this.options.preselectedCreature = DEFAULT_OPTIONS.preselectedCreature;
     }
     if (this.options.mode === 'select' || this.options.mode === 'locked') {
-      this.size.setHeight(160);
+      this.size.setHeight(100);
     }
   }
 
@@ -69,6 +80,23 @@ export class CreatureSelector extends GameObject {
       selector.position.set(0, 36);
       selector.changed.addListener(this.handleSelected);
       this.add(selector);
+
+      this.description = new GameObject(256, 24);
+      this.description.painter = new TextPainter({
+        text: 'Undiscovered creature',
+        color: '#aaa',
+        size: 14,
+        alignment: TextPainter.Alignment.MiddleCenter,
+      });
+      this.description.position.set(0, 70);
+      this.add(this.description);
+
+      const dropSection = new Section({
+        title: 'Drops elements',
+        height: 128,
+      });
+      dropSection.position.set(0, 118);
+      this.add(dropSection);
     } else {
       const creatureConfig = config.CREATURES[gameState.creature];
       const creature = Creature.fromConfig(creatureConfig);
@@ -86,23 +114,61 @@ export class CreatureSelector extends GameObject {
   }
 
   private handleSelected = (creatureType: CreatureType) => {
-    for (const item of this.resourceItems) {
-      this.remove(item);
-    }
-    this.resourceItems = [];
+    const creatureConfig = config.CREATURES[creatureType];
+    const creature = Creature.fromConfig(creatureConfig);
 
-    const selectedConfig = config.CREATURES[creatureType];
+    const requiredResources = creatureConfig.requiredResources.map(
+      (resourceConfig) => {
+        return new Resource({
+          type: resourceConfig.type,
+          amount: this.gameStore.getResourceAmount(resourceConfig.type),
+        });
+      },
+    );
 
-    for (const [index, req] of selectedConfig.requiredResources.entries()) {
-      const resourceItem = new ResourceItem({
-        type: req.type,
-        amount: this.gameStore.getResourceAmount(req.type),
-        requiredAmount: req.amount,
+    const droppedResources = creature.droppedResources.map((resource) => {
+      return new Resource({
+        type: this.gameStore.isKnownResourceForCreature(
+          creatureType,
+          resource.type,
+        )
+          ? resource.type
+          : ('unknown' as ResourceType),
+        amount: 1,
       });
-      resourceItem.position.set(16, 78 + 40 * index);
-      this.resourceItems.push(resourceItem);
-      this.add(resourceItem);
+    });
+
+    this.remove(this.requiredResourceList);
+    this.remove(this.requiredSection);
+    this.remove(this.requiredDescription);
+    this.remove(this.droppedResourceList);
+
+    if (requiredResources.length > 0) {
+      this.requiredSection = new Section({
+        title: 'Required for summon',
+        height: 128,
+      });
+      this.requiredSection.position.set(0, 496);
+      this.add(this.requiredSection);
+
+      this.requiredResourceList = new ResourceList(requiredResources, {
+        getRequiredAmount: () => 1,
+      });
+      this.requiredResourceList.position.set(16, 538);
+      this.add(this.requiredResourceList);
     }
+
+    if (droppedResources.length > 0) {
+      this.droppedResourceList = new ResourceList(droppedResources);
+      this.droppedResourceList.position.set(16, 158);
+      this.add(this.droppedResourceList);
+    }
+
+    (this.description.painter as TextPainter).setOptions({
+      text: this.gameStore.isKnownCreature(creature.type)
+        ? creature.description
+        : 'Undiscovered creature',
+    });
 
     this.changed.notify(creatureType);
   };

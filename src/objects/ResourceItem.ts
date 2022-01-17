@@ -11,6 +11,7 @@ const config = {
   soulium: { title: 'Soulium', spriteId: 'resource.soulium' },
   dummium: { title: 'Dummium', spriteId: 'resource.dummium' },
   fishium: { title: 'Fishium', spriteId: 'resource.fishium' },
+  unknown: { title: 'Undiscovered', spriteId: 'resource.unknown' },
 };
 
 interface ResourceItemOptions {
@@ -19,13 +20,17 @@ interface ResourceItemOptions {
   requiredAmount?: number;
   defaultColor?: string;
   requiredColor?: string;
+  sufficientColor?: string;
+  isNew?: boolean;
 }
 
 const DEFAULT_OPTIONS = {
-  amount: null,
-  requiredAmount: null,
+  amount: undefined,
+  requiredAmount: undefined,
   defaultColor: '#fff',
   requiredColor: '#f25555',
+  sufficientColor: '#28fb28',
+  isNew: false,
 };
 
 export class ResourceItem extends GameObject {
@@ -38,8 +43,15 @@ export class ResourceItem extends GameObject {
   }
 
   protected setup({ spriteLoader }: GameUpdateArgs) {
-    const { type, amount, requiredAmount, defaultColor, requiredColor } =
-      this.options;
+    const {
+      type,
+      amount,
+      requiredAmount,
+      defaultColor,
+      requiredColor,
+      sufficientColor,
+      isNew,
+    } = this.options;
 
     const resource = config[type];
 
@@ -51,13 +63,22 @@ export class ResourceItem extends GameObject {
 
     let text = resource.title;
     let color = defaultColor;
-    if (amount !== null) {
-      if (requiredAmount === null) {
-        text += ` (${amount})`;
+    if (type === 'unknown') {
+      color = '#aeaeae';
+    } else if (isNew) {
+      text += ' (new)';
+    } else if (amount !== undefined) {
+      if (requiredAmount === undefined) {
+        // text += ` (${amount})`;
       } else {
-        text += ` (${amount}/${requiredAmount})`;
-        if (requiredAmount > amount) {
+        // text += ` (${amount}/${requiredAmount})`;
+        // if (requiredAmount > amount) {
+        if (amount === 0) {
+          text += ` (0/1)`;
           color = requiredColor;
+        } else {
+          text += ` (1/1)`;
+          color = sufficientColor;
         }
       }
     }

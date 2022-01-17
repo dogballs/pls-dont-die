@@ -1,7 +1,7 @@
 import { GameObject, RectPainter } from '../core';
 import { GameUpdateArgs } from '../game';
 
-import { ResourceItem } from './ResourceItem';
+import { ResourceList } from './ResourceList';
 import { Section } from './ui';
 
 export class Inventory extends GameObject {
@@ -12,23 +12,21 @@ export class Inventory extends GameObject {
   });
 
   constructor() {
-    super(256, 200);
+    super(200, 200);
   }
 
   protected setup({ gameStore }: GameUpdateArgs) {
     const section = new Section({
       width: this.size.width,
       height: this.size.height,
-      title: 'Inventory',
+      title: 'Discovered elements',
     });
     this.add(section);
 
     const resources = gameStore.getResources();
 
-    for (const [index, resource] of resources.entries()) {
-      const item = new ResourceItem(resource);
-      item.position.set(16, 40 + 40 * index);
-      this.add(item);
-    }
+    const list = new ResourceList(resources);
+    list.position.set(16, 40);
+    this.add(list);
   }
 }
