@@ -1,4 +1,6 @@
 - Add quest top left - what next
 - more creatures
+- more conditions
+- add story
 - temperatures reduce -30 -15 0 15 30
 - try simulation again without resummoning

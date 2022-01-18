@@ -1,12 +1,12 @@
 import {
   AliveModal,
-  ArrowTextButton,
   Cage,
   CreatureObject,
   CreatureSelector,
   ControlPanel,
   DeathModal,
   DoctorModal,
+  IconTextButton,
   Inventory,
   Sidebar,
   Simulation,
@@ -19,7 +19,7 @@ import {
   GameStore,
   GameUpdateArgs,
   Outcome,
-  // Resource,
+  Resource,
   Selection,
   SimDecider,
 } from '../game';
@@ -112,8 +112,8 @@ export class LevelScene extends GameScene {
     this.gameStore.setLastActiveCreature(this.gameState.creature);
     this.gameStore.save();
 
-    const backButton = new ArrowTextButton({
-      direction: 'left',
+    const backButton = new IconTextButton({
+      iconType: 'arrow.left',
       text: 'Back to summon',
       activeTextColor: '#489880',
       hoverTextColor: '#84d74b',

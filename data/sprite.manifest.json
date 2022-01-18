@@ -71,6 +71,18 @@
     "file": "data/graphics/ui.png",
     "rect": [224, 0, 32, 32]
   },
+  "reload.active": {
+    "file": "data/graphics/ui.png",
+    "rect": [256, 0, 32, 32]
+  },
+  "reload.hover": {
+    "file": "data/graphics/ui.png",
+    "rect": [288, 0, 32, 32]
+  },
+  "reload.disabled": {
+    "file": "data/graphics/ui.png",
+    "rect": [320, 0, 32, 32]
+  },
   "heat.low.1": {
     "file": "data/graphics/heat-sheet.png",
     "rect": [1024, 0, 256, 256]

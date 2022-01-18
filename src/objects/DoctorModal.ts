@@ -1,14 +1,14 @@
 import { GameObject, Rect, SpritePainter, TextPainter } from '../core';
 import { GameUpdateArgs } from '../game';
 
-import { ArrowTextButton, Modal, MultilineText } from './ui';
+import { IconTextButton, Modal, MultilineText } from './ui';
 
 export class DoctorModal extends Modal {
   private messageIndex = 0;
   private text: MultilineText;
   private counter: GameObject;
-  private prevButton: ArrowTextButton;
-  private nextButton: ArrowTextButton;
+  private prevButton: IconTextButton;
+  private nextButton: IconTextButton;
 
   constructor(
     private readonly messages: string[][],
@@ -42,8 +42,8 @@ export class DoctorModal extends Modal {
     this.text.position.set(200, 42);
     this.add(this.text);
 
-    this.prevButton = new ArrowTextButton({
-      direction: 'left',
+    this.prevButton = new IconTextButton({
+      iconType: 'arrow.left',
       text: 'Back',
       hoverTextColor: '#7daa9d',
     });
@@ -56,8 +56,9 @@ export class DoctorModal extends Modal {
     });
     this.add(this.prevButton);
 
-    this.nextButton = new ArrowTextButton({
-      direction: 'right',
+    this.nextButton = new IconTextButton({
+      iconType: 'arrow.right',
+      iconPosition: 'right',
       text: this.messages.length > 1 ? 'Next' : 'Done',
       hoverTextColor: '#7daa9d',
     });

@@ -2,7 +2,7 @@ import { GameObject, TextAlignment, TextPainter } from '../core';
 import { GameUpdateArgs, Outcome } from '../game';
 import { config } from '../config';
 
-import { Modal } from './ui';
+import { IconTextButton, Modal } from './ui';
 import { ResourceList } from './ResourceList';
 
 export class DeathModal extends Modal {
@@ -69,5 +69,13 @@ export class DeathModal extends Modal {
     });
     resourceList.position.set(194, 180);
     this.add(resourceList);
+
+    // const tryAgainButton = new IconTextButton({
+    //   iconType: 'reload',
+    //   iconPosition: 'right',
+    //   text: 'Try again',
+    // });
+    // tryAgainButton.position.set(350, 310);
+    // this.add(tryAgainButton);
   }
 }

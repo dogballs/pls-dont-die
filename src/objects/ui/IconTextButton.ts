@@ -10,34 +10,36 @@ import { GameUpdateArgs } from '../../game';
 
 type State = 'active' | 'hover' | 'disabled';
 
-interface ArrowTextButtonOptions {
-  direction: 'left' | 'right';
+interface IconTextButtonOptions {
+  iconType: 'arrow.left' | 'arrow.right' | 'reload';
+  iconPosition?: 'left' | 'right';
   text: string;
   activeTextColor?: string;
   hoverTextColor?: string;
 }
 
-const DEFAULT_OPTIONS: ArrowTextButtonOptions = {
-  direction: 'left',
-  text: '? no text ?',
-  activeTextColor: '#489880',
-  hoverTextColor: '#84d74b',
-};
-
-export class ArrowTextButton extends GameObject {
+export class IconTextButton extends GameObject {
   clicked = new Subject<null>();
 
-  private options: ArrowTextButtonOptions;
+  private options: IconTextButtonOptions;
   private state: State = 'active';
-  private arrowSpriteMap = new Map<State, Sprite>();
+  private iconSpriteMap = new Map<State, Sprite>();
   private labelColorMap = new Map<State, string>();
   private arrow: GameObject;
   private label: GameObject;
 
-  constructor(options: ArrowTextButtonOptions) {
+  constructor(options: IconTextButtonOptions) {
     super(128, 32);
 
-    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
+    this.options = Object.assign(
+      {},
+      {
+        iconPosition: 'left',
+        activeTextColor: '#489880',
+        hoverTextColor: '#84d74b',
+      },
+      options,
+    );
   }
 
   setDisabled(disabled: boolean) {
@@ -59,17 +61,17 @@ export class ArrowTextButton extends GameObject {
   }
 
   protected setup({ mouseIntersector, spriteLoader }: GameUpdateArgs) {
-    this.arrowSpriteMap.set(
+    this.iconSpriteMap.set(
       'active',
-      spriteLoader.load(`arrow.${this.options.direction}.active`),
+      spriteLoader.load(`${this.options.iconType}.active`),
     );
-    this.arrowSpriteMap.set(
+    this.iconSpriteMap.set(
       'hover',
-      spriteLoader.load(`arrow.${this.options.direction}.hover`),
+      spriteLoader.load(`${this.options.iconType}.hover`),
     );
-    this.arrowSpriteMap.set(
+    this.iconSpriteMap.set(
       'disabled',
-      spriteLoader.load(`arrow.${this.options.direction}.disabled`),
+      spriteLoader.load(`${this.options.iconType}.disabled`),
     );
     this.labelColorMap.set('active', this.options.activeTextColor);
     this.labelColorMap.set('hover', this.options.hoverTextColor);
@@ -77,7 +79,7 @@ export class ArrowTextButton extends GameObject {
 
     this.arrow = new GameObject(32, 32);
     this.arrow.painter = new SpritePainter();
-    if (this.options.direction === 'right') {
+    if (this.options.iconPosition === 'right') {
       this.arrow.position.setX(this.size.width - 32);
     }
     this.add(this.arrow);
@@ -87,11 +89,11 @@ export class ArrowTextButton extends GameObject {
       text: this.options.text,
       color: '#323c39',
       alignment:
-        this.options.direction === 'left'
+        this.options.iconPosition === 'left'
           ? TextPainter.Alignment.MiddleLeft
           : TextPainter.Alignment.MiddleRight,
     });
-    if (this.options.direction === 'left') {
+    if (this.options.iconPosition === 'left') {
       this.label.position.set(38, 0);
     } else {
       this.label.position.set(0, 0);
@@ -126,7 +128,7 @@ export class ArrowTextButton extends GameObject {
       });
     }
     if (this.arrow) {
-      (this.arrow.painter as SpritePainter).sprite = this.arrowSpriteMap.get(
+      (this.arrow.painter as SpritePainter).sprite = this.iconSpriteMap.get(
         this.state,
       );
     }
