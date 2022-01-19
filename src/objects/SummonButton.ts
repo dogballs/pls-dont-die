@@ -22,9 +22,10 @@ export class SummonButton extends GameObject {
       this.clicked.notify(null);
     });
 
-    gameState.creatureChanged.addListener((creature) => {
-      const canSummon = SummonHelper.canSummon(creature, resources);
-      this.button.setDisabled(!canSummon);
+    gameState.essenceChanged.addListener((essence) => {
+      // const canSummon = SummonHelper.canSummon(creature, resources);
+      // this.button.setDisabled(!canSummon);
     });
+    gameState.modifierChanged.addListener((modifier) => {});
   }
 }

@@ -5,7 +5,15 @@ export type StoryStep =
   | 'dummy_died'
   | 'first_act';
 
-export type ResourceType = 'unknown' | 'dummium' | 'soulium' | 'fishium';
+export type ResourceType =
+  | 'none'
+  | 'unknown'
+  | 'techium'
+  | 'dummium'
+  | 'soulium'
+  | 'liquium'
+  | 'sandium'
+  | 'fishium';
 export class Resource {
   readonly type: ResourceType;
   readonly amount: number;
@@ -15,12 +23,12 @@ export class Resource {
     this.amount = params.amount;
   }
 
-  clone() {
-    return new Resource({ type: this.type, amount: this.amount });
+  static createUnknown() {
+    return new Resource({ type: 'unknown', amount: 0 });
   }
 }
 
-export type CreatureType = 'dummy' | 'fish';
+export type CreatureType = 'dummy' | 'dummyfish' | 'fish';
 
 export class Creature {
   readonly type: CreatureType;
@@ -38,7 +46,25 @@ export class Creature {
     requiredResources: Resource[];
     droppedResources: Resource[];
   }) {
-    Object.assign(this, params);
+    Object.assign(
+      this,
+      {
+        description: '',
+        requiredResources: [],
+        droppedResources: [],
+      },
+      params,
+    );
+  }
+
+  getRequiredAmountFor(resourceType: ResourceType) {
+    const resource = this.requiredResources.find(
+      (resource) => resource.type === resourceType,
+    );
+    if (!resource) {
+      return 0;
+    }
+    return resource.amount;
   }
 
   static fromConfig(creatureConfig) {
@@ -98,7 +124,9 @@ export class Selection {
 
 export type DeathType =
   | 'none'
-  | 'dummy_not_neutral'
+  | 'short_circuit'
+  | 'stuck_mech'
+  | 'overheat'
   | 'dehydration'
   | 'hypothermia';
 

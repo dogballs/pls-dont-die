@@ -1,33 +1,48 @@
-import { GameObject, Subject } from '../core';
+import { GameObject, Subject, TextPainter } from '../core';
 import { CreatureType, GameUpdateArgs } from '../game';
 
-import { CreatureSelector } from './CreatureSelector';
+import { Section } from './ui';
+
+import { EssenceSelector } from './EssenceSelector';
+import { ModifierSelector } from './ModifierSelector';
 import { SummonButton } from './SummonButton';
 
 export class SummonPanel extends GameObject {
   summoned = new Subject<null>();
 
   constructor(private readonly preselectedCreature: CreatureType) {
-    super(256, 256);
+    super(266, 270);
   }
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
-    const storyStep = gameStore.getStoryStep();
-
-    const isSelectionDummy =
-      storyStep === 'dummy_summon_live' || storyStep === 'dummy_lived';
-
-    const creatureSelector = new CreatureSelector({
-      preselectedCreature: this.preselectedCreature,
-      mode: isSelectionDummy ? 'locked' : 'select',
+    const section = new Section({
+      height: this.size.height,
+      width: this.size.width,
+      title: 'Reactor',
+      titleHeight: 48,
+      titleTextSize: 22,
     });
-    creatureSelector.changed.addListener((value) => {
-      gameState.setCreature(value);
+    this.add(section);
+
+    const description = new GameObject(266, 32);
+    description.painter = new TextPainter({
+      text: 'Select elements to summon a creature',
+      color: '#aaa',
+      size: 14,
     });
-    this.add(creatureSelector);
+    description.position.set(12, 62);
+    this.add(description);
+
+    const essenceSelector = new EssenceSelector();
+    essenceSelector.position.set(5, 90);
+    this.add(essenceSelector);
+
+    const modifierSelector = new ModifierSelector();
+    modifierSelector.position.set(5, 180);
+    this.add(modifierSelector);
 
     const summonButton = new SummonButton();
-    summonButton.position.set(0, 430);
+    summonButton.position.set(0, 300);
     summonButton.clicked.addListener(() => {
       this.summoned.notify(null);
     });

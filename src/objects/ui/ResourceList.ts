@@ -1,17 +1,19 @@
-import { GameObject } from '../core';
-import { GameUpdateArgs, Resource } from '../game';
+import { GameObject } from '../../core';
+import { GameUpdateArgs, Resource } from '../../game';
 
 import { ResourceItem } from './ResourceItem';
 
 interface ResourceListOptions {
   defaultColor?: string;
   checkNew?: boolean;
+  showAmount?: boolean;
   getRequiredAmount?: (resource: Resource) => number;
 }
 
 const DEFAULT_OPTIONS: ResourceListOptions = {
   defaultColor: '#fff',
   checkNew: false,
+  showAmount: true,
   getRequiredAmount: undefined,
 };
 
@@ -31,7 +33,7 @@ export class ResourceList extends GameObject {
     for (const [index, resource] of this.resources.entries()) {
       let isNew = false;
       if (this.options.checkNew) {
-        isNew = !gameStore.hasResource(resource.type);
+        isNew = !gameStore.isKnownResource(resource.type);
       }
 
       const requiredAmount = this.options.getRequiredAmount
@@ -40,8 +42,8 @@ export class ResourceList extends GameObject {
 
       const resourceItem = new ResourceItem({
         type: resource.type,
-        amount: resource.amount,
-        requiredAmount,
+        amount: this.options.showAmount ? resource.amount : undefined,
+        requiredAmount: this.options.showAmount ? requiredAmount : undefined,
         defaultColor: this.options.defaultColor,
         isNew,
       });

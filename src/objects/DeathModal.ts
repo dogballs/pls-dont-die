@@ -2,8 +2,7 @@ import { GameObject, TextAlignment, TextPainter } from '../core';
 import { GameUpdateArgs, Outcome } from '../game';
 import { config } from '../config';
 
-import { IconTextButton, Modal } from './ui';
-import { ResourceList } from './ResourceList';
+import { IconTextButton, Modal, ResourceList } from './ui';
 
 export class DeathModal extends Modal {
   constructor(readonly outcome: Outcome) {
@@ -18,7 +17,7 @@ export class DeathModal extends Modal {
 
     const explanation = new GameObject(400, 32);
     explanation.painter = new TextPainter({
-      text: 'Note: failed simulation results in death extracts',
+      text: 'Note: failed simulation results in dropped modifiers',
       color: '#777',
       size: 14,
       alignment: TextAlignment.MiddleCenter,

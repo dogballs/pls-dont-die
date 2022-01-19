@@ -42,7 +42,7 @@ export class RectPainter extends Painter {
       context.fillRect(x, y, width, height, fillColor);
     }
 
-    if (borderColor !== null) {
+    if (borderColor !== null && borderWidth !== 0) {
       context.strokeRect(x, y, width, height, borderColor, borderWidth);
     }
   }

@@ -5,12 +5,22 @@ interface SectionOptions {
   height?: number;
   title?: string;
   titleColor?: string;
+  titleHeight?: number;
+  titleTextSize?: number;
+  theme?: 'blue';
+  bodyBorderWidth?: number;
+  headerBorderWidth?: number;
 }
 
 const DEFAULT_OPTIONS: SectionOptions = {
   height: 32,
   width: 256,
   titleColor: '#489880',
+  titleHeight: 32,
+  titleTextSize: 16,
+  theme: 'blue',
+  bodyBorderWidth: 3,
+  headerBorderWidth: 3,
 };
 
 export class Section extends GameObject {
@@ -25,24 +35,24 @@ export class Section extends GameObject {
     this.painter = new RectPainter({
       fillColor: '#306082',
       borderColor: '#489880',
-      borderWidth: 3,
+      borderWidth: this.options.bodyBorderWidth,
     });
   }
 
   protected setup() {
-    const header = new GameObject(this.options.width, 32);
+    const header = new GameObject(this.options.width, this.options.titleHeight);
     header.painter = new RectPainter({
       fillColor: '#133c59',
       borderColor: '#489880',
-      borderWidth: 3,
+      borderWidth: this.options.headerBorderWidth,
     });
     this.add(header);
 
-    const title = new GameObject(this.options.width, 32);
+    const title = new GameObject(this.options.width, this.options.titleHeight);
     title.painter = new TextPainter({
       text: this.options.title,
       color: this.options.titleColor,
-      size: 16,
+      size: this.options.titleTextSize,
       alignment: TextPainter.Alignment.MiddleCenter,
     });
     this.add(title);

@@ -23,7 +23,7 @@ export class Selector<ChoiceValue> extends GameObject {
   private label: GameObject;
 
   constructor(
-    private readonly choices: Choice<ChoiceValue>[] = [],
+    private choices: Choice<ChoiceValue>[] = [],
     options: SelectorOptions<ChoiceValue> = {},
   ) {
     super(256, 32);
@@ -39,9 +39,26 @@ export class Selector<ChoiceValue> extends GameObject {
     );
   }
 
+  setChoices(choices: Choice<ChoiceValue>[]) {
+    this.choices = choices;
+    this.updateLabelText();
+  }
+
   setDisabled() {
     this.arrowLeft.setDisabled(true);
     this.arrowRight.setDisabled(true);
+  }
+
+  select(value: ChoiceValue) {
+    const index = this.choices.findIndex((choice) => choice.value === value);
+    if (index !== -1) {
+      this.selectIndex(index);
+    }
+  }
+
+  getValue() {
+    const choice = this.getSelectedChoice();
+    return choice ? choice.value : undefined;
   }
 
   protected setup() {
@@ -113,12 +130,18 @@ export class Selector<ChoiceValue> extends GameObject {
   }
 
   private updateLabelText() {
-    const painter = this.label.painter as TextPainter;
-    painter.setOptions({ text: this.getSelectedChoice().label });
+    if (this.label) {
+      const painter = this.label.painter as TextPainter;
+      painter.setOptions({ text: this.getSelectedChoice().label });
+    }
 
     if (!this.options.locked) {
-      this.arrowLeft.setDisabled(!this.hasPrev());
-      this.arrowRight.setDisabled(!this.hasNext());
+      if (this.arrowLeft) {
+        this.arrowLeft.setDisabled(!this.hasPrev());
+      }
+      if (this.arrowRight) {
+        this.arrowRight.setDisabled(!this.hasNext());
+      }
     }
   }
 }

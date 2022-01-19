@@ -1,8 +1,7 @@
 import { GameObject, TextAlignment, TextPainter } from '../core';
 import { GameUpdateArgs, Outcome } from '../game';
 
-import { Modal } from './ui';
-import { ResourceList } from './ResourceList';
+import { Modal, ResourceList } from './ui';
 
 export class AliveModal extends Modal {
   constructor(readonly outcome: Outcome) {
@@ -17,7 +16,7 @@ export class AliveModal extends Modal {
 
     const explanation = new GameObject(400, 32);
     explanation.painter = new TextPainter({
-      text: 'Note: successful simulation extracts the essence of the creature',
+      text: 'Note: successful simulation extracts the essence from the creature',
       color: '#777',
       size: 14,
       alignment: TextAlignment.MiddleCenter,

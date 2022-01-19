@@ -1,8 +1,33 @@
 import { config } from '../config';
 
-import { Creature, CreatureType, Resource } from './GameTypes';
+import { Creature, CreatureType, Resource, ResourceType } from './GameTypes';
 
 export class SummonHelper {
+  static decideCreature(
+    essence: ResourceType,
+    modifier: ResourceType,
+  ): CreatureType {
+    for (const creatureType of Object.keys(config.CREATURES)) {
+      const creatureConfig = config.CREATURES[creatureType];
+      const creature = Creature.fromConfig(creatureConfig);
+
+      const reqs = creature.requiredResources;
+
+      if (reqs.length !== 2) {
+        throw new Error(`Creature "${creatureType}" has non 2 required res`);
+      }
+
+      if (
+        (reqs[0].type === essence && reqs[1].type === modifier) ||
+        (reqs[0].type === modifier && reqs[1].type === essence)
+      ) {
+        return creature.type;
+      }
+    }
+
+    throw new Error(`Unknown combination: es = ${essence}, mod = ${modifier}`);
+  }
+
   static canSummon(
     creatureType: CreatureType,
     currentResources: Resource[],

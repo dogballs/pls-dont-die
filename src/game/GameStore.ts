@@ -8,6 +8,7 @@ type State = {
   resources: Resource[];
   knownCreatureTypes: CreatureType[];
   knownCreatureResources: [CreatureType, ResourceType][];
+  knownResources?: ResourceType[];
   lastActiveCreature?: CreatureType;
 };
 
@@ -17,6 +18,7 @@ const DEFAULT_STATE: State = {
   resources: [],
   knownCreatureTypes: [],
   knownCreatureResources: [],
+  knownResources: [],
   lastActiveCreature: undefined,
 };
 
@@ -70,31 +72,31 @@ export class GameStore {
     }
   }
 
-  // removeResources(resourcesToRemove: Resource[]) {
-  // const typesToRemove: ResourceType[] = [];
-  // for (const resourceToRemove of resourcesToRemove) {
-  //   const index = this.state.resources.findIndex((resource) => {
-  //     return resource.type === resourceToRemove.type;
-  //   });
-  //   if (index >= 0) {
-  //     this.state.resources[index] = new Resource({
-  //       type: resourceToRemove.type,
-  //       amount: this.state.resources[index].amount - resourceToRemove.amount,
-  //     });
-  //   } else {
-  //     throw new Error('Can not remove a resource that does not exist');
-  //   }
-  //   if (this.state.resources[index].amount < 0) {
-  //     throw new Error('Can not be negative');
-  //   }
-  //   if (this.state.resources[index].amount === 0) {
-  //     typesToRemove.push(resourceToRemove.type);
-  //   }
-  // }
-  // this.state.resources = this.state.resources.filter((resource) => {
-  //   return !typesToRemove.includes(resource.type);
-  // });
-  // }
+  removeResources(resourcesToRemove: Resource[]) {
+    const typesToRemove: ResourceType[] = [];
+    for (const resourceToRemove of resourcesToRemove) {
+      // const index = this.state.resources.findIndex((resource) => {
+      //   return resource.type === resourceToRemove.type;
+      // });
+      // if (index >= 0) {
+      //   this.state.resources[index] = new Resource({
+      //     type: resourceToRemove.type,
+      //     amount: this.state.resources[index].amount - resourceToRemove.amount,
+      //   });
+      // } else {
+      //   throw new Error('Can not remove a resource that does not exist');
+      // }
+      // if (this.state.resources[index].amount < 0) {
+      //   throw new Error('Can not be negative');
+      // }
+      // if (this.state.resources[index].amount === 0) {
+      //   typesToRemove.push(resourceToRemove.type);
+      // }
+    }
+    // this.state.resources = this.state.resources.filter((resource) => {
+    //   return !typesToRemove.includes(resource.type);
+    // });
+  }
 
   hasResource(resourceType: ResourceType) {
     return this.state.resources.some((resource) => {
@@ -138,6 +140,7 @@ export class GameStore {
   }
 
   setCreatureKnown(creatureType: CreatureType) {
+    console.log('setCreatureKnown', creatureType);
     if (this.state.knownCreatureTypes.includes(creatureType)) {
       return;
     }
@@ -162,6 +165,19 @@ export class GameStore {
 
   getLastActiveCreature() {
     return this.state.lastActiveCreature;
+  }
+
+  isKnownResource(resourceType: ResourceType) {
+    return this.state.knownResources.includes(resourceType);
+  }
+
+  addKnownResources(resources: Resource[]) {
+    for (const resource of resources) {
+      if (this.isKnownResource(resource.type)) {
+        continue;
+      }
+      this.state.knownResources.push(resource.type);
+    }
   }
 
   reset() {

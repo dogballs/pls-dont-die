@@ -2,6 +2,8 @@ import { SceneRouter } from '../core';
 
 import { IntroScene } from './IntroScene';
 import { LevelScene } from './LevelScene';
+import { LevelSummonScene } from './LevelSummonScene';
+import { LevelSimulateScene } from './LevelSimulateScene';
 import { MainMenuScene } from './MainMenuScene';
 
 import { GameScene } from './GameScene';
@@ -14,6 +16,8 @@ export class GameSceneRouter extends SceneRouter<GameScene> {
 
     this.register(GameSceneType.Intro, IntroScene);
     this.register(GameSceneType.Level, LevelScene);
+    this.register(GameSceneType.LevelSummon, LevelSummonScene);
+    this.register(GameSceneType.LevelSimulate, LevelSimulateScene);
     this.register(GameSceneType.MainMenu, MainMenuScene);
   }
 }

@@ -1,8 +1,7 @@
 import { GameObject, RectPainter } from '../core';
 import { GameUpdateArgs } from '../game';
 
-import { ResourceList } from './ResourceList';
-import { Section } from './ui';
+import { ResourceList, Section } from './ui';
 
 export class Inventory extends GameObject {
   painter = new RectPainter({
@@ -12,14 +11,14 @@ export class Inventory extends GameObject {
   });
 
   constructor() {
-    super(200, 200);
+    super(266, 200);
   }
 
   protected setup({ gameStore }: GameUpdateArgs) {
     const section = new Section({
       width: this.size.width,
       height: this.size.height,
-      title: 'Discovered elements',
+      title: 'Inventory',
     });
     this.add(section);
 

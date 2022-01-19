@@ -7,6 +7,14 @@
     "file": "data/graphics/fish.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.dummyfish": {
+    "file": "data/graphics/dummyfish.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.scorporate": {
+    "file": "data/graphics/scorporate.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]
@@ -146,6 +154,18 @@
   "resource.unknown": {
     "file": "data/graphics/resources.png",
     "rect": [48, 0, 16, 16]
+  },
+  "resource.liquium": {
+    "file": "data/graphics/resources.png",
+    "rect": [64, 0, 16, 16]
+  },
+  "resource.sandium": {
+    "file": "data/graphics/resources.png",
+    "rect": [80, 0, 16, 16]
+  },
+  "resource.techium": {
+    "file": "data/graphics/resources.png",
+    "rect": [96, 0, 16, 16]
   },
   "env.desert": {
     "file": "data/graphics/env-sheet.png",

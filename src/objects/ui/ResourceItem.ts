@@ -4,12 +4,16 @@ import {
   SpritePainter,
   TextAlignment,
   TextPainter,
-} from '../core';
-import { GameUpdateArgs, ResourceType } from '../game';
+} from '../../core';
+import { GameUpdateArgs, ResourceType } from '../../game';
 
 const config = {
+  none: { title: 'No modifier', spriteId: null },
+  techium: { title: 'Techium', spriteId: 'resource.techium' },
   soulium: { title: 'Soulium', spriteId: 'resource.soulium' },
   dummium: { title: 'Dummium', spriteId: 'resource.dummium' },
+  liquium: { title: 'Liquium', spriteId: 'resource.liquium' },
+  sandium: { title: 'Sandium', spriteId: 'resource.sandium' },
   fishium: { title: 'Fishium', spriteId: 'resource.fishium' },
   unknown: { title: 'Undiscovered', spriteId: 'resource.unknown' },
 };
@@ -22,6 +26,7 @@ interface ResourceItemOptions {
   requiredColor?: string;
   sufficientColor?: string;
   isNew?: boolean;
+  iconRect?: Rect;
 }
 
 const DEFAULT_OPTIONS = {
@@ -31,6 +36,7 @@ const DEFAULT_OPTIONS = {
   requiredColor: '#f25555',
   sufficientColor: '#28fb28',
   isNew: false,
+  iconRect: new Rect(0, 0, 32, 32),
 };
 
 export class ResourceItem extends GameObject {
@@ -55,29 +61,46 @@ export class ResourceItem extends GameObject {
 
     const resource = config[type];
 
-    const icon = new GameObject(32, 32);
-    icon.painter = new SpritePainter(
-      spriteLoader.load(resource.spriteId, new Rect(0, 0, 32, 32)),
+    const icon = new GameObject(
+      this.options.iconRect.width,
+      this.options.iconRect.height,
     );
+    icon.position.setY((this.size.height - this.options.iconRect.height) / 2);
+    if (resource.spriteId) {
+      icon.painter = new SpritePainter(
+        spriteLoader.load(resource.spriteId, this.options.iconRect),
+      );
+    }
     this.add(icon);
 
     let text = resource.title;
     let color = defaultColor;
     if (type === 'unknown') {
       color = '#aeaeae';
+    } else if (type === 'none') {
     } else if (isNew) {
       text += ' (new)';
     } else if (amount !== undefined) {
       if (requiredAmount === undefined) {
-        // text += ` (${amount})`;
+        if (amount === Infinity) {
+          text += ' (∞)';
+        } else {
+          text += ` (${amount})`;
+          if (amount === 0) {
+            color = requiredColor;
+          }
+        }
       } else {
         // text += ` (${amount}/${requiredAmount})`;
         // if (requiredAmount > amount) {
-        if (amount === 0) {
-          text += ` (0/1)`;
+        if (amount === Infinity) {
+          text += ` (∞/${requiredAmount})`;
+          color = sufficientColor;
+        } else if (amount === 0) {
+          text += ` (${amount}/${requiredAmount})`;
           color = requiredColor;
         } else {
-          text += ` (1/1)`;
+          text += ` (${amount}/${requiredAmount})`;
           color = sufficientColor;
         }
       }
@@ -89,7 +112,7 @@ export class ResourceItem extends GameObject {
       color,
       alignment: TextAlignment.MiddleLeft,
     });
-    title.position.set(48, 0);
+    title.position.set(this.options.iconRect.width + 12, 0);
     this.add(title);
   }
 }

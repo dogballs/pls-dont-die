@@ -44,7 +44,8 @@ const updateArgs: GameUpdateArgs = {
 
 const sceneRouter = new GameSceneRouter();
 if (config.IS_DEV) {
-  sceneRouter.start(GameSceneType.Level);
+  // sceneRouter.start(GameSceneType.Level);
+  sceneRouter.start(GameSceneType.LevelSummon);
   // sceneRouter.start(GameSceneType.MainMenu);
   // sceneRouter.start(GameSceneType.Intro);
 } else {

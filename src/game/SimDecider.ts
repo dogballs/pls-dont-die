@@ -32,14 +32,32 @@ export class SimDecider {
   }
 
   static decideDummy(selection: Selection): Outcome {
-    if (selection.temp === 0 && selection.env === 'none') {
+    if (selection.temp > 0) {
+      return new Outcome('death', 'overheat', selection, [
+        new Resource({ type: 'techium', amount: 1 }),
+      ]);
+    }
+    if (selection.temp < 0) {
+      return new Outcome('death', 'hypothermia', selection, [
+        new Resource({ type: 'techium', amount: 1 }),
+      ]);
+    }
+    if (selection.env === 'none') {
       return new Outcome('alive', 'none', selection, [
         new Resource({ type: 'dummium', amount: 1 }),
       ]);
     }
-    return new Outcome('death', 'dummy_not_neutral', selection, [
-      new Resource({ type: 'soulium', amount: 1 }),
-    ]);
+    if (selection.env === 'underwater') {
+      return new Outcome('death', 'short_circuit', selection, [
+        new Resource({ type: 'liquium', amount: 1 }),
+      ]);
+    }
+    if (selection.env === 'desert') {
+      return new Outcome('death', 'stuck_mech', selection, [
+        new Resource({ type: 'sandium', amount: 1 }),
+      ]);
+    }
+    throw new Error(`Unexpected conditions for dummy`);
   }
 
   static decideFish(selection: Selection): Outcome {
