@@ -3,7 +3,7 @@ import { GameUpdateArgs, Resource, ResourceType } from '../game';
 
 import { ResourceSelector, Section } from './ui';
 
-const ESSENCE_LIST: ResourceType[] = ['dummium'];
+const ESSENCE_LIST: ResourceType[] = ['dummium', 'fishium'];
 
 export class EssenceSelector extends GameObject {
   constructor() {

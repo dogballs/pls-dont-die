@@ -9,8 +9,14 @@ export class SimDecider {
       case 'dummy':
         outcome = this.decideDummy(selection);
         break;
-      case 'fish':
-        outcome = this.decideFish(selection);
+      case 'dummyfish':
+        outcome = this.decideDummyfish(selection);
+        break;
+      case 'scorporate':
+        outcome = this.decideScorporate(selection);
+        break;
+      case 'fishy':
+        outcome = this.decideFisy(selection);
         break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
@@ -60,7 +66,44 @@ export class SimDecider {
     throw new Error(`Unexpected conditions for dummy`);
   }
 
-  static decideFish(selection: Selection): Outcome {
+  static decideDummyfish(selection: Selection): Outcome {
+    if (selection.env !== 'underwater') {
+      return new Outcome('death', 'dehydration', selection, [
+        new Resource({ type: 'techium', amount: 1 }),
+      ]);
+    }
+    if (selection.temp > -20) {
+      return new Outcome('death', 'overheat', selection, [
+        new Resource({ type: 'liquium', amount: 1 }),
+      ]);
+    }
+    return new Outcome('alive', 'none', selection, [
+      new Resource({ type: 'fishium', amount: 1 }),
+    ]);
+  }
+
+  static decideScorporate(selection: Selection): Outcome {
+    if (selection.env === 'none') {
+      return new Outcome('death', 'discomfort', selection, [
+        new Resource({ type: 'sandium', amount: 1 }),
+      ]);
+    }
+    if (selection.env === 'underwater') {
+      return new Outcome('death', 'drowning', selection, [
+        new Resource({ type: 'techium', amount: 1 }),
+      ]);
+    }
+    if (selection.temp < 20) {
+      return new Outcome('death', 'hypothermia', selection, [
+        new Resource({ type: 'sandium', amount: 1 }),
+      ]);
+    }
+    return new Outcome('alive', 'none', selection, [
+      new Resource({ type: 'arachium', amount: 1 }),
+    ]);
+  }
+
+  static decideFisy(selection: Selection): Outcome {
     if (selection.temp > 20 && selection.env === 'underwater') {
       return new Outcome('alive', 'none', selection, [
         new Resource({ type: 'fishium', amount: 1 }),

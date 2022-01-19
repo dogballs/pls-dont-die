@@ -12,8 +12,10 @@ export type ResourceType =
   | 'dummium'
   | 'soulium'
   | 'liquium'
+  | 'arachium'
   | 'sandium'
   | 'fishium';
+
 export class Resource {
   readonly type: ResourceType;
   readonly amount: number;
@@ -28,7 +30,7 @@ export class Resource {
   }
 }
 
-export type CreatureType = 'dummy' | 'dummyfish' | 'fish';
+export type CreatureType = 'dummy' | 'dummyfish' | 'scorporate' | 'fishy';
 
 export class Creature {
   readonly type: CreatureType;
@@ -128,6 +130,8 @@ export type DeathType =
   | 'stuck_mech'
   | 'overheat'
   | 'dehydration'
+  | 'drowning'
+  | 'discomfort'
   | 'hypothermia';
 
 export class Outcome {

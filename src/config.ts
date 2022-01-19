@@ -35,6 +35,7 @@ export const config = {
       droppedResources: [
         { type: 'fishium', amount: 1 },
         { type: 'liquium', amount: 1 },
+        { type: 'techium', amount: 1 },
       ],
     },
     scorporate: {
@@ -47,32 +48,31 @@ export const config = {
         { type: 'sandium', amount: 1 },
       ],
       droppedResources: [
-        // { type: 'scorpium', amount: 1 },
+        { type: 'arachium', amount: 1 },
         { type: 'sandium', amount: 1 },
+        { type: 'techium', amount: 1 },
       ],
     },
-    // dider: {},
-    // fish: {
-    //   type: 'fish',
-    //   name: 'Fish',
-    //   description: 'Regular chonky fish',
-    //   unknownName: 'Creature #3',
-    //   requiredResources: [
-    //     {
-    //       type: 'liquium',
-    //       amount: 1,
-    //     },
-    //     {
-    //       type: 'soulium',
-    //       amount: 1,
-    //     },
-    //   ],
-    //   droppedResources: [
-    //     { type: 'fishium', amount: 1 },
-    //     { type: 'liquium', amount: 1 },
-    //     { type: 'soulium', amount: 1 },
-    //   ],
-    // },
+    fishy: {
+      type: 'fishy',
+      name: 'Fishy',
+      description: 'Chonky water boy',
+      unknownName: 'Creature #3',
+      requiredResources: [
+        {
+          type: 'fishium',
+          amount: 1,
+        },
+        {
+          type: 'liquium',
+          amount: 1,
+        },
+      ],
+      droppedResources: [
+        { type: 'fishium', amount: 1 },
+        { type: 'liquium', amount: 1 },
+      ],
+    },
   },
   DEATH_REASONS: {
     dehydration: 'Dehydration (not enough water)',
@@ -80,5 +80,7 @@ export const config = {
     hypothermia: 'Hypothermia (too cold)',
     short_circuit: 'Short circuit (water in the system)',
     stuck_mech: 'Mechanisms stuck (sand in the system)',
+    drowning: 'Drowning (can not exist in water)',
+    discomfort: 'Discomfort (out of comfort zone)',
   },
 };

@@ -3,8 +3,8 @@
     "file": "data/graphics/dummy.png",
     "rect": [0, 0, 256, 256]
   },
-  "creature.fish": {
-    "file": "data/graphics/fish.png",
+  "creature.fishy": {
+    "file": "data/graphics/fishy.png",
     "rect": [0, 0, 256, 256]
   },
   "creature.dummyfish": {
@@ -166,6 +166,10 @@
   "resource.techium": {
     "file": "data/graphics/resources.png",
     "rect": [96, 0, 16, 16]
+  },
+  "resource.arachium": {
+    "file": "data/graphics/resources.png",
+    "rect": [112, 0, 16, 16]
   },
   "env.desert": {
     "file": "data/graphics/env-sheet.png",

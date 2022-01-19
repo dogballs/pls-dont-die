@@ -140,7 +140,6 @@ export class GameStore {
   }
 
   setCreatureKnown(creatureType: CreatureType) {
-    console.log('setCreatureKnown', creatureType);
     if (this.state.knownCreatureTypes.includes(creatureType)) {
       return;
     }

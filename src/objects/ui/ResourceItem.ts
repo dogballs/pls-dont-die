@@ -15,6 +15,7 @@ const config = {
   liquium: { title: 'Liquium', spriteId: 'resource.liquium' },
   sandium: { title: 'Sandium', spriteId: 'resource.sandium' },
   fishium: { title: 'Fishium', spriteId: 'resource.fishium' },
+  arachium: { title: 'Arachium', spriteId: 'resource.arachium' },
   unknown: { title: 'Undiscovered', spriteId: 'resource.unknown' },
 };
 
