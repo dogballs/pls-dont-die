@@ -49,13 +49,15 @@ export class LevelScene extends GameScene {
     cage.position.set(256, 64);
     this.root.add(cage);
 
-    const creaturePanel = new CreaturePanel(gameStore.getLastActiveCreature());
-    creaturePanel.position.set(0, 64);
-    this.root.add(creaturePanel);
-
-    // const inventory = new Inventory();
-    // inventory.position.set(700, 500);
-    // this.root.add(inventory);
+    if (
+      !['dummy_summon_live', 'dummy_lived', 'dummy_died'].includes(storyStep)
+    ) {
+      const creaturePanel = new CreaturePanel(
+        gameStore.getLastActiveCreature(),
+      );
+      creaturePanel.position.set(0, 64);
+      this.root.add(creaturePanel);
+    }
 
     const summonPanel = new SummonPanel(gameStore.getLastActiveCreature());
     summonPanel.position.set(756, 64);
@@ -121,18 +123,22 @@ export class LevelScene extends GameScene {
     this.gameStore.setLastActiveCreature(this.gameState.creature);
     this.gameStore.save();
 
-    const backButton = new IconTextButton({
-      iconType: 'arrow.left',
-      text: 'Back to summon',
-      activeTextColor: '#489880',
-      hoverTextColor: '#84d74b',
-    });
-    backButton.position.set(760, 74);
-    backButton.clicked.addListenerOnce(() => {
-      this.root.remove(this.spiritResources);
-      this.navigator.replace(GameSceneType.Level);
-    });
-    this.root.add(backButton);
+    const storyStep = this.gameStore.getStoryStep();
+
+    if (!['dummy_summon_live', 'dummy_lived'].includes(storyStep)) {
+      const backButton = new IconTextButton({
+        iconType: 'arrow.left',
+        text: 'Back to summon',
+        activeTextColor: '#489880',
+        hoverTextColor: '#84d74b',
+      });
+      backButton.position.set(760, 74);
+      backButton.clicked.addListenerOnce(() => {
+        this.root.remove(this.spiritResources);
+        this.navigator.replace(GameSceneType.Level);
+      });
+      this.root.add(backButton);
+    }
 
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(756, 64);
@@ -246,6 +252,7 @@ export class LevelScene extends GameScene {
     this.showTalkModal('doctor', TalkLines.dummyDied(), () => {
       this.gameStore.setStoryStep('first_act');
       this.gameStore.save();
+      this.navigator.push(GameSceneType.Level);
     });
   }
 

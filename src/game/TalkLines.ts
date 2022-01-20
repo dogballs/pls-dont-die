@@ -2,7 +2,11 @@ export class TalkLines {
   static dummySummonToLive() {
     const messages: string[][] = [];
     messages.push(['Here is the device assigned to you.']);
-    messages.push(["Let's try it out on a dummy first. Go on and summon it!"]);
+    messages.push([
+      'To summon a creature you need to create a',
+      'reaction between two elements.',
+    ]);
+    messages.push(["Let's run our reactor using stock elements!"]);
     return messages;
   }
 
@@ -56,11 +60,13 @@ export class TalkLines {
       "But don't worry, they ... don't actualy die.",
       "It's just a simulation ... ahem ...",
     ]);
+    messages.push(['... Well, the onboarding is pretty much done.']);
+    messages.push(['You can use new elements to summon new creatues!']);
     messages.push([
-      '... Well, the onboarding is pretty much done.',
-      'You now have access to new creatures.',
+      "And don't forget to occasionaly check the",
+      'database to track you progress.',
     ]);
-    messages.push(['Good luck with your simluations!']);
+    messages.push(['Good luck!']);
     return messages;
   }
 

@@ -29,7 +29,10 @@ export class TalkModal extends Modal {
 
     const avatar = new GameObject(128, 128);
     avatar.painter = new SpritePainter(
-      updateArgs.spriteLoader.load('doctor', new Rect(0, 0, 128, 128)),
+      updateArgs.spriteLoader.load(
+        `avatar.${this.avatar}`,
+        new Rect(0, 0, 128, 128),
+      ),
     );
     avatar.position.set(32, 32);
     this.add(avatar);
