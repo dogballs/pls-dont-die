@@ -15,6 +15,10 @@
     "file": "data/graphics/scorporate.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.wasp": {
+    "file": "data/graphics/wasp.png",
+    "rect": [0, 0, 256, 256]
+  },
   "creature.spirit": {
     "file": "data/graphics/spirit.png",
     "rect": [0, 0, 256, 256]

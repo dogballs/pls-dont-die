@@ -31,18 +31,15 @@ const DEFAULT_STATE: State = {
 const PRESETS = {
   after_tutorial: {
     hasSavedGame: true,
-    storyStep: 'first_act',
-    resources: [
-      new Resource({ type: 'dummium', amount: 1 }),
-      new Resource({ type: 'soulium', amount: 1 }),
-    ],
-    knownCreatureTypes: ['dummy'],
-    knownCreatureResourceDrops: [
-      ['dummy', 'dummium'],
-      ['dummy', 'soulium'],
-    ],
+    storyStep: 'spirit_first_encounter',
+    resources: [],
+    knownCreatureTypes: [],
+    knownCreatureResourceDrops: [],
     knownCreatureResourceReqs: [],
+    knownResources: [],
     lastActiveCreature: undefined,
+    lastActiveEssence: undefined,
+    lastActiveModifier: undefined,
   } as State,
 };
 

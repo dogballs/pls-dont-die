@@ -22,14 +22,20 @@ export class TalkLines {
     const messages: string[][] = [];
     messages.push(['...']);
     messages.push([
-      'You must extract my soul and',
-      'combine it with all of the elements',
+      'You must extract my soul and combine',
+      'it with all of the spirit elements',
     ]);
     messages.push([
       'It will destroy the harvesting device',
-      'and free out world from the terror',
+      'and free our world from the terror',
     ]);
     messages.push(['Help us!']);
+    return messages;
+  }
+
+  static spiritFourth() {
+    const messages: string[][] = [];
+    messages.push(['You must combine my soul with the spirit elements!']);
     return messages;
   }
 

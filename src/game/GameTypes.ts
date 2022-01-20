@@ -3,7 +3,10 @@ export type StoryStep =
   | 'dummy_summon_live'
   | 'dummy_lived'
   | 'dummy_died'
-  | 'first_act';
+  | 'spirit_first_encounter'
+  | 'spirit_second_encounter'
+  | 'spirit_third_encounter'
+  | 'spirit_fourth_encounter';
 
 export type ResourceType =
   | 'none'

@@ -97,9 +97,15 @@ export class LevelScene extends GameScene {
     this.root.add(creatureObject);
 
     if (creatureType === 'spirit') {
-      this.spiritResources = new SpiritResources();
-      this.spiritResources.position.set(450, 150);
-      this.root.add(this.spiritResources);
+      const storyStep = this.gameStore.getStoryStep();
+      if (storyStep === 'spirit_fourth_encounter') {
+        this.spiritResources = new SpiritResources();
+        this.spiritResources.position.set(450, 150);
+        this.root.add(this.spiritResources);
+        this.showTalkModal('spirit', TalkLines.spiritFourth());
+      }
+
+      this.showSpiritEncounter();
     }
   }
 
@@ -143,6 +149,10 @@ export class LevelScene extends GameScene {
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(756, 64);
     this.controlPanel.simulated.addListener(() => {
+      if (!this.showSpiritEncounter()) {
+        return;
+      }
+
       this.root.remove(this.spiritResources);
       this.simulate();
     });
@@ -250,7 +260,7 @@ export class LevelScene extends GameScene {
 
   private showDoctorDummyDied() {
     this.showTalkModal('doctor', TalkLines.dummyDied(), () => {
-      this.gameStore.setStoryStep('first_act');
+      this.gameStore.setStoryStep('spirit_first_encounter');
       this.gameStore.save();
       this.navigator.push(GameSceneType.Level);
     });
@@ -258,6 +268,35 @@ export class LevelScene extends GameScene {
 
   private showDoctorDummyShouldNotDefault() {
     this.showTalkModal('doctor', TalkLines.dummyShouldNotDefault());
+  }
+
+  private showSpiritEncounter() {
+    if (this.gameState.creature !== 'spirit') {
+      return true;
+    }
+
+    const storyStep = this.gameStore.getStoryStep();
+
+    if (storyStep === 'spirit_first_encounter') {
+      this.showTalkModal('spirit', TalkLines.spiritFirst(), () => {
+        this.gameStore.setStoryStep('spirit_second_encounter');
+        this.gameStore.save();
+      });
+      return false;
+    } else if (storyStep === 'spirit_second_encounter') {
+      this.showTalkModal('spirit', TalkLines.spiritSecond(), () => {
+        this.gameStore.setStoryStep('spirit_third_encounter');
+        this.gameStore.save();
+      });
+      return false;
+    } else if (storyStep === 'spirit_third_encounter') {
+      this.showTalkModal('spirit', TalkLines.spiritThird(), () => {
+        this.gameStore.setStoryStep('spirit_fourth_encounter');
+        this.gameStore.save();
+      });
+      return false;
+    }
+    return true;
   }
 
   private showTalkModal(
