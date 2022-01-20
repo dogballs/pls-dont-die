@@ -23,8 +23,8 @@ export class EnvSelector extends GameObject {
     super(256, 78);
   }
 
-  setDisabled() {
-    this.selector.setDisabled();
+  setDisabled(disabled) {
+    this.selector.setDisabled(disabled);
   }
 
   protected setup() {

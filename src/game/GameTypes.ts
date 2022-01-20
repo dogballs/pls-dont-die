@@ -8,6 +8,17 @@ export type StoryStep =
   | 'spirit_third_encounter'
   | 'spirit_fourth_encounter';
 
+export class StoryCheck {
+  static isAfterTutorial(storyStep: StoryStep) {
+    return [
+      'spirit_first_encounter',
+      'spirit_second_encounter',
+      'spirit_third_encounter',
+      'spirit_fourth_encounter',
+    ].includes(storyStep);
+  }
+}
+
 export type ResourceType =
   | 'none'
   | 'unknown'

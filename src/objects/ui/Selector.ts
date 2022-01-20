@@ -44,9 +44,9 @@ export class Selector<ChoiceValue> extends GameObject {
     this.updateLabelText();
   }
 
-  setDisabled() {
-    this.arrowLeft.setDisabled(true);
-    this.arrowRight.setDisabled(true);
+  setDisabled(disabled) {
+    this.arrowLeft.setDisabled(disabled);
+    this.arrowRight.setDisabled(disabled);
   }
 
   select(value: ChoiceValue) {

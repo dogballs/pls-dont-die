@@ -34,6 +34,7 @@ export class LevelScene extends GameScene {
   private gameState: GameState;
   private gameStore: GameStore;
 
+  private backButton: IconTextButton;
   private controlPanel: ControlPanel;
   private creatureSelector: CreatureSelector;
   private inventory: Inventory;
@@ -132,18 +133,18 @@ export class LevelScene extends GameScene {
     const storyStep = this.gameStore.getStoryStep();
 
     if (!['dummy_summon_live', 'dummy_lived'].includes(storyStep)) {
-      const backButton = new IconTextButton({
+      this.backButton = new IconTextButton({
         iconType: 'arrow.left',
         text: 'Back to summon',
         activeTextColor: '#489880',
         hoverTextColor: '#84d74b',
       });
-      backButton.position.set(760, 74);
-      backButton.clicked.addListenerOnce(() => {
+      this.backButton.position.set(760, 74);
+      this.backButton.clicked.addListenerOnce(() => {
         this.root.remove(this.spiritResources);
         this.navigator.replace(GameSceneType.Level);
       });
-      this.root.add(backButton);
+      this.root.add(this.backButton);
     }
 
     this.controlPanel = new ControlPanel();
@@ -175,7 +176,9 @@ export class LevelScene extends GameScene {
         return;
       }
     }
-    this.controlPanel.setDisabled();
+    this.controlPanel.setDisabled(true);
+    this.backButton.setDisabled(true);
+
     const simulation = new Simulation();
     simulation.position.set(256, 64);
     simulation.completed.addListener(() => {
@@ -233,7 +236,7 @@ export class LevelScene extends GameScene {
     modal.updateMatrix();
     modal.setCenter(this.root.getSelfCenter());
     modal.updateMatrix();
-    modal.closed.addListener(() => {
+    modal.accepted.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
 
@@ -243,6 +246,19 @@ export class LevelScene extends GameScene {
       this.gameStore.save();
       this.navigator.replace(GameSceneType.Level);
     });
+    modal.backed.addListener(() => {
+      this.gameState.resetSelection();
+      this.gameStore.addResources(outcome.resources);
+      this.gameStore.save();
+      this.navigator.replace(GameSceneType.Level);
+    });
+    modal.retried.addListener(() => {
+      this.controlPanel.setDisabled(false);
+      this.backButton.setDisabled(false);
+      this.gameStore.addResources(outcome.resources);
+      this.gameStore.save();
+    });
+
     this.root.add(modal);
   };
 

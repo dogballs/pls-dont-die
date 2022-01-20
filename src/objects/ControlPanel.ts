@@ -18,10 +18,10 @@ export class ControlPanel extends GameObject {
     super(266, 256);
   }
 
-  setDisabled() {
-    this.simulateButton.setDisabled(true);
-    this.envSelector.setDisabled();
-    this.tempSelector.setDisabled();
+  setDisabled(disabled) {
+    this.simulateButton.setDisabled(disabled);
+    this.envSelector.setDisabled(disabled);
+    this.tempSelector.setDisabled(disabled);
   }
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
