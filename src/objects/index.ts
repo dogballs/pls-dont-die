@@ -12,5 +12,6 @@ export * from './Inventory';
 export * from './Sidebar';
 export * from './Simulation';
 export * from './SimulateButton';
+export * from './SpiritResources';
 export * from './SummonPanel';
 export * from './Summoning';

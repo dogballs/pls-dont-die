@@ -2,6 +2,7 @@
 - more conditions
 - add story
 - try simulation again without resummoning
+- preselect what was last summoned
 
 builds:
 
@@ -21,21 +22,21 @@ wasp: windium (modifier)
 smake: reptilium (essence)
 tormented spirit: soulium (essence)
 
-soulium + techium -> tormented spirit (soulium)
-soulium + liqium -> tormented spirit (soulium)
-soulium + sandium -> tormented spirit (soulium)
-soulium + windium -> tormented spirit (soulium)
+soulium + techium -> tormented spirit (soulium) +
+soulium + liqium -> tormented spirit (soulium) +
+soulium + sandium -> tormented spirit (soulium) +
+soulium + windium -> tormented spirit (soulium) +
 
 <!-- soulium + flamium -> tormented spirit (soulium) -->
 
-fishium + techium -> tormented spirit (soulium)
+fishium + techium -> tormented spirit (soulium) +
 fishium + liquium -> fish +
 fishium + sandium -> dragon (flamium)
 
 <!-- fishium + windium -> ? seagull carying a fish -->
 <!-- fishium + flamium -> ? fish stake -->
 
-arachium + techium -> tormented spirit (soulium)
+arachium + techium -> tormented spirit (soulium) +
 arachium + liquium -> snake (reptilium)
 arachium + sandium -> wasp (windium) +
 

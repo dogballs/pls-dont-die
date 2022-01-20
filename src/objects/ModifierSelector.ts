@@ -11,7 +11,7 @@ const MODIFIER_LIST: ResourceType[] = [
 ];
 
 export class ModifierSelector extends GameObject {
-  constructor() {
+  constructor(private readonly defaultValue: ResourceType = undefined) {
     super(256, 78);
   }
 
@@ -41,7 +41,9 @@ export class ModifierSelector extends GameObject {
       });
     });
 
-    const selector = new ResourceSelector(resources);
+    const selector = new ResourceSelector(resources, {
+      defaultValue: this.defaultValue,
+    });
     selector.position.set(0, 36);
     selector.changed.addListener((modifier) => {
       gameState.setModifier(modifier);

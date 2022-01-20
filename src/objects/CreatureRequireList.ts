@@ -70,7 +70,13 @@ export class CreatureRequireList extends GameObject {
         throw new Error(`Should be pairs for "${creatureType}"`);
       }
 
-      if (!gameStore.isKnownCreature(creatureType)) {
+      if (
+        !gameStore.isKnownReqPairForCreature(
+          creatureType,
+          resources[0].type,
+          resources[1].type,
+        )
+      ) {
         return [Resource.createUnknown(), Resource.createUnknown()];
       }
 

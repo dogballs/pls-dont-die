@@ -30,7 +30,13 @@ export class Resource {
   }
 }
 
-export type CreatureType = 'dummy' | 'dummyfish' | 'scorporate' | 'fishy';
+export type CreatureType =
+  | 'dummy'
+  | 'dummyfish'
+  | 'scorporate'
+  | 'fishy'
+  | 'wasp'
+  | 'spirit';
 
 export class Creature {
   readonly type: CreatureType;

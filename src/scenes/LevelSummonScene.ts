@@ -10,6 +10,7 @@ import {
   IconTextButton,
   Inventory,
   Simulation,
+  SpiritResources,
   SummonPanel,
   Summoning,
 } from '../objects';
@@ -36,6 +37,7 @@ export class LevelSummonScene extends GameScene {
   private controlPanel: ControlPanel;
   private creatureSelector: CreatureSelector;
   private inventory: Inventory;
+  private spiritResources: SpiritResources;
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
     this.gameState = gameState;
@@ -78,15 +80,25 @@ export class LevelSummonScene extends GameScene {
       this.gameState.modifier,
     );
 
-    const creatureObject = new CreatureObject(creatureType);
-
     this.gameState.setDatabaseCreature(creatureType);
     this.gameState.setCreature(creatureType);
     this.gameStore.setCreatureKnown(creatureType);
+    this.gameStore.addKnownReqPairForCreature(
+      creatureType,
+      this.gameState.essence,
+      this.gameState.modifier,
+    );
     this.gameStore.save();
 
+    const creatureObject = new CreatureObject(creatureType);
     creatureObject.position.set(256, 64);
     this.root.add(creatureObject);
+
+    if (creatureType === 'spirit') {
+      this.spiritResources = new SpiritResources();
+      this.spiritResources.position.set(450, 150);
+      this.root.add(this.spiritResources);
+    }
   }
 
   private handleSummonClick = () => {
@@ -104,6 +116,8 @@ export class LevelSummonScene extends GameScene {
   };
 
   private handleSummoned = () => {
+    this.gameStore.setLastActiveEssence(this.gameState.essence);
+    this.gameStore.setLastActiveModifier(this.gameState.modifier);
     this.gameStore.setLastActiveCreature(this.gameState.creature);
     this.gameStore.save();
 
@@ -115,6 +129,7 @@ export class LevelSummonScene extends GameScene {
     });
     backButton.position.set(760, 74);
     backButton.clicked.addListenerOnce(() => {
+      this.root.remove(this.spiritResources);
       this.navigator.replace(GameSceneType.LevelSummon);
     });
     this.root.add(backButton);
@@ -122,6 +137,7 @@ export class LevelSummonScene extends GameScene {
     this.controlPanel = new ControlPanel();
     this.controlPanel.position.set(756, 64);
     this.controlPanel.simulated.addListener(() => {
+      this.root.remove(this.spiritResources);
       this.simulate();
     });
     this.root.add(this.controlPanel);

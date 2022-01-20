@@ -14,7 +14,7 @@ export class SummonPanel extends GameObject {
     super(266, 270);
   }
 
-  protected setup({ gameState, gameStore }: GameUpdateArgs) {
+  protected setup({ gameStore }: GameUpdateArgs) {
     const section = new Section({
       height: this.size.height,
       width: this.size.width,
@@ -33,11 +33,15 @@ export class SummonPanel extends GameObject {
     description.position.set(12, 62);
     this.add(description);
 
-    const essenceSelector = new EssenceSelector();
+    const essenceSelector = new EssenceSelector(
+      gameStore.getLastActiveEssence(),
+    );
     essenceSelector.position.set(5, 90);
     this.add(essenceSelector);
 
-    const modifierSelector = new ModifierSelector();
+    const modifierSelector = new ModifierSelector(
+      gameStore.getLastActiveModifier(),
+    );
     modifierSelector.position.set(5, 180);
     this.add(modifierSelector);
 

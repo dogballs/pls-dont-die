@@ -11,6 +11,8 @@ type State = {
   knownCreatureResourceReqs: [CreatureType, ResourceType, ResourceType][];
   knownResources?: ResourceType[];
   lastActiveCreature?: CreatureType;
+  lastActiveEssence?: ResourceType;
+  lastActiveModifier?: ResourceType;
 };
 
 const DEFAULT_STATE: State = {
@@ -22,6 +24,8 @@ const DEFAULT_STATE: State = {
   knownCreatureResourceReqs: [],
   knownResources: [],
   lastActiveCreature: undefined,
+  lastActiveEssence: undefined,
+  lastActiveModifier: undefined,
 };
 
 const PRESETS = {
@@ -200,6 +204,22 @@ export class GameStore {
 
   getLastActiveCreature() {
     return this.state.lastActiveCreature;
+  }
+
+  setLastActiveEssence(essence: ResourceType) {
+    this.state.lastActiveEssence = essence;
+  }
+
+  getLastActiveEssence() {
+    return this.state.lastActiveEssence;
+  }
+
+  setLastActiveModifier(modifier: ResourceType) {
+    this.state.lastActiveModifier = modifier;
+  }
+
+  getLastActiveModifier() {
+    return this.state.lastActiveModifier;
   }
 
   isKnownResource(resourceType: ResourceType) {

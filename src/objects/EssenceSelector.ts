@@ -6,7 +6,7 @@ import { ResourceSelector, Section } from './ui';
 const ESSENCE_LIST: ResourceType[] = ['dummium', 'fishium', 'arachium'];
 
 export class EssenceSelector extends GameObject {
-  constructor() {
+  constructor(private readonly defaultValue: ResourceType = undefined) {
     super(256, 78);
   }
 
@@ -37,6 +37,7 @@ export class EssenceSelector extends GameObject {
     });
 
     const selector = new ResourceSelector(resources, {
+      defaultValue: this.defaultValue,
       getRequiredAmount: () => 1,
     });
     selector.position.set(0, 36);
