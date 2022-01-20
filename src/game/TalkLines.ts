@@ -1,4 +1,38 @@
 export class TalkLines {
+  static spiritFirst() {
+    const messages: string[][] = [];
+    messages.push(['.......................']);
+    messages.push(['Hom many times do we have to ask you...']);
+    messages.push(['You are abducting and killing us!']);
+    messages.push(['It has to stop!']);
+    return messages;
+  }
+
+  static spiritSecond() {
+    const messages: string[][] = [];
+    messages.push(['......']);
+    messages.push(["I don't recognize you, you must be new."]);
+    messages.push(["Don't listen to what they have told you."]);
+    messages.push(['This device of yours is actually killing us.']);
+    messages.push(['You have to help us!']);
+    return messages;
+  }
+
+  static spiritThird() {
+    const messages: string[][] = [];
+    messages.push(['...']);
+    messages.push([
+      'You must extract my soul and',
+      'combine it with all of the elements',
+    ]);
+    messages.push([
+      'It will destroy the harvesting device',
+      'and free out world from the terror',
+    ]);
+    messages.push(['Help us!']);
+    return messages;
+  }
+
   static dummySummonToLive() {
     const messages: string[][] = [];
     messages.push(['Here is the device assigned to you.']);
