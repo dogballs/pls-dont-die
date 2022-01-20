@@ -3,7 +3,7 @@ import { GameUpdateArgs } from '../game';
 
 import { IconTextButton, Modal, MultilineText } from './ui';
 
-export class DoctorModal extends Modal {
+export class TalkModal extends Modal {
   private messageIndex = 0;
   private text: MultilineText;
   private counter: GameObject;
@@ -12,6 +12,7 @@ export class DoctorModal extends Modal {
 
   constructor(
     private readonly messages: string[][],
+    private readonly avatar: 'doctor' | 'spirit' = 'doctor',
     private readonly mode: 'full' | 'compact' = 'full',
   ) {
     super({

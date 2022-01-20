@@ -6,7 +6,7 @@ import {
   CreatureSelector,
   ControlPanel,
   DeathModal,
-  DoctorModal,
+  TalkModal,
   IconTextButton,
   Inventory,
   Simulation,
@@ -16,7 +16,7 @@ import {
 } from '../objects';
 import {
   Creature,
-  DoctorLines,
+  TalkLines,
   GameState,
   GameStore,
   GameUpdateArgs,
@@ -231,30 +231,34 @@ export class LevelSummonScene extends GameScene {
   };
 
   private showDoctorDummySummonToLive() {
-    this.showDoctorModal(DoctorLines.dummySummonToLive());
+    this.showTalkModal('doctor', TalkLines.dummySummonToLive());
   }
 
   private showDoctorDummySimulateToLive() {
-    this.showDoctorModal(DoctorLines.dummySimulateToLive());
+    this.showTalkModal('doctor', TalkLines.dummySimulateToLive());
   }
 
   private showDoctorDummyLivedAndSummonToDie() {
-    this.showDoctorModal(DoctorLines.dummyLivedAndSummonToDie());
+    this.showTalkModal('doctor', TalkLines.dummyLivedAndSummonToDie());
   }
 
   private showDoctorDummyDied() {
-    this.showDoctorModal(DoctorLines.dummyDied(), () => {
+    this.showTalkModal('doctor', TalkLines.dummyDied(), () => {
       this.gameStore.setStoryStep('first_act');
       this.gameStore.save();
     });
   }
 
   private showDoctorDummyShouldNotDefault() {
-    this.showDoctorModal(DoctorLines.dummyShouldNotDefault());
+    this.showTalkModal('doctor', TalkLines.dummyShouldNotDefault());
   }
 
-  private showDoctorModal(messages: string[][], onClose?: () => void) {
-    const doctorModal = new DoctorModal(messages, 'compact');
+  private showTalkModal(
+    avatar: 'doctor' | 'spirit',
+    messages: string[][],
+    onClose?: () => void,
+  ) {
+    const doctorModal = new TalkModal(messages, avatar, 'compact');
     doctorModal.updateMatrix();
     doctorModal.setCenter(this.root.getSelfCenter());
     doctorModal.position.setY(512);

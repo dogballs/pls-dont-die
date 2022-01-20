@@ -1,5 +1,5 @@
 import { GameUpdateArgs } from '../game';
-import { DoctorModal } from '../objects';
+import { TalkModal } from '../objects';
 
 import { GameSceneType } from './GameSceneType';
 import { GameScene } from './GameScene';
@@ -31,7 +31,7 @@ messages.push(["... Enough of this boring talk, let's try this in action!"]);
 
 export class IntroScene extends GameScene {
   protected setup({ gameStore }: GameUpdateArgs) {
-    const doctorModal = new DoctorModal(messages);
+    const doctorModal = new TalkModal(messages);
     doctorModal.updateMatrix();
     doctorModal.setCenter(this.root.getSelfCenter());
     doctorModal.closed.addListener(() => {

@@ -5,7 +5,7 @@ import {
   CreatureSelector,
   ControlPanel,
   DeathModal,
-  DoctorModal,
+  TalkModal,
   IconTextButton,
   Inventory,
   Sidebar,
@@ -243,7 +243,7 @@ export class LevelScene extends GameScene {
   }
 
   private showDoctorModal(messages: string[][], onClose?: () => void) {
-    const doctorModal = new DoctorModal(messages, 'compact');
+    const doctorModal = new TalkModal(messages, 'doctor', 'compact');
     doctorModal.updateMatrix();
     doctorModal.setCenter(this.root.getSelfCenter());
     doctorModal.position.setY(512);

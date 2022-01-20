@@ -283,8 +283,12 @@
     "file": "data/graphics/summon-sheet.png",
     "rect": [3584, 0, 256, 256]
   },
-  "doctor": {
+  "avatar.doctor": {
     "file": "data/graphics/doctor.png",
+    "rect": [0, 0, 64, 64]
+  },
+  "avatar.spirit": {
+    "file": "data/graphics/spirit-avatar.png",
     "rect": [0, 0, 64, 64]
   },
   "scan.1": {
