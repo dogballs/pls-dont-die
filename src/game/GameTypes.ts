@@ -37,7 +37,7 @@ export class Creature {
   readonly name: string;
   readonly unknownName: string;
   readonly description: string;
-  readonly requiredResources: Resource[];
+  readonly requiredResourceGroups: Resource[][];
   readonly droppedResources: Resource[];
 
   constructor(params: {
@@ -45,34 +45,36 @@ export class Creature {
     name: string;
     unknownName: string;
     description: string;
-    requiredResources: Resource[];
+    requiredResourceGroups: Resource[][];
     droppedResources: Resource[];
   }) {
     Object.assign(
       this,
       {
         description: '',
-        requiredResources: [],
+        requiredResourceGroups: [],
         droppedResources: [],
       },
       params,
     );
   }
 
-  getRequiredAmountFor(resourceType: ResourceType) {
-    const resource = this.requiredResources.find(
-      (resource) => resource.type === resourceType,
-    );
-    if (!resource) {
-      return 0;
-    }
-    return resource.amount;
-  }
+  // getRequiredAmountFor(resourceType: ResourceType) {
+  //   const resource = this.requiredResources.find(
+  //     (resource) => resource.type === resourceType,
+  //   );
+  //   if (!resource) {
+  //     return 0;
+  //   }
+  //   return resource.amount;
+  // }
 
   static fromConfig(creatureConfig) {
-    const requiredResources = creatureConfig.requiredResources.map(
-      (resourceConfig) => {
-        return new Resource(resourceConfig);
+    const requiredResourceGroups = creatureConfig.requiredResourceGroups.map(
+      (groupConfig) => {
+        return groupConfig.map((resourceConfig) => {
+          return new Resource(resourceConfig);
+        });
       },
     );
 
@@ -87,7 +89,7 @@ export class Creature {
       name: creatureConfig.name,
       unknownName: creatureConfig.unknownName,
       description: creatureConfig.description,
-      requiredResources,
+      requiredResourceGroups,
       droppedResources,
     });
 

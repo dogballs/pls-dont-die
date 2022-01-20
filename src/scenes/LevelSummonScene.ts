@@ -157,7 +157,7 @@ export class LevelSummonScene extends GameScene {
     const creatureConfig = config.CREATURES[selection.creature];
     const creature = Creature.fromConfig(creatureConfig);
 
-    this.gameStore.removeResources(creature.requiredResources);
+    // this.gameStore.removeResources(creature.requiredResources);
 
     const outcome = SimDecider.decide(selection);
     if (outcome.status === 'alive') {
@@ -169,7 +169,7 @@ export class LevelSummonScene extends GameScene {
 
   private handleAlive = (outcome: Outcome) => {
     this.gameStore.addKnownResources(outcome.resources);
-    this.gameStore.addKnownResourcesForCreature(
+    this.gameStore.addKnownDropsForCreature(
       outcome.selection.creature,
       outcome.resources,
     );
@@ -192,7 +192,7 @@ export class LevelSummonScene extends GameScene {
 
   private handleDeath = (outcome: Outcome) => {
     this.gameStore.addKnownResources(outcome.resources);
-    this.gameStore.addKnownResourcesForCreature(
+    this.gameStore.addKnownDropsForCreature(
       outcome.selection.creature,
       outcome.resources,
     );

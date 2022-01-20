@@ -12,9 +12,11 @@ export const config = {
       name: 'Dummy',
       description: 'Lab test dummy',
       unknownName: 'Creature #0',
-      requiredResources: [
-        { type: 'dummium', amount: 1 },
-        { type: 'techium', amount: 1 },
+      requiredResourceGroups: [
+        [
+          { type: 'dummium', amount: 1 },
+          { type: 'techium', amount: 1 },
+        ],
       ],
       droppedResources: [
         { type: 'dummium', amount: 1 },
@@ -28,9 +30,11 @@ export const config = {
       name: 'Dummyfish',
       description: 'Jealous ocean waste',
       unknownName: 'Creature #1',
-      requiredResources: [
-        { type: 'dummium', amount: 1 },
-        { type: 'liquium', amount: 1 },
+      requiredResourceGroups: [
+        [
+          { type: 'dummium', amount: 1 },
+          { type: 'liquium', amount: 1 },
+        ],
       ],
       droppedResources: [
         { type: 'fishium', amount: 1 },
@@ -43,9 +47,11 @@ export const config = {
       name: 'Scorporate',
       description: 'Toxic manager',
       unknownName: 'Creature #2',
-      requiredResources: [
-        { type: 'dummium', amount: 1 },
-        { type: 'sandium', amount: 1 },
+      requiredResourceGroups: [
+        [
+          { type: 'dummium', amount: 1 },
+          { type: 'sandium', amount: 1 },
+        ],
       ],
       droppedResources: [
         { type: 'arachium', amount: 1 },
@@ -58,20 +64,62 @@ export const config = {
       name: 'Fishy',
       description: 'Chonky water boy',
       unknownName: 'Creature #3',
-      requiredResources: [
-        {
-          type: 'fishium',
-          amount: 1,
-        },
-        {
-          type: 'liquium',
-          amount: 1,
-        },
+      requiredResourceGroups: [
+        [
+          { type: 'fishium', amount: 1 },
+          { type: 'liquium', amount: 1 },
+        ],
       ],
       droppedResources: [
         { type: 'fishium', amount: 1 },
         { type: 'liquium', amount: 1 },
       ],
+    },
+    wasp: {
+      type: 'wasp',
+      name: 'Wasper',
+      description: 'Get away from me',
+      unknownName: 'Creature #4',
+      requiredResourceGroups: [
+        [
+          { type: 'arachium', amount: 1 },
+          { type: 'sandium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'arachium', amount: 1 },
+        { type: 'windium', amount: 1 },
+      ],
+    },
+    spirit: {
+      type: 'spirit',
+      name: 'Spirit',
+      description: 'Tormented soul',
+      unknownName: 'Creature X',
+      requiredResourceGroups: [
+        [
+          { type: 'fishium', amount: 1 },
+          { type: 'techium', amount: 1 },
+        ],
+        [
+          { type: 'arachium', amount: 1 },
+          { type: 'techium', amount: 1 },
+        ],
+        [
+          { type: 'soulium', amount: 1 },
+          { type: 'techium', amount: 1 },
+        ],
+        [
+          { type: 'soulium', amount: 1 },
+          { type: 'liquium', amount: 1 },
+        ],
+        [
+          { type: 'soulium', amount: 1 },
+          { type: 'sandium', amount: 1 },
+        ],
+        // TODO: add windium and flamium
+      ],
+      droppedResources: [{ type: 'soulium', amount: 1 }],
     },
   },
   DEATH_REASONS: {

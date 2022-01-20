@@ -183,7 +183,7 @@ export class LevelScene extends GameScene {
     modal.closed.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
-      this.gameStore.addKnownResourcesForCreature(
+      this.gameStore.addKnownDropsForCreature(
         outcome.selection.creature,
         outcome.resources,
       );
@@ -204,7 +204,7 @@ export class LevelScene extends GameScene {
     modal.closed.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
-      this.gameStore.addKnownResourcesForCreature(
+      this.gameStore.addKnownDropsForCreature(
         outcome.selection.creature,
         outcome.resources,
       );

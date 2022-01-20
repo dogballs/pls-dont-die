@@ -7,7 +7,8 @@ type State = {
   storyStep: StoryStep;
   resources: Resource[];
   knownCreatureTypes: CreatureType[];
-  knownCreatureResources: [CreatureType, ResourceType][];
+  knownCreatureResourceDrops: [CreatureType, ResourceType][];
+  knownCreatureResourceReqs: [CreatureType, ResourceType, ResourceType][];
   knownResources?: ResourceType[];
   lastActiveCreature?: CreatureType;
 };
@@ -17,7 +18,8 @@ const DEFAULT_STATE: State = {
   storyStep: 'intro',
   resources: [],
   knownCreatureTypes: [],
-  knownCreatureResources: [],
+  knownCreatureResourceDrops: [],
+  knownCreatureResourceReqs: [],
   knownResources: [],
   lastActiveCreature: undefined,
 };
@@ -31,10 +33,11 @@ const PRESETS = {
       new Resource({ type: 'soulium', amount: 1 }),
     ],
     knownCreatureTypes: ['dummy'],
-    knownCreatureResources: [
+    knownCreatureResourceDrops: [
       ['dummy', 'dummium'],
       ['dummy', 'soulium'],
     ],
+    knownCreatureResourceReqs: [],
     lastActiveCreature: undefined,
   } as State,
 };
@@ -104,25 +107,58 @@ export class GameStore {
     });
   }
 
-  isKnownResourceForCreature(
+  isKnownDropForCreature(
     creatureType: CreatureType,
     resourceType: ResourceType,
   ) {
-    return this.state.knownCreatureResources.some((item) => {
+    return this.state.knownCreatureResourceDrops.some((item) => {
       return item[0] === creatureType && item[1] === resourceType;
     });
   }
 
-  addKnownResourcesForCreature(
-    creatureType: CreatureType,
-    resources: Resource[],
-  ) {
+  addKnownDropsForCreature(creatureType: CreatureType, resources: Resource[]) {
     for (const resource of resources) {
-      if (this.isKnownResourceForCreature(creatureType, resource.type)) {
+      if (this.isKnownDropForCreature(creatureType, resource.type)) {
         continue;
       }
-      this.state.knownCreatureResources.push([creatureType, resource.type]);
+      this.state.knownCreatureResourceDrops.push([creatureType, resource.type]);
     }
+  }
+
+  isKnownReqPairForCreature(
+    creatureType: CreatureType,
+    resourceType1: ResourceType,
+    resourceType2: ResourceType,
+  ) {
+    return this.state.knownCreatureResourceReqs.some((item) => {
+      if (item[0] !== creatureType) {
+        return false;
+      }
+      if (item[1] === resourceType1 && item[2] === resourceType2) {
+        return true;
+      }
+      if (item[1] === resourceType2 && item[2] === resourceType1) {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  addKnownReqPairForCreature(
+    creatureType: CreatureType,
+    resourceType1: ResourceType,
+    resourceType2: ResourceType,
+  ) {
+    if (
+      this.isKnownReqPairForCreature(creatureType, resourceType1, resourceType2)
+    ) {
+      return;
+    }
+    this.state.knownCreatureResourceReqs.push([
+      creatureType,
+      resourceType1,
+      resourceType2,
+    ]);
   }
 
   getResourceAmount(type: ResourceType) {

@@ -16,7 +16,7 @@ export class SimDecider {
         outcome = this.decideScorporate(selection);
         break;
       case 'fishy':
-        outcome = this.decideFisy(selection);
+        outcome = this.decideFishy(selection);
         break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
@@ -103,19 +103,19 @@ export class SimDecider {
     ]);
   }
 
-  static decideFisy(selection: Selection): Outcome {
-    if (selection.temp > 20 && selection.env === 'underwater') {
-      return new Outcome('alive', 'none', selection, [
-        new Resource({ type: 'fishium', amount: 1 }),
-      ]);
-    }
+  static decideFishy(selection: Selection): Outcome {
     if (selection.env !== 'underwater') {
       return new Outcome('death', 'dehydration', selection, [
-        new Resource({ type: 'soulium', amount: 1 }),
+        new Resource({ type: 'liquium', amount: 1 }),
       ]);
     }
-    return new Outcome('death', 'hypothermia', selection, [
-      new Resource({ type: 'soulium', amount: 1 }),
+    if (selection.temp > -20) {
+      return new Outcome('death', 'overheat', selection, [
+        new Resource({ type: 'liquium', amount: 1 }),
+      ]);
+    }
+    return new Outcome('alive', 'none', selection, [
+      new Resource({ type: 'fishium', amount: 1 }),
     ]);
   }
 }

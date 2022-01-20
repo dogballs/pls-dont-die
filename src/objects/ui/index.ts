@@ -6,6 +6,7 @@ export * from './Modal';
 export * from './MultilineText';
 export * from './Section';
 export * from './Selector';
+export * from './ResourceIconPair';
 export * from './ResourceItem';
 export * from './ResourceList';
 export * from './ResourceSelector';

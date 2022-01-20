@@ -51,7 +51,7 @@ export class CreatureDropList extends GameObject {
 
     const resources = creature.droppedResources.map((resource) => {
       return new Resource({
-        type: gameStore.isKnownResourceForCreature(creatureType, resource.type)
+        type: gameStore.isKnownDropForCreature(creatureType, resource.type)
           ? resource.type
           : ('unknown' as ResourceType),
         amount: 1,

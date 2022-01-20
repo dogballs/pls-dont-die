@@ -15,6 +15,10 @@
     "file": "data/graphics/scorporate.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.spirit": {
+    "file": "data/graphics/spirit.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]
@@ -170,6 +174,14 @@
   "resource.arachium": {
     "file": "data/graphics/resources.png",
     "rect": [112, 0, 16, 16]
+  },
+  "resource.windium": {
+    "file": "data/graphics/resources.png",
+    "rect": [0, 16, 16, 16]
+  },
+  "resource.flamium": {
+    "file": "data/graphics/resources.png",
+    "rect": [16, 16, 16, 16]
   },
   "env.desert": {
     "file": "data/graphics/env-sheet.png",

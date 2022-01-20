@@ -8,19 +8,20 @@ import {
 } from '../game';
 import { config } from '../config';
 
-import { ResourceList, Section } from './ui';
+import { ResourceIconPair, ResourceList, Section } from './ui';
 
 export class CreatureRequireList extends GameObject {
   private list: ResourceList;
+  private pairs: ResourceIconPair[] = [];
 
   constructor() {
-    super(256, 128);
+    super(256, 180);
   }
 
   protected setup() {
     const section = new Section({
       title: 'Required for summon',
-      height: 128,
+      height: this.size.height,
       bodyBorderWidth: 0,
       headerBorderWidth: 0,
     });
@@ -36,30 +37,50 @@ export class CreatureRequireList extends GameObject {
   }
 
   private updateResources(creatureType: CreatureType, gameStore: GameStore) {
-    const resources = this.getResources(creatureType, gameStore);
+    const resourceGroups = this.getResourceGroups(creatureType, gameStore);
 
-    this.remove(this.list);
-    this.list = new ResourceList(resources, {
-      showAmount: false,
-    });
-    this.list.position.set(16, 44);
-    this.add(this.list);
+    for (const pair of this.pairs) {
+      this.remove(pair);
+    }
+    this.pairs = [];
+
+    for (const [index, resources] of resourceGroups.entries()) {
+      const rowIndex = Math.floor(index / 2);
+      const colIndex = index % 2;
+      const pair = new ResourceIconPair(resources[0].type, resources[1].type);
+      pair.position.set(20 + 120 * colIndex, 50 + rowIndex * 50);
+      this.pairs.push(pair);
+      this.add(pair);
+    }
+
+    // this.remove(this.list);
+    // this.list = new ResourceList(resources, {
+    //   showAmount: false,
+    // });
+    // this.list.position.set(16, 44);
+    // this.add(this.list);
   }
 
-  private getResources(creatureType: CreatureType, gameStore: GameStore) {
+  private getResourceGroups(creatureType: CreatureType, gameStore: GameStore) {
     const creatureConfig = config.CREATURES[creatureType];
     const creature = Creature.fromConfig(creatureConfig);
 
-    const resources = creature.requiredResources.map((resource) => {
-      if (!gameStore.isKnownCreature(creatureType)) {
-        return Resource.createUnknown();
+    const resources = creature.requiredResourceGroups.map((resources) => {
+      if (resources.length !== 2) {
+        throw new Error(`Should be pairs for "${creatureType}"`);
       }
 
-      return new Resource({
-        type: resource.type,
-        amount: resource.amount,
-        // amount: gameStore.getResourceAmount(resource.type),
-      });
+      if (!gameStore.isKnownCreature(creatureType)) {
+        return [Resource.createUnknown(), Resource.createUnknown()];
+      }
+
+      return resources;
+
+      // return new Resource({
+      //   type: resource.type,
+      //   amount: resource.amount,
+      //   // amount: gameStore.getResourceAmount(resource.type),
+      // });
     });
 
     return resources;
