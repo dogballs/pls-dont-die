@@ -31,18 +31,6 @@
     "file": "data/graphics/dummy-sheet.png",
     "rect": [512, 0, 256, 256]
   },
-  "fish.1": {
-    "file": "data/graphics/fish-sheet.png",
-    "rect": [0, 0, 256, 256]
-  },
-  "fish.2": {
-    "file": "data/graphics/fish-sheet.png",
-    "rect": [256, 0, 256, 256]
-  },
-  "fish.3": {
-    "file": "data/graphics/fish-sheet.png",
-    "rect": [512, 0, 256, 256]
-  },
   "shadow": {
     "file": "data/graphics/shadow.png",
     "rect": [0, 0, 64, 16]
