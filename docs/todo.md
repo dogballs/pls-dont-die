@@ -35,15 +35,15 @@ fishium + sandium -> dragon (flamium)
 arachium + techium -> tormented spirit (soulium) +
 arachium + liquium -> snake (reptilium)
 arachium + sandium -> wasp (windium) +
+arachium + windium -> bat +
 
-<!-- arachium + windium -> ? bat -->
 <!-- arachium + flamium -> ? firebug -->
 
 dummium + techium -> dummy +
 dummium + liquium -> dummyfish +
 dummium + sandium -> scorporate +
+dummium + windium -> drone +
 
-<!-- dummium + windium -> ? drone -->
 <!-- dummium + flamium -> ? lighter -->
 
 <!-- reptilium + techium -> ? godzilla robot -->

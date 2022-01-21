@@ -141,6 +141,7 @@ export class LevelScene extends GameScene {
       });
       this.backButton.position.set(760, 74);
       this.backButton.clicked.addListenerOnce(() => {
+        this.gameState.resetSelection();
         this.root.remove(this.spiritResources);
         this.navigator.replace(GameSceneType.Level);
       });
@@ -213,7 +214,7 @@ export class LevelScene extends GameScene {
     modal.updateMatrix();
     modal.setCenter(this.root.getSelfCenter());
     modal.updateMatrix();
-    modal.closed.addListener(() => {
+    modal.accepted.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
       if (this.gameStore.getStoryStep() === 'dummy_summon_live') {
@@ -221,6 +222,18 @@ export class LevelScene extends GameScene {
       }
       this.gameStore.save();
       this.navigator.replace(GameSceneType.Level);
+    });
+    modal.backed.addListener(() => {
+      this.gameState.resetSelection();
+      this.gameStore.addResources(outcome.resources);
+      this.gameStore.save();
+      this.navigator.replace(GameSceneType.Level);
+    });
+    modal.retried.addListener(() => {
+      this.controlPanel.setDisabled(false);
+      this.backButton.setDisabled(false);
+      this.gameStore.addResources(outcome.resources);
+      this.gameStore.save();
     });
     this.root.add(modal);
   };
@@ -239,7 +252,6 @@ export class LevelScene extends GameScene {
     modal.accepted.addListener(() => {
       this.gameState.resetSelection();
       this.gameStore.addResources(outcome.resources);
-
       if (this.gameStore.getStoryStep() === 'dummy_lived') {
         this.gameStore.setStoryStep('dummy_died');
       }

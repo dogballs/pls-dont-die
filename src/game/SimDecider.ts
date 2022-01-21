@@ -30,6 +30,12 @@ export class SimDecider {
       case 'wasp':
         conditions = this.decideWasp(selection);
         break;
+      case 'drone':
+        conditions = this.decideDrone(selection);
+        break;
+      case 'bat':
+        conditions = this.decideBat(selection);
+        break;
       case 'spirit':
         conditions = this.decideSpirit();
         break;
@@ -114,14 +120,35 @@ export class SimDecider {
     return [
       [env === 'none', 'discomfort', 'sandium'],
       [env === 'underwater', 'drowning', 'sandium'],
-      [env === 'desert', 'drowning', 'windium'],
-      [temp > 20, 'overheat', 'sandium'],
+      [env === 'desert', 'drought', 'sandium'],
+      [temp > 20, 'overheat', 'windium'],
       [temp < 0, 'hypothermia', 'windium'],
       [true, 'none', 'arachium'],
     ];
   }
 
+  static decideDrone({ env, temp }: Selection): Triple[] {
+    return [
+      [env === 'underwater', 'short_circuit', 'techium'],
+      [env === 'desert', 'stuck_mech', 'techium'],
+      [env === 'none', 'boredom', 'techium'],
+      [temp > 10, 'overheat', 'windium'],
+      [temp < -10, 'hypothermia', 'windium'],
+      [true, 'none', 'dummium'],
+    ];
+  }
+
+  static decideBat({ env }: Selection): Triple[] {
+    return [
+      [env === 'underwater', 'drowning', 'sandium'],
+      [env === 'desert', 'drought', 'sandium'],
+      [env === 'none', 'thirst', 'windium'],
+      [true, 'none', 'arachium'],
+    ];
+  }
+
   static decideSpirit(): Triple[] {
+    // TODO: ok when all collected?
     return [[true, 'curse', 'soulium']];
   }
 }

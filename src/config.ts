@@ -92,6 +92,40 @@ export const config = {
         { type: 'windium', amount: 1 },
       ],
     },
+    drone: {
+      type: 'drone',
+      name: 'Dummycopter',
+      description: 'I see you',
+      unknownName: 'Creature #5',
+      requiredResourceGroups: [
+        [
+          { type: 'dummium', amount: 1 },
+          { type: 'windium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'dummium', amount: 1 },
+        { type: 'techium', amount: 1 },
+        { type: 'windium', amount: 1 },
+      ],
+    },
+    bat: {
+      type: 'bat',
+      name: 'Betty',
+      description: 'Not that bat',
+      unknownName: 'Creature #6',
+      requiredResourceGroups: [
+        [
+          { type: 'arachium', amount: 1 },
+          { type: 'windium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'arachium', amount: 1 },
+        { type: 'sandium', amount: 1 },
+        { type: 'windium', amount: 1 },
+      ],
+    },
     spirit: {
       type: 'spirit',
       name: 'Spirit',
@@ -118,6 +152,10 @@ export const config = {
           { type: 'soulium', amount: 1 },
           { type: 'sandium', amount: 1 },
         ],
+        [
+          { type: 'soulium', amount: 1 },
+          { type: 'windium', amount: 1 },
+        ],
         // TODO: add windium and flamium
       ],
       droppedResources: [{ type: 'soulium', amount: 1 }],
@@ -130,8 +168,11 @@ export const config = {
     short_circuit: 'Short circuit (water in the system)',
     stuck_mech: 'Mechanisms stuck (sand in the system)',
     drowning: 'Drowning (can not exist in water)',
+    drought: 'Drought (too dry)',
     discomfort: 'Discomfort (out of comfort zone)',
     gravity: 'Gravity (fell down)',
+    boredom: 'Boredom (Nothing to do)',
+    thirst: 'Thirst (Would like a drink)',
     curse: 'Curse (mmust be freed)',
   },
 };

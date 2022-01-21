@@ -51,6 +51,8 @@ export type CreatureType =
   | 'scorporate'
   | 'fishy'
   | 'wasp'
+  | 'drone'
+  | 'bat'
   | 'spirit';
 
 export class Creature {
@@ -155,8 +157,11 @@ export type DeathType =
   | 'dehydration'
   | 'drowning'
   | 'discomfort'
+  | 'boredom'
   | 'gravity'
+  | 'thirst'
   | 'curse'
+  | 'drought'
   | 'hypothermia';
 
 export class Outcome {

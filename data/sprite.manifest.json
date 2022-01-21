@@ -23,6 +23,14 @@
     "file": "data/graphics/spirit.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.drone": {
+    "file": "data/graphics/drone.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.bat": {
+    "file": "data/graphics/bat.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]
