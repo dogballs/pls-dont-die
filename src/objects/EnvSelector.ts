@@ -12,6 +12,7 @@ const choices: Choice[] = [
   { value: 'none', label: 'none' },
   { value: 'underwater', label: 'underwater' },
   { value: 'desert', label: 'desert' },
+  { value: 'air', label: 'air' },
 ];
 
 export class EnvSelector extends GameObject {

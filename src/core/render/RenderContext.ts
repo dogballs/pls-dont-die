@@ -2,12 +2,10 @@ import { Image } from '../Image';
 import { Rect } from '../Rect';
 import { Vector } from '../Vector';
 
-type Canvas = HTMLCanvasElement;
-
 export abstract class RenderContext {
-  protected canvas: Canvas;
+  protected canvas: HTMLCanvasElement;
 
-  constructor(canvas: Canvas) {
+  constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
   }
 

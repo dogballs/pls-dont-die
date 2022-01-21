@@ -88,6 +88,7 @@ export const config = {
       ],
       droppedResources: [
         { type: 'arachium', amount: 1 },
+        { type: 'sandium', amount: 1 },
         { type: 'windium', amount: 1 },
       ],
     },
@@ -130,5 +131,7 @@ export const config = {
     stuck_mech: 'Mechanisms stuck (sand in the system)',
     drowning: 'Drowning (can not exist in water)',
     discomfort: 'Discomfort (out of comfort zone)',
+    gravity: 'Gravity (fell down)',
+    curse: 'Curse (mmust be freed)',
   },
 };

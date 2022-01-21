@@ -34,6 +34,10 @@ export class CreatureDropList extends GameObject {
     this.updateResources(gameState.databaseCreature, gameStore);
   }
 
+  protected update({ gameState, gameStore }: GameUpdateArgs) {
+    this.updateResources(gameState.databaseCreature, gameStore);
+  }
+
   private updateResources(creatureType: CreatureType, gameStore: GameStore) {
     const resources = this.getResources(creatureType, gameStore);
 

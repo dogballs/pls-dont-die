@@ -4,12 +4,32 @@ import { Vector } from '../Vector';
 
 import { RenderContext } from './RenderContext';
 
+interface CanvasRenderContextOptions {
+  fontFace?: string;
+  imageSmoothing?: boolean;
+}
+
+const DEFAULT_OPTIONS: CanvasRenderContextOptions = {
+  fontFace: 'sans-serif',
+  imageSmoothing: false,
+};
+
 export class CanvasRenderContext extends RenderContext {
   private context: CanvasRenderingContext2D;
+  private options: CanvasRenderContextOptions;
+
+  constructor(
+    canvas: HTMLCanvasElement,
+    options: CanvasRenderContextOptions = {},
+  ) {
+    super(canvas);
+
+    this.options = Object.assign({}, DEFAULT_OPTIONS, options);
+  }
 
   public init(): void {
     this.context = this.canvas.getContext('2d');
-    this.context.imageSmoothingEnabled = false;
+    this.context.imageSmoothingEnabled = this.options.imageSmoothing;
   }
 
   public drawImage(
@@ -105,7 +125,7 @@ export class CanvasRenderContext extends RenderContext {
   ) {
     this.context.textAlign = horizAlign;
     this.context.textBaseline = vertAlign;
-    this.context.font = `${size}px sans-serif`;
+    this.context.font = `${size}px ${this.options.fontFace}`;
     this.context.fillStyle = color;
     this.context.fillText(text, x, y);
   }

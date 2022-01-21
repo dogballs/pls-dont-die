@@ -27,6 +27,7 @@ export type ResourceType =
   | 'soulium'
   | 'liquium'
   | 'arachium'
+  | 'windium'
   | 'sandium'
   | 'fishium';
 
@@ -117,7 +118,7 @@ export class Creature {
   }
 }
 
-export type EnvType = 'none' | 'desert' | 'underwater';
+export type EnvType = 'none' | 'desert' | 'underwater' | 'air';
 
 export class Selection {
   readonly creature: CreatureType;
@@ -154,6 +155,8 @@ export type DeathType =
   | 'dehydration'
   | 'drowning'
   | 'discomfort'
+  | 'gravity'
+  | 'curse'
   | 'hypothermia';
 
 export class Outcome {

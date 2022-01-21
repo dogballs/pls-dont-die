@@ -4,6 +4,7 @@ import { GameUpdateArgs } from '../game';
 const configs = [
   { value: 'desert', spriteId: 'env.desert' },
   { value: 'underwater', spriteId: 'env.underwater' },
+  { value: 'air', spriteId: 'env.air' },
 ];
 
 export class CageEnv extends GameObject {

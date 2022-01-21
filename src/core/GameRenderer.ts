@@ -2,7 +2,6 @@ import { CanvasRenderContext, RenderContext } from './render';
 
 import { BoundingBox } from './BoundingBox';
 import { RenderObject } from './RenderObject';
-import { Subject } from './Subject';
 import { Vector } from './Vector';
 
 export interface GameRendererOptions {
