@@ -21,7 +21,7 @@ interface ModalOptions {
 }
 
 const DEFAULT_OPTIONS: ModalOptions = {
-  titleBackground: '#f2d78c',
+  titleBackground: '#b38400',
   acceptText: 'Continue',
   width: 532,
   height: 384,

@@ -1,5 +1,6 @@
 export * from './ArrowButton';
 export * from './Button';
+export * from './ConfirmModal';
 export * from './IconTextButton';
 export * from './MainMenuItem';
 export * from './Modal';

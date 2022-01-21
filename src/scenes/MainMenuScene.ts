@@ -1,6 +1,6 @@
 import { GameObject, SpritePainter, TextPainter } from '../core';
 import { GameUpdateArgs, StoryStep } from '../game';
-import { MainMenuItem } from '../objects';
+import { ConfirmModal, MainMenuItem } from '../objects';
 
 import { GameSceneType } from './GameSceneType';
 import { GameScene } from './GameScene';
@@ -8,8 +8,6 @@ import { GameScene } from './GameScene';
 export class MainMenuScene extends GameScene {
   protected setup({ gameStore, spriteLoader }: GameUpdateArgs) {
     const canContinue = gameStore.hasSavedGame();
-    const storyStep = gameStore.getStoryStep();
-
     const title = new GameObject(512, 128);
     title.position.set(256, 64);
     title.painter = new SpritePainter(spriteLoader.load('main.title.1'));
@@ -36,7 +34,7 @@ export class MainMenuScene extends GameScene {
       });
       continueGameItem.position.set(384, 256);
       continueGameItem.clicked.addListener(() => {
-        this.startGame(storyStep);
+        this.startGame(gameStore.getStoryStep());
       });
       this.root.add(continueGameItem);
     }
@@ -47,16 +45,21 @@ export class MainMenuScene extends GameScene {
     newGameItem.position.set(384, 256 + continueAddHeight);
     newGameItem.clicked.addListener(() => {
       if (canContinue) {
-        // TODO: draw a modal
-        const confirmed = window.confirm(
-          'You already have a saved game. Do you want to erase it and start a new game?',
-        );
-        if (confirmed) {
+        const modal = new ConfirmModal({});
+        modal.updateMatrix();
+        modal.setCenter(this.root.getSelfCenter());
+        modal.updateMatrix();
+        modal.accepted.addListener(() => {
           gameStore.reset();
-          this.startGame(storyStep);
-        }
+          gameStore.save();
+          this.startGame(gameStore.getStoryStep());
+        });
+        modal.declined.addListener(() => {
+          modal.removeSelf();
+        });
+        this.root.add(modal);
       } else {
-        this.startGame(storyStep);
+        this.startGame(gameStore.getStoryStep());
       }
     });
     this.root.add(newGameItem);
