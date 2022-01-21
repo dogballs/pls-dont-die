@@ -126,6 +126,23 @@ export const config = {
         { type: 'windium', amount: 1 },
       ],
     },
+    eaglefish: {
+      type: 'eaglefish',
+      name: 'Fish & Chicks',
+      description: 'Born to fly',
+      unknownName: 'Creature #7',
+      requiredResourceGroups: [
+        [
+          { type: 'fishium', amount: 1 },
+          { type: 'windium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'fishium', amount: 1 },
+        { type: 'liquium', amount: 1 },
+        { type: 'windium', amount: 1 },
+      ],
+    },
     spirit: {
       type: 'spirit',
       name: 'Spirit',
@@ -173,6 +190,8 @@ export const config = {
     gravity: 'Gravity (fell down)',
     boredom: 'Boredom (Nothing to do)',
     thirst: 'Thirst (Would like a drink)',
-    curse: 'Curse (mmust be freed)',
+    curse: 'Curse (must be freed)',
+    confusion: 'Confusion (where am I)',
+    viceversa: 'Vice versa (the other way around)',
   },
 };

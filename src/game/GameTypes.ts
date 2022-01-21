@@ -53,6 +53,7 @@ export type CreatureType =
   | 'wasp'
   | 'drone'
   | 'bat'
+  | 'eaglefish'
   | 'spirit';
 
 export class Creature {
@@ -160,8 +161,10 @@ export type DeathType =
   | 'boredom'
   | 'gravity'
   | 'thirst'
+  | 'confusion'
   | 'curse'
   | 'drought'
+  | 'viceversa'
   | 'hypothermia';
 
 export class Outcome {

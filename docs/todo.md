@@ -28,8 +28,8 @@ soulium + windium -> tormented spirit (soulium) +
 fishium + techium -> tormented spirit (soulium) +
 fishium + liquium -> fish +
 fishium + sandium -> dragon (flamium)
+fishium + windium -> eaglefish
 
-<!-- fishium + windium -> ? seagull carying a fish -->
 <!-- fishium + flamium -> ? fish stake -->
 
 arachium + techium -> tormented spirit (soulium) +

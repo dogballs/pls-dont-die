@@ -36,6 +36,9 @@ export class SimDecider {
       case 'bat':
         conditions = this.decideBat(selection);
         break;
+      case 'eaglefish':
+        conditions = this.decideEaglefish(selection);
+        break;
       case 'spirit':
         conditions = this.decideSpirit();
         break;
@@ -144,6 +147,15 @@ export class SimDecider {
       [env === 'desert', 'drought', 'sandium'],
       [env === 'none', 'thirst', 'windium'],
       [true, 'none', 'arachium'],
+    ];
+  }
+
+  static decideEaglefish({ env }: Selection): Triple[] {
+    return [
+      [env === 'none', 'confusion', 'windium'],
+      [env === 'underwater', 'viceversa', 'liquium'],
+      [env === 'desert', 'drought', 'windium'],
+      [true, 'none', 'fishium'],
     ];
   }
 
