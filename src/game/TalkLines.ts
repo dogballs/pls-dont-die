@@ -33,9 +33,22 @@ export class TalkLines {
     return messages;
   }
 
-  static spiritFourth() {
+  static spiritFourth(resLeft) {
     const messages: string[][] = [];
-    messages.push(['You must combine my soul with the spirit elements!']);
+    messages.push([
+      'You must combine my soul with the spirit elements!',
+      `We need ${resLeft} more!`,
+    ]);
+    return messages;
+  }
+
+  static spiritEnd() {
+    const messages: string[][] = [];
+    messages.push(['.......']);
+    messages.push(['You did it!']);
+    messages.push(['Thank you........ <3']);
+    messages.push(['I can finally...']);
+    messages.push(['...I can now destroy you world ;-)']);
     return messages;
   }
 

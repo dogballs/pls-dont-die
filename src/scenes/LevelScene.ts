@@ -127,7 +127,15 @@ export class LevelScene extends GameScene {
         this.spiritResources = new SpiritResources();
         this.spiritResources.position.set(420, 150);
         this.root.add(this.spiritResources);
-        this.showTalkModal('spirit', TalkLines.spiritFourth());
+
+        const resLeft = SummonHelper.getSpiritLeft(this.gameStore);
+        if (resLeft === 0) {
+          this.showTalkModal('spirit', TalkLines.spiritEnd());
+        } else {
+          this.showTalkModal('spirit', TalkLines.spiritFourth(resLeft), () => {
+            this.navigator.push(GameSceneType.Final);
+          });
+        }
       }
 
       this.showSpiritEncounter();

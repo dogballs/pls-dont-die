@@ -6,7 +6,8 @@ export type StoryStep =
   | 'spirit_first_encounter'
   | 'spirit_second_encounter'
   | 'spirit_third_encounter'
-  | 'spirit_fourth_encounter';
+  | 'spirit_fourth_encounter'
+  | 'finished';
 
 export class StoryCheck {
   static isAfterTutorial(storyStep: StoryStep) {

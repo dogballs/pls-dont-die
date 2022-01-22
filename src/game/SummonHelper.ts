@@ -1,6 +1,7 @@
 import { config } from '../config';
+import { GameStore } from '../game';
 
-import { Creature, CreatureType, Resource, ResourceType } from './GameTypes';
+import { Creature, CreatureType, ResourceType } from './GameTypes';
 
 export class SummonHelper {
   static decideCreature(
@@ -26,6 +27,31 @@ export class SummonHelper {
     }
 
     throw new Error(`Unknown combination: es = ${essence}, mod = ${modifier}`);
+  }
+
+  static getSpiritLeft(gameStore: GameStore) {
+    const creature = Creature.fromConfig(config.CREATURES.spirit);
+
+    const resources = creature.requiredResourceGroups
+      .filter((group) => {
+        return group.some((res) => {
+          return res.type === 'soulium';
+        });
+      })
+      .map((group) => {
+        return group.find((res) => {
+          return res.type !== 'soulium';
+        });
+      })
+      .filter((resource) => {
+        return gameStore.isKnownReqPairForCreature(
+          creature.type,
+          'soulium',
+          resource.type,
+        );
+      });
+
+    return 5 - resources.length;
   }
 
   // static canSummon(

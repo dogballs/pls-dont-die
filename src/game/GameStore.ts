@@ -41,6 +41,26 @@ const PRESETS = {
     lastActiveEssence: undefined,
     lastActiveModifier: undefined,
   } as State,
+  spirit_resources: {
+    hasSavedGame: true,
+    storyStep: 'spirit_first_encounter',
+    resources: [],
+    knownCreatureTypes: [],
+    knownCreatureResourceDrops: [],
+    knownCreatureResourceReqs: [],
+    knownResources: [
+      'techium',
+      'liquium',
+      'sandium',
+      'windium',
+      'flamium',
+      'dummium',
+      'soulium',
+    ],
+    lastActiveCreature: undefined,
+    lastActiveEssence: undefined,
+    lastActiveModifier: undefined,
+  } as State,
 };
 
 export class GameStore {
