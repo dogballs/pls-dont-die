@@ -1,5 +1,3 @@
-- more conditions
-
 builds:
 
 fishium + techium = tormented spirit -> soulium
@@ -36,12 +34,9 @@ fishium + sandium -> dragon +
 fishium + windium -> eaglefish +
 fishium + flamium -> fish stake +
 
-<!-- reptilium + techium -> tormeted spirit (soulium) + -->
-
-reptilium + liquium -> ? wednesday dudes
-
-<!-- reptilium + sandium -> ? dune worm ??? -->
-
+reptilium + techium -> tormeted spirit (soulium) +
+reptilium + liquium -> wednesday dudes +
+reptilium + sandium -> muaddib +
 reptilium + windium -> turtle +
 reptilium + flamium -> fire snail +
 

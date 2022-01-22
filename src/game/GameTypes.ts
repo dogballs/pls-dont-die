@@ -65,6 +65,7 @@ export type CreatureType =
   | 'firesnail'
   | 'turtle'
   | 'dude'
+  | 'muaddib'
   | 'spirit';
 
 export class Creature {

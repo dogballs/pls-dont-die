@@ -66,6 +66,9 @@ export class SimDecider {
       case 'dude':
         conditions = this.decideDude();
         break;
+      case 'muaddib':
+        conditions = this.decideMuaddib(selection);
+        break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
     }
@@ -251,6 +254,14 @@ export class SimDecider {
     return [
       [!isWed, 'notwednesday', 'liquium'],
       [true, 'none', 'wendsdium'],
+    ];
+  }
+
+  static decideMuaddib({ env, temp }: Selection): Triple[] {
+    return [
+      [env !== 'desert', 'discomfort', 'sandium'],
+      [temp > 0, 'overheat', 'sandium'],
+      [true, 'none', 'reptilium'],
     ];
   }
 

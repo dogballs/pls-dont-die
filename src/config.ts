@@ -249,11 +249,27 @@ export const config = {
         { type: 'liquium', amount: 1 },
       ],
     },
+    muaddib: {
+      type: 'muaddib',
+      name: "Muad'dib",
+      description: 'Fear is the mind-killer',
+      unknownName: 'Creature 15',
+      requiredResourceGroups: [
+        [
+          { type: 'reptilium', amount: 1 },
+          { type: 'sandium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'reptilium', amount: 1 },
+        { type: 'sandium', amount: 1 },
+      ],
+    },
     turtle: {
       type: 'turtle',
       name: 'Heliturtle',
       description: 'Out of shell',
-      unknownName: 'Creature #15',
+      unknownName: 'Creature #16',
       requiredResourceGroups: [
         [
           { type: 'reptilium', amount: 1 },
@@ -269,7 +285,7 @@ export const config = {
       type: 'firesnail',
       name: 'Snail gotta bail',
       description: 'My house is on fire',
-      unknownName: 'Creature #16',
+      unknownName: 'Creature #17',
       requiredResourceGroups: [
         [
           { type: 'reptilium', amount: 1 },
@@ -297,10 +313,10 @@ export const config = {
           { type: 'arachium', amount: 1 },
           { type: 'techium', amount: 1 },
         ],
-        // [
-        //   { type: 'reptilium', amount: 1 },
-        //   { type: 'techium', amount: 1 },
-        // ],
+        [
+          { type: 'reptilium', amount: 1 },
+          { type: 'techium', amount: 1 },
+        ],
         [
           { type: 'soulium', amount: 1 },
           { type: 'techium', amount: 1 },

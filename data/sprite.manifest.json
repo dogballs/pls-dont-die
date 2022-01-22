@@ -63,6 +63,10 @@
     "file": "data/graphics/turtle.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.muaddib": {
+    "file": "data/graphics/muaddib.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]
