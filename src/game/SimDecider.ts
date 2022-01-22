@@ -60,6 +60,9 @@ export class SimDecider {
       case 'firesnail':
         conditions = this.decideFiresnail(selection);
         break;
+      case 'turtle':
+        conditions = this.decideTurtle(selection);
+        break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
     }
@@ -228,6 +231,13 @@ export class SimDecider {
     return [
       [env !== 'underwater', 'burned', 'flamium'],
       [temp > -20, 'burned', 'flamium'],
+      [true, 'none', 'reptilium'],
+    ];
+  }
+
+  static decideTurtle({ env }: Selection): Triple[] {
+    return [
+      [env !== 'air', 'stayaway', 'windium'],
       [true, 'none', 'reptilium'],
     ];
   }

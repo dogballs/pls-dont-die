@@ -55,6 +55,14 @@
     "file": "data/graphics/snake.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.firesnail": {
+    "file": "data/graphics/firesnail.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.turtle": {
+    "file": "data/graphics/turtle.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]

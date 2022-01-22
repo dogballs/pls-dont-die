@@ -39,9 +39,9 @@ fishium + flamium -> fish stake +
 <!-- reptilium + techium -> tormeted spirit (soulium) + -->
 <!-- reptilium + liquium -> ? wednesday dudes -->
 <!-- reptilium + sandium -> ? dune worm ??? -->
-<!-- reptilium + windium -> ? prerodactyl -->
 
-reptilium + flamium -> ? fire snail (fire in place of the hous)
+reptilium + windium -> turtle +
+reptilium + flamium -> fire snail +
 
 soulium + techium -> tormented spirit (soulium) +
 soulium + liqium -> tormented spirit (soulium) +
