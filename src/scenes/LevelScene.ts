@@ -178,7 +178,7 @@ export class LevelScene extends GameScene {
       }
     }
     this.controlPanel.setDisabled(true);
-    this.backButton.setDisabled(true);
+    this.backButton?.setDisabled(true);
 
     const simulation = new Simulation();
     simulation.position.set(256, 64);

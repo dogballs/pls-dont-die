@@ -120,7 +120,7 @@ export class ResourceSelector extends GameObject {
       iconRect: new Rect(0, 0, 16, 16),
       requiredAmount,
     });
-    this.item.position.set(56, 0);
+    this.item.position.set(70, 0);
     this.add(this.item);
 
     this.arrowLeft.setDisabled(!this.hasPrev());

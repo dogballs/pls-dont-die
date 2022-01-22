@@ -143,6 +143,39 @@ export const config = {
         { type: 'windium', amount: 1 },
       ],
     },
+    dragon: {
+      type: 'dragon',
+      name: 'I am a dragon',
+      description: 'Not a wyvern',
+      unknownName: 'Creature #8',
+      requiredResourceGroups: [
+        [
+          { type: 'fishium', amount: 1 },
+          { type: 'sandium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'reptilium', amount: 1 },
+        { type: 'windium', amount: 1 },
+        { type: 'flamium', amount: 1 },
+      ],
+    },
+    fishsteak: {
+      type: 'fishsteak',
+      name: 'Fish steak',
+      description: 'Everything at stake',
+      unknownName: 'Creature #9',
+      requiredResourceGroups: [
+        [
+          { type: 'fishium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'fishium', amount: 1 },
+        { type: 'sandium', amount: 1 },
+      ],
+    },
     spirit: {
       type: 'spirit',
       name: 'Spirit',
@@ -173,7 +206,10 @@ export const config = {
           { type: 'soulium', amount: 1 },
           { type: 'windium', amount: 1 },
         ],
-        // TODO: add windium and flamium
+        [
+          { type: 'soulium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
       ],
       droppedResources: [{ type: 'soulium', amount: 1 }],
     },
@@ -193,5 +229,7 @@ export const config = {
     curse: 'Curse (must be freed)',
     confusion: 'Confusion (where am I)',
     viceversa: 'Vice versa (the other way around)',
+    why: 'Why? (Who does that?)',
+    ramsay: 'This fish is so raw (You donkey)',
   },
 };

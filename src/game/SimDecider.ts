@@ -39,8 +39,14 @@ export class SimDecider {
       case 'eaglefish':
         conditions = this.decideEaglefish(selection);
         break;
+      case 'dragon':
+        conditions = this.decideDragon(selection);
+        break;
       case 'spirit':
         conditions = this.decideSpirit();
+        break;
+      case 'fishsteak':
+        conditions = this.decideFishsteak(selection);
         break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
@@ -156,6 +162,24 @@ export class SimDecider {
       [env === 'underwater', 'viceversa', 'liquium'],
       [env === 'desert', 'drought', 'windium'],
       [true, 'none', 'fishium'],
+    ];
+  }
+
+  static decideFishsteak({ env, temp }: Selection): Triple[] {
+    return [
+      [env !== 'none', 'why', 'sandium'],
+      [temp < 20, 'ramsay', 'sandium'],
+      [true, 'none', 'fishium'],
+    ];
+  }
+
+  static decideDragon({ env, temp }: Selection): Triple[] {
+    return [
+      [env === 'none', 'discomfort', 'windium'],
+      [env === 'underwater', 'drowning', 'windium'],
+      [temp < 20, 'hypothermia', 'flamium'],
+      [true, 'none', 'reptilium'],
+      // [true, 'none', 'reptilium'],
     ];
   }
 

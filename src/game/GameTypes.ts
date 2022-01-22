@@ -29,6 +29,8 @@ export type ResourceType =
   | 'arachium'
   | 'windium'
   | 'sandium'
+  | 'flamium'
+  | 'reptilium'
   | 'fishium';
 
 export class Resource {
@@ -54,6 +56,8 @@ export type CreatureType =
   | 'drone'
   | 'bat'
   | 'eaglefish'
+  | 'dragon'
+  | 'fishsteak'
   | 'spirit';
 
 export class Creature {
@@ -165,6 +169,8 @@ export type DeathType =
   | 'curse'
   | 'drought'
   | 'viceversa'
+  | 'why'
+  | 'ramsay'
   | 'hypothermia';
 
 export class Outcome {

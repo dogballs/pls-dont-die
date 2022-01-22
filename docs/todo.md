@@ -22,13 +22,12 @@ soulium + techium -> tormented spirit (soulium) +
 soulium + liqium -> tormented spirit (soulium) +
 soulium + sandium -> tormented spirit (soulium) +
 soulium + windium -> tormented spirit (soulium) +
-
-<!-- soulium + flamium -> tormented spirit (soulium) -->
+soulium + flamium -> tormented spirit (soulium) +
 
 fishium + techium -> tormented spirit (soulium) +
 fishium + liquium -> fish +
-fishium + sandium -> dragon (flamium)
-fishium + windium -> eaglefish
+fishium + sandium -> dragon +
+fishium + windium -> eaglefish +
 
 <!-- fishium + flamium -> ? fish stake -->
 
@@ -46,7 +45,8 @@ dummium + windium -> drone +
 
 <!-- dummium + flamium -> ? lighter -->
 
-<!-- reptilium + techium -> ? godzilla robot -->
+reptilium + techium -> tormeted spirit (soulium) +
+
 <!-- reptilium + liquium -> ? wednesday dudes -->
 <!-- reptilium + sandium -> ? dune worm ??? -->
 <!-- reptilium + windium -> ? prerodactyl -->

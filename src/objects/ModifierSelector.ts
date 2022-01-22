@@ -8,6 +8,7 @@ const MODIFIER_LIST: ResourceType[] = [
   'liquium',
   'sandium',
   'windium',
+  'flamium',
   'soulium',
 ];
 
