@@ -9,7 +9,6 @@ const MODIFIER_LIST: ResourceType[] = [
   'sandium',
   'windium',
   'flamium',
-  'soulium',
 ];
 
 export class ModifierSelector extends GameObject {

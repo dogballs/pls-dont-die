@@ -9,7 +9,7 @@ import { CreatureRequireList } from './CreatureRequireList';
 
 export class CreaturePanel extends GameObject {
   constructor(private readonly preselectedCreature: CreatureType) {
-    super(266, 550);
+    super(266, 590);
   }
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {

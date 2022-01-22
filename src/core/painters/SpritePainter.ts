@@ -16,6 +16,7 @@ export class SpritePainter extends Painter {
   public alignment: SpriteAlignment;
   public sprite: Sprite = null;
   public opacity = 1;
+  public contrast: number = undefined;
 
   constructor(sprite: Sprite = null, alignment = SpriteAlignment.MiddleCenter) {
     super();
@@ -66,6 +67,12 @@ export class SpritePainter extends Painter {
       context.setGlobalAlpha(this.opacity);
     }
 
+    let prevFilter: string;
+    if (this.contrast !== undefined) {
+      prevFilter = context.getFilter();
+      context.setFilter(`contrast(${this.contrast})`);
+    }
+
     context.drawImage(
       this.sprite.image,
       this.sprite.sourceRect,
@@ -74,6 +81,9 @@ export class SpritePainter extends Painter {
 
     if (this.opacity !== 1) {
       context.setGlobalAlpha(tmpGlobalAlpha);
+    }
+    if (prevFilter) {
+      context.setFilter(prevFilter);
     }
   }
 }

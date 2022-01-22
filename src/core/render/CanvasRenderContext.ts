@@ -81,6 +81,14 @@ export class CanvasRenderContext extends RenderContext {
     this.context.globalAlpha = 1;
   }
 
+  public setFilter(filter: string): void {
+    this.context.filter = filter;
+  }
+
+  public getFilter(): string {
+    return this.context.filter;
+  }
+
   public strokePath(positions: Vector[], color = '#000'): void {
     if (positions.length < 1) {
       return;

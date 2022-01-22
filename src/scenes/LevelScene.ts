@@ -39,6 +39,7 @@ export class LevelScene extends GameScene {
   private creatureSelector: CreatureSelector;
   private inventory: Inventory;
   private spiritResources: SpiritResources;
+  private shadow: CreatureObject;
 
   protected setup({ gameState, gameStore }: GameUpdateArgs) {
     this.gameState = gameState;
@@ -75,6 +76,29 @@ export class LevelScene extends GameScene {
     } else if (storyStep === 'dummy_died') {
       this.showDoctorDummyDied();
     }
+
+    gameState.essenceChanged.addListener(() => {
+      this.updateShadow();
+    });
+    gameState.modifierChanged.addListener(() => {
+      this.updateShadow();
+    });
+  }
+
+  private updateShadow() {
+    if (!this.gameState.essence || !this.gameState.modifier) {
+      return;
+    }
+
+    const creatureType = SummonHelper.decideCreature(
+      this.gameState.essence,
+      this.gameState.modifier,
+    );
+
+    this.root.remove(this.shadow);
+    this.shadow = new CreatureObject(creatureType, 'shadow');
+    this.shadow.position.set(256, 64);
+    this.root.add(this.shadow);
   }
 
   private summon() {
@@ -101,7 +125,7 @@ export class LevelScene extends GameScene {
       const storyStep = this.gameStore.getStoryStep();
       if (storyStep === 'spirit_fourth_encounter') {
         this.spiritResources = new SpiritResources();
-        this.spiritResources.position.set(450, 150);
+        this.spiritResources.position.set(420, 150);
         this.root.add(this.spiritResources);
         this.showTalkModal('spirit', TalkLines.spiritFourth());
       }
@@ -111,8 +135,6 @@ export class LevelScene extends GameScene {
   }
 
   private handleSummonClick = () => {
-    // this.root.remove(this.inventory);
-
     const summoning = new Summoning();
     summoning.position.set(256, 64);
     summoning.fadeInCompleted.addListener(() => {

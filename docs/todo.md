@@ -18,11 +18,17 @@ wasp: windium (modifier)
 smake: reptilium (essence)
 tormented spirit: soulium (essence)
 
-soulium + techium -> tormented spirit (soulium) +
-soulium + liqium -> tormented spirit (soulium) +
-soulium + sandium -> tormented spirit (soulium) +
-soulium + windium -> tormented spirit (soulium) +
-soulium + flamium -> tormented spirit (soulium) +
+dummium + techium -> dummy +
+dummium + liquium -> dummyfish +
+dummium + sandium -> scorporate +
+dummium + windium -> drone +
+dummium + flamium -> lighter +
+
+arachium + techium -> tormented spirit (soulium) +
+arachium + liquium -> snake (reptilium) ?????
+arachium + sandium -> wasp (windium) +
+arachium + windium -> bat +
+arachium + flamium -> firebug +
 
 fishium + techium -> tormented spirit (soulium) +
 fishium + liquium -> fish +
@@ -30,20 +36,13 @@ fishium + sandium -> dragon +
 fishium + windium -> eaglefish +
 fishium + flamium -> fish stake +
 
-arachium + techium -> tormented spirit (soulium) +
-arachium + liquium -> snake (reptilium)
-arachium + sandium -> wasp (windium) +
-arachium + windium -> bat +
-arachium + flamium -> firebug +
+soulium + techium -> tormented spirit (soulium) +
+soulium + liqium -> tormented spirit (soulium) +
+soulium + sandium -> tormented spirit (soulium) +
+soulium + windium -> tormented spirit (soulium) +
+soulium + flamium -> tormented spirit (soulium) +
 
-dummium + techium -> dummy +
-dummium + liquium -> dummyfish +
-dummium + sandium -> scorporate +
-dummium + windium -> drone +
-dummium + flamium -> lighter +
-
-reptilium + techium -> tormeted spirit (soulium) +
-
+<!-- reptilium + techium -> tormeted spirit (soulium) + -->
 <!-- reptilium + liquium -> ? wednesday dudes -->
 <!-- reptilium + sandium -> ? dune worm ??? -->
 <!-- reptilium + windium -> ? prerodactyl -->

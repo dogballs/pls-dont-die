@@ -7,6 +7,7 @@ export const config = {
   STORAGE_NAMESPACE: 'plsdontdie',
 
   CREATURES: {
+    // Dummium + modifier
     dummy: {
       type: 'dummy',
       name: 'Dummy',
@@ -59,26 +60,45 @@ export const config = {
         { type: 'techium', amount: 1 },
       ],
     },
-    fishy: {
-      type: 'fishy',
-      name: 'Fishy',
-      description: 'Chonky water boy',
+    drone: {
+      type: 'drone',
+      name: 'Dummycopter',
+      description: 'I see you',
       unknownName: 'Creature #3',
       requiredResourceGroups: [
         [
-          { type: 'fishium', amount: 1 },
-          { type: 'liquium', amount: 1 },
+          { type: 'dummium', amount: 1 },
+          { type: 'windium', amount: 1 },
         ],
       ],
       droppedResources: [
-        { type: 'fishium', amount: 1 },
-        { type: 'liquium', amount: 1 },
+        { type: 'dummium', amount: 1 },
+        { type: 'techium', amount: 1 },
+        { type: 'windium', amount: 1 },
       ],
     },
-    wasp: {
-      type: 'wasp',
-      name: 'Wasper',
-      description: 'Get away from me',
+    lighter: {
+      type: 'lighter',
+      name: "Peter's lighter",
+      description: 'From under the table',
+      unknownName: 'Creature #4',
+      requiredResourceGroups: [
+        [
+          { type: 'dummium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'dummium', amount: 1 },
+        { type: 'techium', amount: 1 },
+        { type: 'flamium', amount: 1 },
+      ],
+    },
+    // arachium + modifier
+    snake: {
+      type: 'snake',
+      name: 'Snek',
+      description: 'ssssssssssssssssssssssss',
       unknownName: 'Creature #4',
       requiredResourceGroups: [
         [
@@ -92,20 +112,20 @@ export const config = {
         { type: 'windium', amount: 1 },
       ],
     },
-    drone: {
-      type: 'drone',
-      name: 'Dummycopter',
-      description: 'I see you',
+    wasp: {
+      type: 'wasp',
+      name: 'Wasper',
+      description: 'Get away from me',
       unknownName: 'Creature #5',
       requiredResourceGroups: [
         [
-          { type: 'dummium', amount: 1 },
-          { type: 'windium', amount: 1 },
+          { type: 'arachium', amount: 1 },
+          { type: 'sandium', amount: 1 },
         ],
       ],
       droppedResources: [
-        { type: 'dummium', amount: 1 },
-        { type: 'techium', amount: 1 },
+        { type: 'arachium', amount: 1 },
+        { type: 'sandium', amount: 1 },
         { type: 'windium', amount: 1 },
       ],
     },
@@ -126,21 +146,38 @@ export const config = {
         { type: 'windium', amount: 1 },
       ],
     },
-    eaglefish: {
-      type: 'eaglefish',
-      name: 'Fish & Chicks',
-      description: 'Born to fly',
+    firebug: {
+      type: 'firebug',
+      name: 'Firebug',
+      description: 'Bug in a fire',
       unknownName: 'Creature #7',
       requiredResourceGroups: [
         [
+          { type: 'arachium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'arachium', amount: 1 },
+        { type: 'flamium', amount: 1 },
+        { type: 'sandium', amount: 1 },
+      ],
+    },
+    // fishium + modifier
+    fishy: {
+      type: 'fishy',
+      name: 'Fishy',
+      description: 'Chonky water boy',
+      unknownName: 'Creature #8',
+      requiredResourceGroups: [
+        [
           { type: 'fishium', amount: 1 },
-          { type: 'windium', amount: 1 },
+          { type: 'liquium', amount: 1 },
         ],
       ],
       droppedResources: [
         { type: 'fishium', amount: 1 },
         { type: 'liquium', amount: 1 },
-        { type: 'windium', amount: 1 },
       ],
     },
     dragon: {
@@ -160,6 +197,23 @@ export const config = {
         { type: 'flamium', amount: 1 },
       ],
     },
+    eaglefish: {
+      type: 'eaglefish',
+      name: 'Fish & Chicks',
+      description: 'Born to fly',
+      unknownName: 'Creature #7',
+      requiredResourceGroups: [
+        [
+          { type: 'fishium', amount: 1 },
+          { type: 'windium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'fishium', amount: 1 },
+        { type: 'liquium', amount: 1 },
+        { type: 'windium', amount: 1 },
+      ],
+    },
     fishsteak: {
       type: 'fishsteak',
       name: 'Fish steak',
@@ -176,40 +230,10 @@ export const config = {
         { type: 'sandium', amount: 1 },
       ],
     },
-    lighter: {
-      type: 'lighter',
-      name: "Peter's lighter",
-      description: 'From under the table',
-      unknownName: 'Creature #10',
-      requiredResourceGroups: [
-        [
-          { type: 'dummium', amount: 1 },
-          { type: 'flamium', amount: 1 },
-        ],
-      ],
-      droppedResources: [
-        { type: 'dummium', amount: 1 },
-        { type: 'techium', amount: 1 },
-        { type: 'flamium', amount: 1 },
-      ],
-    },
-    firebug: {
-      type: 'firebug',
-      name: 'Firebug',
-      description: 'Bug in a fire',
-      unknownName: 'Creature #11',
-      requiredResourceGroups: [
-        [
-          { type: 'arachium', amount: 1 },
-          { type: 'flamium', amount: 1 },
-        ],
-      ],
-      droppedResources: [
-        { type: 'arachium', amount: 1 },
-        { type: 'flamium', amount: 1 },
-        { type: 'sandium', amount: 1 },
-      ],
-    },
+    // reptilium + modifier
+    // TODO
+
+    // soulium + modifier
     spirit: {
       type: 'spirit',
       name: 'Spirit',
@@ -222,6 +246,10 @@ export const config = {
         ],
         [
           { type: 'arachium', amount: 1 },
+          { type: 'techium', amount: 1 },
+        ],
+        [
+          { type: 'reptilium', amount: 1 },
           { type: 'techium', amount: 1 },
         ],
         [

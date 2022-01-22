@@ -26,6 +26,8 @@ export abstract class RenderContext {
   );
   abstract getGlobalAlpha(): number;
   abstract setGlobalAlpha(alpha: number);
+  abstract getFilter(): string;
+  abstract setFilter(filter: string);
   abstract strokePath(positions: Vector[], color: string);
   abstract strokeRect(
     x: number,

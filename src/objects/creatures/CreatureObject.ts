@@ -10,7 +10,10 @@ export class CreatureObject extends GameObject {
   private stepIndex = 0;
   private timer = new Timer(STEP_DELAY);
 
-  constructor(private readonly type: CreatureType) {
+  constructor(
+    private readonly type: CreatureType,
+    private readonly mode: 'creature' | 'shadow' = 'creature',
+  ) {
     super(512, 512);
   }
 
@@ -19,17 +22,27 @@ export class CreatureObject extends GameObject {
       spriteLoader.load(`creature.${this.type}`, new Rect(0, 0, 512, 512)),
     );
 
-    const shadow = new GameObject(128, 32);
-    shadow.painter = new SpritePainter(
-      spriteLoader.load('shadow', new Rect(0, 0, 128, 32)),
-    );
-    shadow.updateMatrix();
-    shadow.setCenter(this.getSelfCenter());
-    shadow.position.setY(400);
-    this.add(shadow);
+    if (this.mode === 'shadow') {
+      (this.painter as SpritePainter).contrast = 0;
+      (this.painter as SpritePainter).opacity = 0.2;
+    }
+
+    if (this.mode === 'creature') {
+      const shadow = new GameObject(128, 32);
+      shadow.painter = new SpritePainter(
+        spriteLoader.load('shadow', new Rect(0, 0, 128, 32)),
+      );
+      shadow.updateMatrix();
+      shadow.setCenter(this.getSelfCenter());
+      shadow.position.setY(400);
+      this.add(shadow);
+    }
   }
 
   protected update(updateArgs: GameUpdateArgs) {
+    if (this.mode === 'shadow') {
+      return;
+    }
     if (this.timer.isDone()) {
       this.stepIndex += 1;
       if (this.stepIndex > STEP_OFFSETS.length - 1) {
