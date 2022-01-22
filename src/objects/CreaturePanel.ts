@@ -1,5 +1,5 @@
 import { GameObject } from '../core';
-import { CreatureType, GameUpdateArgs } from '../game';
+import { CreatureType, GameUpdateArgs, SummonHelper } from '../game';
 
 import { Section } from './ui';
 
@@ -40,6 +40,22 @@ export class CreaturePanel extends GameObject {
     gameState.creatureChanged.addListener((creatureType) => {
       creatureSelector.select(creatureType);
     });
+
+    const handleReactorChange = () => {
+      if (!gameState.essence || !gameState.modifier) {
+        return;
+      }
+
+      const creatureType = SummonHelper.decideCreature(
+        gameState.essence,
+        gameState.modifier,
+      );
+      gameState.setDatabaseCreature(creatureType);
+      creatureSelector.select(creatureType);
+    };
+
+    gameState.essenceChanged.addListener(handleReactorChange);
+    gameState.modifierChanged.addListener(handleReactorChange);
 
     const dropList = new CreatureDropList();
     dropList.position.set(5, 132);

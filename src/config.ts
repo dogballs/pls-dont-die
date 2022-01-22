@@ -12,7 +12,7 @@ export const config = {
       type: 'dummy',
       name: 'Dummy',
       description: 'Lab test dummy',
-      unknownName: 'Creature #0',
+      unknownName: 'Creature #1',
       requiredResourceGroups: [
         [
           { type: 'dummium', amount: 1 },
@@ -30,7 +30,7 @@ export const config = {
       type: 'dummyfish',
       name: 'Dummyfish',
       description: 'Jealous ocean waste',
-      unknownName: 'Creature #1',
+      unknownName: 'Creature #2',
       requiredResourceGroups: [
         [
           { type: 'dummium', amount: 1 },
@@ -47,7 +47,7 @@ export const config = {
       type: 'scorporate',
       name: 'Scorporate',
       description: 'Toxic manager',
-      unknownName: 'Creature #2',
+      unknownName: 'Creature #3',
       requiredResourceGroups: [
         [
           { type: 'dummium', amount: 1 },
@@ -64,7 +64,7 @@ export const config = {
       type: 'drone',
       name: 'Dummycopter',
       description: 'I see you',
-      unknownName: 'Creature #3',
+      unknownName: 'Creature #4',
       requiredResourceGroups: [
         [
           { type: 'dummium', amount: 1 },
@@ -81,7 +81,7 @@ export const config = {
       type: 'lighter',
       name: "Peter's lighter",
       description: 'From under the table',
-      unknownName: 'Creature #4',
+      unknownName: 'Creature #5',
       requiredResourceGroups: [
         [
           { type: 'dummium', amount: 1 },
@@ -99,24 +99,24 @@ export const config = {
       type: 'snake',
       name: 'Snek',
       description: 'ssssssssssssssssssssssss',
-      unknownName: 'Creature #4',
+      unknownName: 'Creature #6',
       requiredResourceGroups: [
         [
           { type: 'arachium', amount: 1 },
-          { type: 'sandium', amount: 1 },
+          { type: 'liquium', amount: 1 },
         ],
       ],
       droppedResources: [
-        { type: 'arachium', amount: 1 },
+        { type: 'reptilium', amount: 1 },
         { type: 'sandium', amount: 1 },
-        { type: 'windium', amount: 1 },
+        { type: 'liquium', amount: 1 },
       ],
     },
     wasp: {
       type: 'wasp',
       name: 'Wasper',
       description: 'Get away from me',
-      unknownName: 'Creature #5',
+      unknownName: 'Creature #7',
       requiredResourceGroups: [
         [
           { type: 'arachium', amount: 1 },
@@ -133,7 +133,7 @@ export const config = {
       type: 'bat',
       name: 'Betty',
       description: 'Not that bat',
-      unknownName: 'Creature #6',
+      unknownName: 'Creature #8',
       requiredResourceGroups: [
         [
           { type: 'arachium', amount: 1 },
@@ -150,7 +150,7 @@ export const config = {
       type: 'firebug',
       name: 'Firebug',
       description: 'Bug in a fire',
-      unknownName: 'Creature #7',
+      unknownName: 'Creature #9',
       requiredResourceGroups: [
         [
           { type: 'arachium', amount: 1 },
@@ -168,7 +168,7 @@ export const config = {
       type: 'fishy',
       name: 'Fishy',
       description: 'Chonky water boy',
-      unknownName: 'Creature #8',
+      unknownName: 'Creature #10',
       requiredResourceGroups: [
         [
           { type: 'fishium', amount: 1 },
@@ -184,7 +184,7 @@ export const config = {
       type: 'dragon',
       name: 'I am a dragon',
       description: 'Not a wyvern',
-      unknownName: 'Creature #8',
+      unknownName: 'Creature #11',
       requiredResourceGroups: [
         [
           { type: 'fishium', amount: 1 },
@@ -201,7 +201,7 @@ export const config = {
       type: 'eaglefish',
       name: 'Fish & Chicks',
       description: 'Born to fly',
-      unknownName: 'Creature #7',
+      unknownName: 'Creature #12',
       requiredResourceGroups: [
         [
           { type: 'fishium', amount: 1 },
@@ -218,7 +218,7 @@ export const config = {
       type: 'fishsteak',
       name: 'Fish steak',
       description: 'Everything at stake',
-      unknownName: 'Creature #9',
+      unknownName: 'Creature #13',
       requiredResourceGroups: [
         [
           { type: 'fishium', amount: 1 },
@@ -232,6 +232,23 @@ export const config = {
     },
     // reptilium + modifier
     // TODO
+
+    firesnail: {
+      type: 'firesnail',
+      name: 'Snail gotta bail',
+      description: 'My house is on fire',
+      unknownName: 'Creature #14',
+      requiredResourceGroups: [
+        [
+          { type: 'reptilium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'reptilium', amount: 1 },
+        { type: 'flamium', amount: 1 },
+      ],
+    },
 
     // soulium + modifier
     spirit: {
@@ -248,10 +265,10 @@ export const config = {
           { type: 'arachium', amount: 1 },
           { type: 'techium', amount: 1 },
         ],
-        [
-          { type: 'reptilium', amount: 1 },
-          { type: 'techium', amount: 1 },
-        ],
+        // [
+        //   { type: 'reptilium', amount: 1 },
+        //   { type: 'techium', amount: 1 },
+        // ],
         [
           { type: 'soulium', amount: 1 },
           { type: 'techium', amount: 1 },
@@ -292,6 +309,7 @@ export const config = {
     confusion: 'Confusion (where am I)',
     viceversa: 'Vice versa (the other way around)',
     why: 'Why? (Who does that?)',
+    burned: 'Burned down (Put out the fire, fast!)',
     ramsay: 'This fish is so raw (You donkey)',
   },
 };

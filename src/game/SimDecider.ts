@@ -54,6 +54,12 @@ export class SimDecider {
       case 'firebug':
         conditions = this.decideFirebug(selection);
         break;
+      case 'snake':
+        conditions = this.decideSnake(selection);
+        break;
+      case 'firesnail':
+        conditions = this.decideFiresnail(selection);
+        break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
     }
@@ -206,6 +212,23 @@ export class SimDecider {
       [env === 'none', 'discomfort', 'flamium'],
       [temp < -10, 'hypothermia', 'sandium'],
       [true, 'none', 'arachium'],
+    ];
+  }
+
+  static decideSnake({ env, temp }: Selection): Triple[] {
+    return [
+      [env === 'air', 'gravity', 'sandium'],
+      [env === 'none', 'discomfort', 'sandium'],
+      [temp < 10, 'hypothermia', 'liquium'],
+      [true, 'none', 'reptilium'],
+    ];
+  }
+
+  static decideFiresnail({ env, temp }: Selection): Triple[] {
+    return [
+      [env !== 'underwater', 'burned', 'flamium'],
+      [temp > -20, 'burned', 'flamium'],
+      [true, 'none', 'reptilium'],
     ];
   }
 

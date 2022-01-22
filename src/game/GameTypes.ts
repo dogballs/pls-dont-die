@@ -59,7 +59,9 @@ export type CreatureType =
   | 'dragon'
   | 'fishsteak'
   | 'lighter'
+  | 'snake'
   | 'firebug'
+  | 'firesnail'
   | 'spirit';
 
 export class Creature {
@@ -173,6 +175,7 @@ export type DeathType =
   | 'viceversa'
   | 'why'
   | 'ramsay'
+  | 'burned'
   | 'hypothermia';
 
 export class Outcome {

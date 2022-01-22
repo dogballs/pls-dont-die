@@ -25,7 +25,7 @@ dummium + windium -> drone +
 dummium + flamium -> lighter +
 
 arachium + techium -> tormented spirit (soulium) +
-arachium + liquium -> snake (reptilium) ?????
+arachium + liquium -> snake (reptilium) +
 arachium + sandium -> wasp (windium) +
 arachium + windium -> bat +
 arachium + flamium -> firebug +
@@ -36,14 +36,15 @@ fishium + sandium -> dragon +
 fishium + windium -> eaglefish +
 fishium + flamium -> fish stake +
 
+<!-- reptilium + techium -> tormeted spirit (soulium) + -->
+<!-- reptilium + liquium -> ? wednesday dudes -->
+<!-- reptilium + sandium -> ? dune worm ??? -->
+<!-- reptilium + windium -> ? prerodactyl -->
+
+reptilium + flamium -> ? fire snail (fire in place of the hous)
+
 soulium + techium -> tormented spirit (soulium) +
 soulium + liqium -> tormented spirit (soulium) +
 soulium + sandium -> tormented spirit (soulium) +
 soulium + windium -> tormented spirit (soulium) +
 soulium + flamium -> tormented spirit (soulium) +
-
-<!-- reptilium + techium -> tormeted spirit (soulium) + -->
-<!-- reptilium + liquium -> ? wednesday dudes -->
-<!-- reptilium + sandium -> ? dune worm ??? -->
-<!-- reptilium + windium -> ? prerodactyl -->
-<!-- reptilium + flamium -> ? fire snail (fire in place of the hous) -->
