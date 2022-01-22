@@ -43,6 +43,14 @@
     "file": "data/graphics/fish-steak.png",
     "rect": [0, 0, 256, 256]
   },
+  "creature.lighter": {
+    "file": "data/graphics/lighter.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.firebug": {
+    "file": "data/graphics/firebug.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]

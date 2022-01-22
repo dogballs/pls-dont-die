@@ -176,6 +176,40 @@ export const config = {
         { type: 'sandium', amount: 1 },
       ],
     },
+    lighter: {
+      type: 'lighter',
+      name: "Peter's lighter",
+      description: 'From under the table',
+      unknownName: 'Creature #10',
+      requiredResourceGroups: [
+        [
+          { type: 'dummium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'dummium', amount: 1 },
+        { type: 'techium', amount: 1 },
+        { type: 'flamium', amount: 1 },
+      ],
+    },
+    firebug: {
+      type: 'firebug',
+      name: 'Firebug',
+      description: 'Bug in a fire',
+      unknownName: 'Creature #11',
+      requiredResourceGroups: [
+        [
+          { type: 'arachium', amount: 1 },
+          { type: 'flamium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'arachium', amount: 1 },
+        { type: 'flamium', amount: 1 },
+        { type: 'sandium', amount: 1 },
+      ],
+    },
     spirit: {
       type: 'spirit',
       name: 'Spirit',

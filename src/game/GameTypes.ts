@@ -58,6 +58,8 @@ export type CreatureType =
   | 'eaglefish'
   | 'dragon'
   | 'fishsteak'
+  | 'lighter'
+  | 'firebug'
   | 'spirit';
 
 export class Creature {

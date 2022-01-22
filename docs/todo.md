@@ -28,22 +28,19 @@ fishium + techium -> tormented spirit (soulium) +
 fishium + liquium -> fish +
 fishium + sandium -> dragon +
 fishium + windium -> eaglefish +
-
-<!-- fishium + flamium -> ? fish stake -->
+fishium + flamium -> fish stake +
 
 arachium + techium -> tormented spirit (soulium) +
 arachium + liquium -> snake (reptilium)
 arachium + sandium -> wasp (windium) +
 arachium + windium -> bat +
-
-<!-- arachium + flamium -> ? firebug -->
+arachium + flamium -> firebug +
 
 dummium + techium -> dummy +
 dummium + liquium -> dummyfish +
 dummium + sandium -> scorporate +
 dummium + windium -> drone +
-
-<!-- dummium + flamium -> ? lighter -->
+dummium + flamium -> lighter +
 
 reptilium + techium -> tormeted spirit (soulium) +
 

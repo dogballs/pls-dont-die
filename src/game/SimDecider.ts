@@ -48,6 +48,12 @@ export class SimDecider {
       case 'fishsteak':
         conditions = this.decideFishsteak(selection);
         break;
+      case 'lighter':
+        conditions = this.decideLighter(selection);
+        break;
+      case 'firebug':
+        conditions = this.decideFirebug(selection);
+        break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
     }
@@ -179,7 +185,27 @@ export class SimDecider {
       [env === 'underwater', 'drowning', 'windium'],
       [temp < 20, 'hypothermia', 'flamium'],
       [true, 'none', 'reptilium'],
-      // [true, 'none', 'reptilium'],
+    ];
+  }
+
+  static decideLighter({ env, temp }: Selection): Triple[] {
+    return [
+      [env === 'underwater', 'short_circuit', 'techium'],
+      [env === 'desert', 'stuck_mech', 'techium'],
+      [env === 'air', 'gravity', 'techium'],
+      [temp > 10, 'overheat', 'flamium'],
+      [temp < -10, 'hypothermia', 'flamium'],
+      [true, 'none', 'dummium'],
+    ];
+  }
+
+  static decideFirebug({ env, temp }: Selection): Triple[] {
+    return [
+      [env === 'underwater', 'drowning', 'sandium'],
+      [env === 'air', 'gravity', 'flamium'],
+      [env === 'none', 'discomfort', 'flamium'],
+      [temp < -10, 'hypothermia', 'sandium'],
+      [true, 'none', 'arachium'],
     ];
   }
 
