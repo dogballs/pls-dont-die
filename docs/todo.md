@@ -7,6 +7,10 @@ todo:
 - select creature vs select reactor to summon
 - remove count form alive/death modal
 
+- snail water only
+- wednesday capital
+- wendsdium (come back later)
+
 builds:
 
 fishium + techium = tormented spirit -> soulium

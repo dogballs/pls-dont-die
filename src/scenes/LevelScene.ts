@@ -130,11 +130,11 @@ export class LevelScene extends GameScene {
 
         const resLeft = SummonHelper.getSpiritLeft(this.gameStore);
         if (resLeft === 0) {
-          this.showTalkModal('spirit', TalkLines.spiritEnd());
-        } else {
-          this.showTalkModal('spirit', TalkLines.spiritFourth(resLeft), () => {
+          this.showTalkModal('spirit', TalkLines.spiritEnd(), () => {
             this.navigator.push(GameSceneType.Final);
           });
+        } else {
+          this.showTalkModal('spirit', TalkLines.spiritFourth(resLeft));
         }
       }
 
