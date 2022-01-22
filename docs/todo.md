@@ -5,6 +5,7 @@ todo:
 - remove play with mouse?
 - shitty drops from dummy how???
 - select creature vs select reactor to summon
+- remove count form alive/death modal
 
 builds:
 
