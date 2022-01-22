@@ -63,6 +63,9 @@ export class SimDecider {
       case 'turtle':
         conditions = this.decideTurtle(selection);
         break;
+      case 'dude':
+        conditions = this.decideDude();
+        break;
       default:
         throw new Error(`Unknown creature ${selection.creature}`);
     }
@@ -239,6 +242,15 @@ export class SimDecider {
     return [
       [env !== 'air', 'stayaway', 'windium'],
       [true, 'none', 'reptilium'],
+    ];
+  }
+
+  static decideDude(): Triple[] {
+    const dayIndex = new Date().getDay();
+    const isWed = dayIndex === 3;
+    return [
+      [!isWed, 'notwednesday', 'liquium'],
+      [true, 'none', 'wendsdium'],
     ];
   }
 

@@ -233,11 +233,27 @@ export const config = {
     // reptilium + modifier
     // TODO
 
+    dude: {
+      type: 'dude',
+      name: 'Dude',
+      description: 'Is it wednesday, my dude?',
+      unknownName: 'Creature 14',
+      requiredResourceGroups: [
+        [
+          { type: 'reptilium', amount: 1 },
+          { type: 'liquium', amount: 1 },
+        ],
+      ],
+      droppedResources: [
+        { type: 'wendsdium', amount: 1 },
+        { type: 'liquium', amount: 1 },
+      ],
+    },
     turtle: {
       type: 'turtle',
       name: 'Heliturtle',
       description: 'Out of shell',
-      unknownName: 'Creature #14',
+      unknownName: 'Creature #15',
       requiredResourceGroups: [
         [
           { type: 'reptilium', amount: 1 },
@@ -253,7 +269,7 @@ export const config = {
       type: 'firesnail',
       name: 'Snail gotta bail',
       description: 'My house is on fire',
-      unknownName: 'Creature #15',
+      unknownName: 'Creature #16',
       requiredResourceGroups: [
         [
           { type: 'reptilium', amount: 1 },
@@ -328,5 +344,6 @@ export const config = {
     burned: 'Burned down (Put out the fire, fast!)',
     ramsay: 'This fish is so raw (You donkey)',
     stayaway: "Don't let the dreams be dreams",
+    notwednesday: "It's not wednesday, dude",
   },
 };

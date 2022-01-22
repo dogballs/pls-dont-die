@@ -219,6 +219,10 @@
     "file": "data/graphics/resources.png",
     "rect": [32, 16, 16, 16]
   },
+  "resource.wendsdium": {
+    "file": "data/graphics/resources.png",
+    "rect": [48, 16, 16, 16]
+  },
   "env.desert": {
     "file": "data/graphics/env-sheet.png",
     "rect": [0, 0, 256, 256]

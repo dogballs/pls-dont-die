@@ -31,7 +31,8 @@ export type ResourceType =
   | 'sandium'
   | 'flamium'
   | 'reptilium'
-  | 'fishium';
+  | 'fishium'
+  | 'wendsdium';
 
 export class Resource {
   readonly type: ResourceType;
@@ -63,6 +64,7 @@ export type CreatureType =
   | 'firebug'
   | 'firesnail'
   | 'turtle'
+  | 'dude'
   | 'spirit';
 
 export class Creature {
@@ -178,6 +180,7 @@ export type DeathType =
   | 'ramsay'
   | 'stayaway'
   | 'burned'
+  | 'notwednesday'
   | 'hypothermia';
 
 export class Outcome {

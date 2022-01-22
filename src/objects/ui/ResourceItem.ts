@@ -19,6 +19,7 @@ const config = {
   windium: { title: 'Windium', spriteId: 'resource.windium' },
   flamium: { title: 'Flamium', spriteId: 'resource.flamium' },
   reptilium: { title: 'Reptilium', spriteId: 'resource.reptilium' },
+  wendsdium: { title: 'Wendsdium', spriteId: 'resource.wendsdium' },
   unknown: { title: 'Undiscovered', spriteId: 'resource.unknown' },
 };
 

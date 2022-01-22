@@ -37,7 +37,9 @@ fishium + windium -> eaglefish +
 fishium + flamium -> fish stake +
 
 <!-- reptilium + techium -> tormeted spirit (soulium) + -->
-<!-- reptilium + liquium -> ? wednesday dudes -->
+
+reptilium + liquium -> ? wednesday dudes
+
 <!-- reptilium + sandium -> ? dune worm ??? -->
 
 reptilium + windium -> turtle +
