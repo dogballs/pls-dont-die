@@ -1,3 +1,11 @@
+todo:
+
+- show version main menu
+- about page with link to gh
+- remove play with mouse?
+- shitty drops from dummy how???
+- select creature vs select reactor to summon
+
 builds:
 
 fishium + techium = tormented spirit -> soulium
