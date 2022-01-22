@@ -1,4 +1,72 @@
 {
+  "creature.dummy": {
+    "file": "data/graphics/dummy.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.fishy": {
+    "file": "data/graphics/fishy.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.dummyfish": {
+    "file": "data/graphics/dummyfish.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.scorporate": {
+    "file": "data/graphics/scorporate.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.wasp": {
+    "file": "data/graphics/wasp.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.spirit": {
+    "file": "data/graphics/spirit.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.drone": {
+    "file": "data/graphics/drone.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.bat": {
+    "file": "data/graphics/bat.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.eaglefish": {
+    "file": "data/graphics/eaglefish.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.dragon": {
+    "file": "data/graphics/dragon.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.fishsteak": {
+    "file": "data/graphics/fish-steak.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.lighter": {
+    "file": "data/graphics/lighter.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.firebug": {
+    "file": "data/graphics/firebug.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.snake": {
+    "file": "data/graphics/snake.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.firesnail": {
+    "file": "data/graphics/firesnail.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.turtle": {
+    "file": "data/graphics/turtle.png",
+    "rect": [0, 0, 256, 256]
+  },
+  "creature.muaddib": {
+    "file": "data/graphics/muaddib.png",
+    "rect": [0, 0, 256, 256]
+  },
   "dummy.1": {
     "file": "data/graphics/dummy-sheet.png",
     "rect": [0, 0, 256, 256]
@@ -11,17 +79,9 @@
     "file": "data/graphics/dummy-sheet.png",
     "rect": [512, 0, 256, 256]
   },
-  "fish.1": {
-    "file": "data/graphics/fish-sheet.png",
-    "rect": [0, 0, 256, 256]
-  },
-  "fish.2": {
-    "file": "data/graphics/fish-sheet.png",
-    "rect": [256, 0, 256, 256]
-  },
-  "fish.3": {
-    "file": "data/graphics/fish-sheet.png",
-    "rect": [512, 0, 256, 256]
+  "shadow": {
+    "file": "data/graphics/shadow.png",
+    "rect": [0, 0, 64, 16]
   },
   "cage": {
     "file": "data/graphics/cage.png",
@@ -39,6 +99,10 @@
     "file": "data/graphics/ui.png",
     "rect": [64, 0, 32, 32]
   },
+  "arrow.left.blink": {
+    "file": "data/graphics/ui.png",
+    "rect": [192, 0, 32, 32]
+  },
   "arrow.right.active": {
     "file": "data/graphics/ui.png",
     "rect": [96, 0, 32, 32]
@@ -50,6 +114,22 @@
   "arrow.right.disabled": {
     "file": "data/graphics/ui.png",
     "rect": [160, 0, 32, 32]
+  },
+  "arrow.right.blink": {
+    "file": "data/graphics/ui.png",
+    "rect": [224, 0, 32, 32]
+  },
+  "reload.active": {
+    "file": "data/graphics/ui.png",
+    "rect": [256, 0, 32, 32]
+  },
+  "reload.hover": {
+    "file": "data/graphics/ui.png",
+    "rect": [288, 0, 32, 32]
+  },
+  "reload.disabled": {
+    "file": "data/graphics/ui.png",
+    "rect": [320, 0, 32, 32]
   },
   "heat.low.1": {
     "file": "data/graphics/heat-sheet.png",
@@ -111,6 +191,42 @@
     "file": "data/graphics/resources.png",
     "rect": [32, 0, 16, 16]
   },
+  "resource.unknown": {
+    "file": "data/graphics/resources.png",
+    "rect": [48, 0, 16, 16]
+  },
+  "resource.liquium": {
+    "file": "data/graphics/resources.png",
+    "rect": [64, 0, 16, 16]
+  },
+  "resource.sandium": {
+    "file": "data/graphics/resources.png",
+    "rect": [80, 0, 16, 16]
+  },
+  "resource.techium": {
+    "file": "data/graphics/resources.png",
+    "rect": [96, 0, 16, 16]
+  },
+  "resource.arachium": {
+    "file": "data/graphics/resources.png",
+    "rect": [112, 0, 16, 16]
+  },
+  "resource.windium": {
+    "file": "data/graphics/resources.png",
+    "rect": [0, 16, 16, 16]
+  },
+  "resource.flamium": {
+    "file": "data/graphics/resources.png",
+    "rect": [16, 16, 16, 16]
+  },
+  "resource.reptilium": {
+    "file": "data/graphics/resources.png",
+    "rect": [32, 16, 16, 16]
+  },
+  "resource.wendsdium": {
+    "file": "data/graphics/resources.png",
+    "rect": [48, 16, 16, 16]
+  },
   "env.desert": {
     "file": "data/graphics/env-sheet.png",
     "rect": [0, 0, 256, 256]
@@ -118,6 +234,10 @@
   "env.underwater": {
     "file": "data/graphics/env-sheet.png",
     "rect": [256, 0, 256, 256]
+  },
+  "env.air": {
+    "file": "data/graphics/env-sheet.png",
+    "rect": [512, 0, 256, 256]
   },
   "main.title.1": {
     "file": "data/graphics/main-title-sheet.png",
@@ -127,17 +247,29 @@
     "file": "data/graphics/main-title-sheet.png",
     "rect": [0, 96, 512, 96]
   },
-  "button.active": {
+  "button.default.active": {
     "file": "data/graphics/ui.png",
     "rect": [0, 32, 176, 48]
   },
-  "button.hover": {
+  "button.default.hover": {
     "file": "data/graphics/ui.png",
     "rect": [0, 80, 176, 48]
   },
-  "button.disabled": {
+  "button.default.disabled": {
     "file": "data/graphics/ui.png",
     "rect": [0, 128, 176, 48]
+  },
+  "button.primary.active": {
+    "file": "data/graphics/ui.png",
+    "rect": [176, 32, 176, 48]
+  },
+  "button.primary.hover": {
+    "file": "data/graphics/ui.png",
+    "rect": [176, 80, 176, 48]
+  },
+  "button.primary.disabled": {
+    "file": "data/graphics/ui.png",
+    "rect": [176, 128, 176, 48]
   },
   "summoning.1": {
     "file": "data/graphics/summon-sheet.png",
@@ -199,8 +331,12 @@
     "file": "data/graphics/summon-sheet.png",
     "rect": [3584, 0, 256, 256]
   },
-  "doctor": {
+  "avatar.doctor": {
     "file": "data/graphics/doctor.png",
+    "rect": [0, 0, 64, 64]
+  },
+  "avatar.spirit": {
+    "file": "data/graphics/spirit-avatar.png",
     "rect": [0, 0, 64, 64]
   },
   "scan.1": {
