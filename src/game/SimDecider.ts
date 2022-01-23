@@ -233,10 +233,9 @@ export class SimDecider {
     ];
   }
 
-  static decideFiresnail({ env, temp }: Selection): Triple[] {
+  static decideFiresnail({ env }: Selection): Triple[] {
     return [
       [env !== 'underwater', 'burned', 'flamium'],
-      [temp > -20, 'burned', 'flamium'],
       [true, 'none', 'reptilium'],
     ];
   }
