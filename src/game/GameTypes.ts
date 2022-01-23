@@ -16,6 +16,7 @@ export class StoryCheck {
       'spirit_second_encounter',
       'spirit_third_encounter',
       'spirit_fourth_encounter',
+      'finished',
     ].includes(storyStep);
   }
 }
