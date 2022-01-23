@@ -6,7 +6,7 @@ Note: mobile not supported
 
 #### Description
 
-A small exploration game with funny characters and a right amount of puns.
+A small exploration game with funny characters and the right amount of puns.
 
 ![Gameplay](docs/screenshots/shot1.png)
 
