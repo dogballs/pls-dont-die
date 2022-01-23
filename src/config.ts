@@ -240,7 +240,7 @@ export const config = {
     dude: {
       type: 'dude',
       name: 'Dude',
-      description: 'Is it wednesday, my dude?',
+      description: 'Is it Wednesday, my dude?',
       unknownName: 'Creature 14',
       requiredResourceGroups: [
         [
@@ -364,6 +364,6 @@ export const config = {
     burned: 'Burned down (Put out the fire, fast!)',
     ramsay: 'This fish is so raw (You donkey)',
     stayaway: "Don't let the dreams be dreams",
-    notwednesday: "It's not wednesday, dude",
+    notwednesday: "It's not Wednesday (come back later)",
   },
 };
