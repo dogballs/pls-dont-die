@@ -1,9 +1,9 @@
 todo:
 
-- show version main menu
 - about page with link to gh
 - remove play with mouse?
 - shitty drops from dummy how???
+- crash show what to do
 - select creature vs select reactor to summon
 - remove count form alive/death modal
 - snail water only

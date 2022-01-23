@@ -1,38 +1,15 @@
-import { GameObject, SpritePainter, TextPainter } from '../core';
+import { TextPainter } from '../core';
 import { GameUpdateArgs, StoryStep } from '../game';
-import { ConfirmModal, MainMenuItem } from '../objects';
-import { config } from '../config';
+import { ConfirmModal, MainMenuItem, MainMenuOverlay } from '../objects';
 import { GameSceneType } from './GameSceneType';
 import { GameScene } from './GameScene';
 
 export class MainMenuScene extends GameScene {
-  protected setup({ gameStore, spriteLoader }: GameUpdateArgs) {
+  protected setup({ gameStore }: GameUpdateArgs) {
     const canContinue = gameStore.hasSavedGame();
-    const title = new GameObject(512, 128);
-    title.position.set(256, 64);
-    title.painter = new SpritePainter(spriteLoader.load('main.title.1'));
-    this.root.add(title);
 
-    const version = new GameObject(128, 32);
-    version.painter = new TextPainter({
-      text: `Version ${config.VERSION}`,
-      color: '#999',
-      alignment: TextPainter.Alignment.MiddleCenter,
-      size: 14,
-    });
-    version.position.set(870, 720);
-    this.root.add(version);
-
-    // const disclaimer = new GameObject(512, 32);
-    // disclaimer.painter = new TextPainter({
-    //   text: '* Game is played with a mouse',
-    //   color: '#999',
-    //   alignment: TextPainter.Alignment.MiddleCenter,
-    // });
-    // disclaimer.updateMatrix();
-    // disclaimer.setCenter(this.root.getSelfCenter());
-    // disclaimer.position.setY(512);
-    // this.root.add(disclaimer);
+    const overlay = new MainMenuOverlay();
+    this.root.add(overlay);
 
     if (canContinue) {
       const continueGameItem = new MainMenuItem('CONTINUE');
@@ -73,6 +50,13 @@ export class MainMenuScene extends GameScene {
       }
     });
     this.root.add(newGameItem);
+
+    const aboutItem = new MainMenuItem('ABOUT');
+    aboutItem.position.set(384, 312 + continueAddHeight);
+    aboutItem.clicked.addListener(() => {
+      this.navigator.push(GameSceneType.About);
+    });
+    this.root.add(aboutItem);
   }
 
   protected update(updateArgs: GameUpdateArgs) {

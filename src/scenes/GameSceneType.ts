@@ -1,6 +1,7 @@
 export enum GameSceneType {
-  MainMenu,
+  About,
+  Final,
   Intro,
   Level,
-  Final,
+  MainMenu,
 }
