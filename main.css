@@ -6,8 +6,10 @@ html {
 body {
   align-items: stretch;
   background: #000;
+  color: #fff;
   display: flex;
   flex: 1;
+  font-family: Lucida Console, Courier, monospace;
   justify-content: center;
   margin: 0;
 }
@@ -15,7 +17,33 @@ body {
 .loading {
   align-items: center;
   display: flex;
-  color: #fff;
-  font-family: Lucida Console, Courier, monospace;
   font-size: 32px;
+}
+
+.crash {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.crash-title {
+  font-size: 32px;
+}
+
+.crash-issue {
+  margin-top: 30px;
+  text-align: center;
+  width: 800px;
+}
+
+.crash-issue-link {
+  color: #fff;
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.crash-issue-link:visited {
+  color: #fff;
 }
