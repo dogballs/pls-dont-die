@@ -3,7 +3,6 @@ export const config = {
 
   VERSION: '0.1.3',
   GITHUB_LINK: 'https://github.com/dogballs/pls-dont-die',
-  ISSUE_LINK: 'https://github.com/dogballs/pls-dont-die/issues',
 
   CANVAS_WIDTH: 1024,
   CANVAS_HEIGHT: 768,

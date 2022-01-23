@@ -14,6 +14,7 @@ import { config } from './config';
 import spriteManifest from '../data/sprite.manifest.json';
 
 const loadingElement = document.querySelector<HTMLElement>('[data-loading]');
+const crashElement = document.querySelector<HTMLElement>('[data-crash]');
 
 const log = new Logger('main', Logger.Level.Debug);
 
@@ -88,7 +89,6 @@ async function main() {
     await gameStore.load();
     log.timeEnd('Storage preload');
 
-    loadingElement.style.display = 'none';
     document.body.appendChild(gameRenderer.getDomElement());
 
     mouseInput.listen(gameRenderer.getDomElement());
@@ -96,17 +96,20 @@ async function main() {
     gameLoop.start();
     // gameLoop.next();
   } catch (err) {
-    console.log('failed');
-    loadingElement.textContent = 'Failed to load';
+    crash();
+
     log.error(err);
+  } finally {
+    loadingElement.style.display = 'none';
   }
 }
 
 function crash() {
   gameLoop.stop();
-  document.body.removeChild(gameRenderer.getDomElement());
-  loadingElement.textContent = 'Game has crashed :(';
-  loadingElement.style.display = 'flex';
+  try {
+    document.body.removeChild(gameRenderer.getDomElement());
+  } catch (err) {}
+  crashElement.style.display = 'flex';
 }
 
 main();
