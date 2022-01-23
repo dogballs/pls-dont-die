@@ -71,6 +71,7 @@ export class DeathModal extends Modal {
     const resourceList = new ResourceList(this.outcome.resources, {
       defaultColor: '#000',
       checkNew: true,
+      showAmount: false,
     });
     resourceList.position.set(194, 180);
     this.add(resourceList);

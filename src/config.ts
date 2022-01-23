@@ -1,5 +1,5 @@
 export const config = {
-  IS_DEV: false,
+  IS_DEV: true,
 
   CANVAS_WIDTH: 1024,
   CANVAS_HEIGHT: 768,

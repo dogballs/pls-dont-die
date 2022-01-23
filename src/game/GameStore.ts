@@ -41,7 +41,7 @@ const PRESETS = {
     lastActiveEssence: undefined,
     lastActiveModifier: undefined,
   } as State,
-  spirit_resources: {
+  all_resources: {
     hasSavedGame: true,
     storyStep: 'spirit_first_encounter',
     resources: [],
@@ -49,13 +49,16 @@ const PRESETS = {
     knownCreatureResourceDrops: [],
     knownCreatureResourceReqs: [],
     knownResources: [
+      'dummium',
+      'fishium',
+      'arachium',
+      'reptilium',
+      'soulium',
       'techium',
       'liquium',
       'sandium',
       'windium',
       'flamium',
-      'dummium',
-      'soulium',
     ],
     lastActiveCreature: undefined,
     lastActiveEssence: undefined,

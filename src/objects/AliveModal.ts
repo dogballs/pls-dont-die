@@ -43,6 +43,7 @@ export class AliveModal extends Modal {
     const resourceList = new ResourceList(this.outcome.resources, {
       defaultColor: '#000',
       checkNew: true,
+      showAmount: false,
     });
     resourceList.position.set(194, 160);
     this.add(resourceList);
