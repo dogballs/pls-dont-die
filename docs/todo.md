@@ -6,10 +6,10 @@ todo:
 - shitty drops from dummy how???
 - select creature vs select reactor to summon
 - remove count form alive/death modal
-
 - snail water only
 - wednesday capital
 - wendsdium (come back later)
+- snail white border
 
 builds:
 
