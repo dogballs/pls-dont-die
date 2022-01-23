@@ -10,6 +10,7 @@ todo:
 - wednesday capital
 - wendsdium (come back later)
 - snail white border
+- touch? to play on mobile
 
 builds:
 

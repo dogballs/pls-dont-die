@@ -1,6 +1,8 @@
 export const config = {
   IS_DEV: true,
 
+  VERSION: '0.1.3',
+
   CANVAS_WIDTH: 1024,
   CANVAS_HEIGHT: 768,
 

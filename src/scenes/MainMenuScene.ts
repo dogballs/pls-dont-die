@@ -1,7 +1,7 @@
 import { GameObject, SpritePainter, TextPainter } from '../core';
 import { GameUpdateArgs, StoryStep } from '../game';
 import { ConfirmModal, MainMenuItem } from '../objects';
-
+import { config } from '../config';
 import { GameSceneType } from './GameSceneType';
 import { GameScene } from './GameScene';
 
@@ -13,16 +13,26 @@ export class MainMenuScene extends GameScene {
     title.painter = new SpritePainter(spriteLoader.load('main.title.1'));
     this.root.add(title);
 
-    const disclaimer = new GameObject(512, 32);
-    disclaimer.painter = new TextPainter({
-      text: '* Game is played with a mouse',
+    const version = new GameObject(128, 32);
+    version.painter = new TextPainter({
+      text: `Version ${config.VERSION}`,
       color: '#999',
       alignment: TextPainter.Alignment.MiddleCenter,
+      size: 14,
     });
-    disclaimer.updateMatrix();
-    disclaimer.setCenter(this.root.getSelfCenter());
-    disclaimer.position.setY(512);
-    this.root.add(disclaimer);
+    version.position.set(870, 720);
+    this.root.add(version);
+
+    // const disclaimer = new GameObject(512, 32);
+    // disclaimer.painter = new TextPainter({
+    //   text: '* Game is played with a mouse',
+    //   color: '#999',
+    //   alignment: TextPainter.Alignment.MiddleCenter,
+    // });
+    // disclaimer.updateMatrix();
+    // disclaimer.setCenter(this.root.getSelfCenter());
+    // disclaimer.position.setY(512);
+    // this.root.add(disclaimer);
 
     if (canContinue) {
       const continueGameItem = new MainMenuItem('CONTINUE');
