@@ -1,7 +1,7 @@
 export const config = {
   IS_DEV: false,
 
-  VERSION: '0.1.3',
+  VERSION: '0.1.4',
   GITHUB_LINK: 'https://github.com/dogballs/pls-dont-die',
 
   CANVAS_WIDTH: 1024,
