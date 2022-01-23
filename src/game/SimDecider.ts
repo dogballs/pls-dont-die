@@ -111,11 +111,11 @@ export class SimDecider {
     // TODO: do I drop only one modifier here? or all 3?
     // liquim is realistic - water from mechs
     return [
-      [temp > 0, 'overheat', 'techium'],
-      [temp < 0, 'hypothermia', 'techium'],
       [env === 'underwater', 'short_circuit', 'liquium'],
       [env === 'desert', 'stuck_mech', 'sandium'],
       [env === 'air', 'gravity', 'techium'],
+      [temp > 0, 'overheat', 'techium'],
+      [temp < 0, 'hypothermia', 'techium'],
       [true, 'none', 'dummium'],
     ];
   }
