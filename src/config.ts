@@ -1,5 +1,5 @@
 export const config = {
-  IS_DEV: false,
+  IS_DEV: true,
 
   VERSION: '0.1.3',
   GITHUB_LINK: 'https://github.com/dogballs/pls-dont-die',
@@ -359,9 +359,9 @@ export const config = {
     curse: 'Curse (must be freed)',
     confusion: 'Confusion (where am I)',
     viceversa: 'Vice versa (the other way around)',
-    why: 'Why? (Who does that?)',
+    why: 'Why? (Who puts a steak in there?)',
     burned: 'Burned down (Put out the fire, fast!)',
-    ramsay: 'This fish is so raw (You donkey)',
+    ramsay: 'Disgusting (This fish is so raw)',
     stayaway: "Don't let the dreams be dreams",
     notwednesday: "It's not Wednesday (come back later)",
   },

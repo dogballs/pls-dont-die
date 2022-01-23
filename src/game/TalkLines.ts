@@ -48,7 +48,7 @@ export class TalkLines {
     messages.push(['You did it!']);
     messages.push(['Thank you........ <3']);
     messages.push(['I can finally...']);
-    messages.push(['...I can now destroy you world ;-)']);
+    messages.push(['...I can finally destroy your world ;-)']);
     return messages;
   }
 
